@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
 import 'package:travel/presentation/screens/more/more.dart';
 import 'package:travel/presentation/screens/search/search.dart';
@@ -15,6 +17,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<String> images = [
+    "https://img.freepik.com/free-photo/tasty-pepperoni-pizza-with-mushrooms-olives_79782-1976.jpg?w=900",
+    "https://img.freepik.com/free-photo/plate-with-cutlery-well-decorated-with-napkin-tied-with-golden-bow_1220-609.jpg?w=740",
+    "https://img.freepik.com/free-photo/beautiful-luxury-outdoor-swimming-pool-hotel-resort_74190-7433.jpg?w=740",
+    "https://img.freepik.com/free-photo/close-up-twin-welcome-coffee-cup-white-bed-hotel-room-hotel-well-hospitality-vacation-travel-concept_1150-13594.jpg?w=740"
+  ];
+
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -49,6 +58,39 @@ class _HomeScreenState extends State<HomeScreen> {
                   MaterialPageRoute(
                       builder: (context) => const SearchScreen())),
               filter: () => filterAlert(h: h, w: w, context: context),
+            ),
+            SizedBox(
+              width: w,
+              height: h * 0.3,
+              child: Swiper(
+                pagination: SwiperPagination(
+                    builder: DotSwiperPaginationBuilder(
+                        color: MyColors.backgroundColor.withOpacity(0.5),
+                        activeColor: MyColors.mainColor),
+                    alignment: Alignment.bottomCenter),
+                itemBuilder: (BuildContext context, int i) {
+                  return InkWell(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(w * 0.05),
+                        image: DecorationImage(
+                          image: NetworkImage(images[i]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    focusColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    // overlayColor: ,
+                    onTap: () async {},
+                  );
+                },
+                itemCount: images.length,
+                autoplay: true,
+                autoplayDelay: 5000,
+              ),
             ),
             SizedBox(
               height: h * 0.03,
