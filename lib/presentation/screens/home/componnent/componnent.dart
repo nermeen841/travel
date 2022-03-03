@@ -65,37 +65,69 @@ introTitle({required double h, required double w}) {
 }
 /////////////////////////////////////////////////////////////////////////
 
-searchWidget({required double h, required double w}) {
-  return InkWell(
-    onTap: () {},
-    child: Container(
-      padding: EdgeInsets.symmetric(vertical: h * 0.03, horizontal: w * 0.03),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(w * 0.1),
-        boxShadow: const [
-          BoxShadow(
-              offset: Offset(0, 3),
-              color: MyColors.backgroundColor,
-              spreadRadius: 3,
-              blurRadius: 3)
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset("assets/icons/search.png"),
-          SizedBox(
-            width: w * 0.02,
+searchWidget(
+    {required double h,
+    required double w,
+    required VoidCallback search,
+    required VoidCallback filter}) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      InkWell(
+        onTap: search,
+        child: Container(
+          width: w * 0.75,
+          padding:
+              EdgeInsets.symmetric(vertical: h * 0.023, horizontal: w * 0.03),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(w * 0.1),
+            boxShadow: const [
+              BoxShadow(
+                  offset: Offset(0, 3),
+                  color: MyColors.backgroundColor,
+                  spreadRadius: 3,
+                  blurRadius: 3),
+            ],
           ),
-          Text(
-            "Where are you going ? ",
-            style: headingStyle.copyWith(color: MyColors.unslectedIconColor),
-          )
-        ],
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset("assets/icons/search.png"),
+              SizedBox(
+                width: w * 0.02,
+              ),
+              Text(
+                "Where are you going ? ",
+                style:
+                    headingStyle.copyWith(color: MyColors.unslectedIconColor),
+              )
+            ],
+          ),
+        ),
       ),
-    ),
+      InkWell(
+        onTap: filter,
+        child: Container(
+          width: w * 0.13,
+          height: h * 0.13,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 3),
+                  color: MyColors.backgroundColor,
+                  spreadRadius: 3,
+                  blurRadius: 3),
+            ],
+          ),
+          child: Image.asset("assets/icons/Filter.png"),
+        ),
+      ),
+    ],
   );
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -114,12 +146,15 @@ sectionTitle(
         style: headingStyle.copyWith(
             fontWeight: FontWeight.bold, fontSize: w * 0.05),
       ),
-      Text(
-        "View more",
-        style: headingStyle.copyWith(
-            color: MyColors.unslectedIconColor,
-            fontWeight: FontWeight.w500,
-            fontSize: w * 0.04),
+      InkWell(
+        onTap: press,
+        child: Text(
+          "View more",
+          style: headingStyle.copyWith(
+              color: MyColors.unslectedIconColor,
+              fontWeight: FontWeight.w500,
+              fontSize: w * 0.04),
+        ),
       ),
     ],
   );
@@ -132,6 +167,7 @@ categoryCard({
   required double h,
 }) {
   return Container(
+    margin: EdgeInsets.symmetric(vertical: h * 0.01),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(w * 0.05),
@@ -150,7 +186,7 @@ categoryCard({
         Container(
           width: w * 0.27,
           decoration: BoxDecoration(
-            color: Colors.grey[200],
+            color: Colors.white,
             borderRadius:
                 // (lang == 'en')
                 //     ?
@@ -197,7 +233,7 @@ categoryCard({
               ],
             ),
             SizedBox(
-              height: h * 0.05,
+              height: h * 0.03,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

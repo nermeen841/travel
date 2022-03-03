@@ -14,7 +14,7 @@ class _PopularDestinationsState extends State<PopularDestinations> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: h * 0.25,
+      height: h * 0.2,
       child: ListView.separated(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
@@ -29,7 +29,7 @@ class _PopularDestinationsState extends State<PopularDestinations> {
                         offset: Offset(0, 3),
                         color: MyColors.backgroundColor,
                         spreadRadius: 3,
-                        blurRadius: 3)
+                        blurRadius: 3),
                   ],
                   image: const DecorationImage(
                       image: NetworkImage(

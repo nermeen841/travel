@@ -63,7 +63,7 @@ class _HomeCategoryState extends State<HomeCategory> {
         ),
         Container(
           width: w,
-          height: h * 0.25,
+          height: h * 0.2,
           color: Colors.transparent,
           child: PageView.builder(
               itemCount: text.length,

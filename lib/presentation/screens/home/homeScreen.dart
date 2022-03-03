@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
+import 'package:travel/presentation/screens/more/more.dart';
+import 'package:travel/presentation/screens/search/search.dart';
+import 'package:travel/presentation/widget/filter_alert.dart';
 import 'package:travel/presentation/widget/home_category.dart';
 import 'package:travel/presentation/widget/popular_destination.dart';
 import 'package:travel/presentation/widget/recommended.dart';
@@ -28,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           primary: true,
           shrinkWrap: true,
           padding:
-              EdgeInsets.symmetric(vertical: h * 0.02, horizontal: w * 0.02),
+              EdgeInsets.symmetric(vertical: h * 0.025, horizontal: w * 0.03),
           children: [
             headerTile(h: h, w: w),
             SizedBox(
@@ -38,11 +41,28 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: h * 0.03,
             ),
-            searchWidget(h: h, w: w),
+            searchWidget(
+              h: h,
+              w: w,
+              search: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SearchScreen())),
+              filter: () => filterAlert(h: h, w: w, context: context),
+            ),
             SizedBox(
               height: h * 0.03,
             ),
-            sectionTitle(h: h, w: w, press: () {}, title: "Categories"),
+            sectionTitle(
+                h: h,
+                w: w,
+                press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ViewMoreScreen(
+                              title: "Categories",
+                            ))),
+                title: "Categories"),
             SizedBox(
               height: h * 0.03,
             ),
@@ -50,7 +70,16 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: h * 0.04,
             ),
-            sectionTitle(h: h, w: w, press: () {}, title: "Recommended"),
+            sectionTitle(
+                h: h,
+                w: w,
+                press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ViewMoreScreen(
+                              title: "Recommended",
+                            ))),
+                title: "Recommended"),
             SizedBox(
               height: h * 0.03,
             ),
@@ -59,11 +88,22 @@ class _HomeScreenState extends State<HomeScreen> {
               height: h * 0.04,
             ),
             sectionTitle(
-                h: h, w: w, press: () {}, title: "Popular Destinations"),
+                h: h,
+                w: w,
+                press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ViewMoreScreen(
+                              title: "Popular Destinations",
+                            ))),
+                title: "Popular Destinations"),
             SizedBox(
               height: h * 0.03,
             ),
-            const PopularDestinations()
+            const PopularDestinations(),
+            SizedBox(
+              height: h * 0.03,
+            ),
           ],
         ),
       ),

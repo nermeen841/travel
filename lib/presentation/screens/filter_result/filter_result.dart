@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
-import 'package:travel/presentation/screens/favourite/componnent/componnent.dart';
+import 'package:travel/presentation/screens/filter_result/componnent/componnent.dart';
 
-class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
+class FilterResultScreen extends StatefulWidget {
+  const FilterResultScreen({Key? key}) : super(key: key);
 
   @override
-  _FavouriteScreenState createState() => _FavouriteScreenState();
+  State<FilterResultScreen> createState() => _FilterResultScreenState();
 }
 
-class _FavouriteScreenState extends State<FavouriteScreen> {
+class _FilterResultScreenState extends State<FilterResultScreen> {
   List<String> text = [
     "Resturants",
     "Hotels",
@@ -44,11 +44,26 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         child: Column(
           children: [
             Align(
+              alignment: Alignment.topRight,
+              child: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Image.asset("assets/icons/close.png"),
+              ),
+            ),
+            Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "Favourite",
+                "Hotels",
                 style: headingStyle.copyWith(
                     fontWeight: FontWeight.bold, fontSize: w * 0.06),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "In Damietta",
+                style: headingStyle.copyWith(
+                    fontWeight: FontWeight.w400, fontSize: w * 0.05),
               ),
             ),
             SizedBox(
@@ -103,7 +118,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             ),
             SizedBox(
               width: w,
-              height: h * 0.63,
+              height: h * 0.64,
               child: PageView.builder(
                   controller: pageController,
                   itemCount: text.length,
@@ -116,8 +131,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     return ListView.separated(
                         shrinkWrap: true,
                         primary: true,
-                        itemBuilder: (context, index) =>
-                            favouriteCard(w: w, h: h),
+                        itemBuilder: (context, index) => filterCard(w: w, h: h),
                         separatorBuilder: (context, index) => SizedBox(
                               height: h * 0.03,
                             ),
