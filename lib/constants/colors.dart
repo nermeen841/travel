@@ -8,6 +8,7 @@ class MyColors {
   static Color gradientColor1 = const Color(0xff3a0ca300);
   static Color gradientColor2 = const Color(0xff3a0ca3db);
   static const backgroundColor = Color(0xffe5e5e5);
+  static const colorGreen = Color(0xff24B824);
 }
 
 TextStyle headingStyle =

@@ -1,8 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/favourite/favouriteScreen.dart';
 import 'package:travel/presentation/screens/home/homeScreen.dart';
-import 'package:travel/presentation/screens/notification/map/mapScreen.dart';
+import 'package:travel/presentation/screens/map/mapScreen.dart';
 import 'package:travel/presentation/screens/notification/notificationScreen.dart';
 
 class BottomNave extends StatefulWidget {
@@ -16,7 +18,7 @@ class _BottomNaveState extends State<BottomNave> {
   int currentIndex = 0;
   List<Widget> screens = [
     const HomeScreen(),
-    const MapScreen(),
+    MapScreen(),
     const NotificationScreen(),
     const FavouriteScreen()
   ];

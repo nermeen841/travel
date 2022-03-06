@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/presentation/screens/detail/detail.dart';
 import 'package:travel/presentation/screens/favourite/componnent/componnent.dart';
 
 class FavouriteScreen extends StatefulWidget {
@@ -116,8 +117,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     return ListView.separated(
                         shrinkWrap: true,
                         primary: true,
-                        itemBuilder: (context, index) =>
-                            favouriteCard(w: w, h: h),
+                        itemBuilder: (context, index) => InkWell(
+                              child: favouriteCard(w: w, h: h),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DetailScreen())),
+                            ),
                         separatorBuilder: (context, index) => SizedBox(
                               height: h * 0.03,
                             ),

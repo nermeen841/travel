@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/presentation/screens/detail/detail.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
 
 class HomeCategory extends StatefulWidget {
@@ -80,7 +81,14 @@ class _HomeCategoryState extends State<HomeCategory> {
                   child: ListView.separated(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => categoryCard(w: w, h: h),
+                      itemBuilder: (context, index) => InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DetailScreen())),
+                            child: categoryCard(w: w, h: h),
+                          ),
                       separatorBuilder: (context, index) => SizedBox(
                             width: w * 0.025,
                           ),

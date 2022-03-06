@@ -41,6 +41,11 @@ dependencies:
   flutter_card_swipper: ^0.4.0
   shared_preferences: ^2.0.6
   image_picker: ^0.8.4+1
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.1.2
+  location: ^4.3.0
+  geocoding: ^2.0.2
+
   
 
 dev_dependencies:

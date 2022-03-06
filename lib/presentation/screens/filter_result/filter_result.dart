@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/presentation/screens/detail/detail.dart';
 import 'package:travel/presentation/screens/filter_result/componnent/componnent.dart';
 
 class FilterResultScreen extends StatefulWidget {
@@ -131,7 +132,14 @@ class _FilterResultScreenState extends State<FilterResultScreen> {
                     return ListView.separated(
                         shrinkWrap: true,
                         primary: true,
-                        itemBuilder: (context, index) => filterCard(w: w, h: h),
+                        itemBuilder: (context, index) => InkWell(
+                              child: filterCard(w: w, h: h),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DetailScreen())),
+                            ),
                         separatorBuilder: (context, index) => SizedBox(
                               height: h * 0.03,
                             ),
