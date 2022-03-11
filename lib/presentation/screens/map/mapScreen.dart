@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -101,7 +101,6 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.white,
         toolbarHeight: 0.0,
       ),
       body: GoogleMap(
@@ -113,7 +112,7 @@ class _MapScreenState extends State<MapScreen> {
           zoom: 16.0,
         ),
         markers: markers, //markers to show on map
-        polylines: Set<Polyline>.of(polylines.values),
+        // polylines: Set<Polyline>.of(polylines.values),
         zoomControlsEnabled: false,
         mapType: MapType.normal, //map type
         onMapCreated: (controller) {

@@ -21,7 +21,21 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         automaticallyImplyLeading: false,
-        toolbarHeight: 0.0,
+        title: Text(
+          "Pyramids",
+          style: headingStyle.copyWith(
+              fontWeight: FontWeight.bold, fontSize: w * 0.06),
+        ),
+        actions: [
+          InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Icon(
+              Icons.clear,
+              color: MyColors.mainColor,
+              size: w * 0.09,
+            ),
+          ),
+        ],
       ),
       body: ListView(
         primary: true,
@@ -29,23 +43,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         padding:
             EdgeInsets.symmetric(vertical: h * 0.025, horizontal: w * 0.035),
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Image.asset("assets/icons/close.png"),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "Pyramids",
-              style: headingStyle.copyWith(
-                  fontWeight: FontWeight.bold, fontSize: w * 0.06),
-            ),
-          ),
           SizedBox(
-            height: h * 0.07,
+            height: h * 0.04,
           ),
           Row(
             children: [
@@ -56,9 +55,11 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740"),
               ),
               SizedBox(
-                width: w * 0.02,
+                width: w * 0.025,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     "Emul Ezep",

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/filter_result/filter_result.dart';
 
+import '../../screens/map/map_track.dart';
+
 TextEditingController filter = TextEditingController();
 
 filterAlert({required double h, required double w, required context}) {
@@ -19,7 +21,7 @@ filterAlert({required double h, required double w, required context}) {
             children: [
               Center(
                 child: Text(
-                  "where to go",
+                  "Where to go",
                   style: headingStyle.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -101,9 +103,9 @@ filterAlert({required double h, required double w, required context}) {
               Divider(
                 color: MyColors.mainColor,
               ),
-              SizedBox(
-                height: h * 0.05,
-              ),
+              // SizedBox(
+              //   height: h * 0.05,
+              // ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,7 +151,10 @@ filterAlert({required double h, required double w, required context}) {
                   ),
                   Center(
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MapTrackScreen())),
                       child: Container(
                         width: w * 0.13,
                         height: h * 0.13,
@@ -164,9 +169,10 @@ filterAlert({required double h, required double w, required context}) {
                                 blurRadius: 3),
                           ],
                         ),
-                        child: Image.asset(
-                          "assets/icons/explore.png",
+                        child: Icon(
+                          Icons.explore_outlined,
                           color: MyColors.mainColor,
+                          size: 30,
                         ),
                       ),
                     ),

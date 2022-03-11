@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/presentation/screens/map/map_track.dart';
 
 import 'componnent/body.dart';
 import 'componnent/componnent.dart';
@@ -23,7 +24,7 @@ class _DetailScreenState extends State<DetailScreen> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: MyColors.backgroundColor,
+      backgroundColor: Colors.white,
       body: PreferredSize(
         preferredSize: Size(w, h),
         child: ListView(
@@ -58,7 +59,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: h * 0.01, horizontal: w * 0.03),
+                        vertical: h * 0.01, horizontal: w * 0.045),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +71,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             child: Icon(
                               Icons.arrow_back_ios,
                               color: Colors.white,
-                              size: w * 0.07,
+                              size: w * 0.08,
                             ),
                           ),
                         ),
@@ -79,8 +80,9 @@ class _DetailScreenState extends State<DetailScreen> {
                             InkWell(
                               onTap: () {},
                               child: Container(
-                                width: w * 0.084,
-                                height: h * 0.084,
+                                margin: const EdgeInsets.only(top: 10),
+                                width: w * 0.09,
+                                height: h * 0.05,
                                 decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle),
@@ -93,11 +95,17 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              height: h * 0.02,
+                            ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MapTrackScreen())),
                               child: Container(
-                                width: w * 0.084,
-                                height: h * 0.084,
+                                width: w * 0.09,
+                                height: h * 0.05,
                                 decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle),

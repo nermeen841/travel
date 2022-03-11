@@ -20,80 +20,88 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         automaticallyImplyLeading: false,
-        toolbarHeight: 0.0,
+        title: Text(
+          widget.title,
+          style: headingStyle.copyWith(
+              fontWeight: FontWeight.bold, fontSize: w * 0.06),
+        ),
+        actions: [
+          InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Icon(
+              Icons.clear,
+              color: MyColors.mainColor,
+              size: w * 0.09,
+            ),
+          ),
+        ],
       ),
       body: Container(
         width: w,
         height: h,
-        padding:
-            EdgeInsets.symmetric(vertical: h * 0.025, horizontal: w * 0.025),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Image.asset("assets/icons/close.png"),
+        padding: EdgeInsets.symmetric(horizontal: w * 0.041),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: h * 0.03,
               ),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                widget.title,
-                style: headingStyle.copyWith(
-                    fontWeight: FontWeight.bold, fontSize: w * 0.06),
-              ),
-            ),
-            SizedBox(
-              height: h * 0.03,
-            ),
-            SizedBox(
-              width: w,
-              height: h * 0.8,
-              child: GridView.builder(
-                itemCount: 15,
-                shrinkWrap: true,
-                primary: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: w * 0.003,
-                  mainAxisSpacing: w * 0.07,
-                  crossAxisSpacing: h * 0.03,
-                ),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Container(
-                        width: w * 0.4,
-                        height: h * 0.2,
-                        decoration: BoxDecoration(
-                          color: MyColors.backgroundColor,
-                          borderRadius: BorderRadius.circular(w * 0.05),
-                          boxShadow: const [
-                            BoxShadow(
-                                offset: Offset(0, 3),
-                                color: MyColors.backgroundColor,
-                                spreadRadius: 3,
-                                blurRadius: 3),
-                          ],
-                          image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://img.freepik.com/free-photo/served-christmas-table-setting-dark-tones-with-golden-deco_1220-6601.jpg?w=740"),
-                              fit: BoxFit.cover),
+              SizedBox(
+                width: w,
+                height: h * 0.8,
+                child: GridView.builder(
+                  itemCount: 12,
+                  shrinkWrap: false,
+                  primary: false,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: w * 0.00236,
+                    mainAxisSpacing: w * 0.02,
+                    crossAxisSpacing: h * 0.02,
+                  ),
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Container(
+                          width: w * 0.4,
+                          height: h * 0.16,
+                          decoration: BoxDecoration(
+                            color: MyColors.backgroundColor,
+                            borderRadius: BorderRadius.circular(w * 0.05),
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 3),
+                                  color: MyColors.backgroundColor,
+                                  spreadRadius: 3,
+                                  blurRadius: 3),
+                            ],
+                            image: const DecorationImage(
+                                image: NetworkImage(
+                                    "https://img.freepik.com/free-photo/served-christmas-table-setting-dark-tones-with-golden-deco_1220-6601.jpg?w=740"),
+                                fit: BoxFit.cover),
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Meuseum",
-                        textAlign: TextAlign.center,
-                        style:
-                            headingStyle.copyWith(fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  );
-                },
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          width: w * 0.35,
+                          child: Text(
+                            "Meuseum Meuseum Meuseum Meuseum",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: headingStyle.copyWith(
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

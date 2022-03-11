@@ -66,7 +66,12 @@ headerTitle({required double h, required double w}) {
 Widget overview({required double w, required double h}) {
   return Text(
     "Giza, Egypt The Great Pyramid of Giza is the oldest and largest of the three pyramids in the Giza Necropolis bordering what is now El Giza, Egypt. It is the oldest of the Seven Wonders of the Ancient World, and the only one to remain largely intact",
-    style: headingStyle,
+    style: headingStyle.copyWith(height: h * 0.003, wordSpacing: w * 0.007),
+    textAlign: TextAlign.start,
+    textHeightBehavior: const TextHeightBehavior(
+        leadingDistribution: TextLeadingDistribution.even,
+        applyHeightToFirstAscent: true,
+        applyHeightToLastDescent: true),
   );
 }
 
@@ -79,7 +84,10 @@ Widget details({required double h, required double w}) {
     children: [
       Row(
         children: [
-          Image.asset("assets/icons/location_outline.png"),
+          Icon(
+            Icons.location_on_outlined,
+            color: MyColors.mainColor,
+          ),
           SizedBox(
             width: w * 0.02,
           ),
@@ -121,7 +129,10 @@ Widget details({required double h, required double w}) {
       ),
       Row(
         children: [
-          Image.asset("assets/icons/contact.png"),
+          Icon(
+            Icons.call_outlined,
+            color: MyColors.mainColor,
+          ),
           SizedBox(
             width: w * 0.02,
           ),
@@ -136,7 +147,10 @@ Widget details({required double h, required double w}) {
       ),
       Row(
         children: [
-          Image.asset("assets/icons/Website.png"),
+          Icon(
+            Icons.public_outlined,
+            color: MyColors.mainColor,
+          ),
           SizedBox(
             width: w * 0.02,
           ),
@@ -221,85 +235,87 @@ Widget reviews({required double h, required double w, required context}) {
       ),
       SizedBox(
         height: h * 0.7,
-        child: ListView.separated(
+        child: ListView.builder(
             shrinkWrap: true,
             primary: true,
-            itemBuilder: (context, index) => Card(
-                  elevation: 3,
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(w * 0.05),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: w * 0.02, vertical: h * 0.02),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: h * 0.02,
-                        ),
-                        Center(
-                          child: RatingBar.builder(
-                            ignoreGestures: true,
-                            tapOnlyMode: false,
-                            initialRating: 3,
-                            minRating: 1,
-                            itemSize: w * 0.035,
-                            direction: Axis.horizontal,
-                            allowHalfRating: false,
-                            itemCount: 5,
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: MyColors.mainColor,
-                            ),
-                            onRatingUpdate: (rating) {},
+            itemBuilder: (context, index) => Container(
+                  margin: EdgeInsets.all(w * 0.02),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: w * 0.03, vertical: h * 0.01),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(w * 0.05),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: MyColors.backgroundColor,
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: Offset(0, 3),
+                        )
+                      ]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      Center(
+                        child: RatingBar.builder(
+                          ignoreGestures: true,
+                          tapOnlyMode: false,
+                          initialRating: 3,
+                          minRating: 1,
+                          itemSize: w * 0.045,
+                          direction: Axis.horizontal,
+                          allowHalfRating: false,
+                          itemCount: 5,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: MyColors.mainColor,
                           ),
+                          onRatingUpdate: (rating) {},
                         ),
-                        Text(
-                          "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis ",
-                          style: headingStyle.copyWith(color: Colors.grey),
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: w * 0.15,
-                              height: h * 0.15,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://img.freepik.com/free-photo/portrait-beautiful-young-woman-standing-grey-wall_231208-10760.jpg?w=740"),
-                                    fit: BoxFit.cover),
+                      ),
+                      Text(
+                        "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis ",
+                        style: headingStyle.copyWith(color: Colors.grey),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: w * 0.15,
+                            height: h * 0.15,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "https://img.freepik.com/free-photo/portrait-beautiful-young-woman-standing-grey-wall_231208-10760.jpg?w=740"),
+                                  fit: BoxFit.cover),
+                            ),
+                          ),
+                          SizedBox(
+                            width: w * 0.015,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "Von Ngo",
+                                style: headingStyle.copyWith(
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            SizedBox(
-                              width: w * 0.015,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Von Ngo",
-                                  style: headingStyle.copyWith(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "sdsdg",
-                                  style: headingStyle.copyWith(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                              Text(
+                                "sdsdg",
+                                style: headingStyle.copyWith(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-            separatorBuilder: (context, index) => SizedBox(
-                  height: h * 0.03,
                 ),
             itemCount: 10),
       ),

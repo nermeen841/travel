@@ -15,8 +15,8 @@ class _RecommendedSectionState extends State<RecommendedSection> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: h * 0.25,
-      child: ListView.separated(
+      height: h * 0.22,
+      child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => InkWell(
@@ -25,6 +25,7 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                     MaterialPageRoute(
                         builder: (context) => const DetailScreen())),
                 child: Container(
+                  margin: EdgeInsets.all(w * 0.01),
                   width: w * 0.4,
                   height: h * 0.15,
                   decoration: BoxDecoration(
@@ -44,7 +45,7 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: h * 0.17, left: w * 0.02, right: w * 0.02),
+                        top: h * 0.13, left: w * 0.02, right: w * 0.02),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Column(
@@ -97,9 +98,6 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                     ),
                   ),
                 ),
-              ),
-          separatorBuilder: (context, index) => SizedBox(
-                width: w * 0.03,
               ),
           itemCount: 5),
     );

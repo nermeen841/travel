@@ -38,29 +38,11 @@ class _HomeCategoryState extends State<HomeCategory> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(
-              text.length,
-              (index) => Column(
-                    children: [
-                      Center(
-                        child: Text(
-                          text[index],
-                          style: headingStyle.copyWith(
-                              fontSize: w * 0.04,
-                              fontWeight: (currentIndex == index)
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
-                              color: (currentIndex == index)
-                                  ? MyColors.mainColor
-                                  : MyColors.unslectedIconColor),
-                        ),
-                      ),
-                      buildDot(index: index, h: h, w: w),
-                    ],
-                  ),
+              text.length, (index) => buildDot(index: index, h: h, w: w),
               growable: true),
         ),
         SizedBox(
-          height: h * 0.03,
+          height: h * 0.01,
         ),
         Container(
           width: w,
@@ -104,19 +86,45 @@ class _HomeCategoryState extends State<HomeCategory> {
       {required int index, required double h, required double w}) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      width: w * 0.02,
-      height: h * 0.02,
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color:
-              currentIndex == index ? MyColors.mainColor : Colors.transparent),
+      color: Colors.transparent,
+      padding: EdgeInsets.symmetric(horizontal: w * 0.01),
       child: InkWell(
-          onTap: () {
-            pageController.animateToPage(index,
-                duration: const Duration(microseconds: 500),
-                curve: Curves.fastOutSlowIn);
-          },
-          child: Container()),
+        onTap: () {
+          pageController.animateToPage(index,
+              duration: const Duration(microseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                text[index],
+                style: headingStyle.copyWith(
+                    fontSize: w * 0.04,
+                    fontWeight: (currentIndex == index)
+                        ? FontWeight.w600
+                        : FontWeight.w400,
+                    color: (currentIndex == index)
+                        ? MyColors.mainColor
+                        : MyColors.unslectedIconColor),
+              ),
+            ),
+            Center(
+              child: Container(
+                width: w * 0.02,
+                height: h * 0.01,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: currentIndex == index
+                        ? MyColors.mainColor
+                        : Colors.transparent),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

@@ -2,41 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/constants/colors.dart';
 
-headerTile({required double h, required double w}) {
+import '../../search/componnent/componnent.dart';
+
+headerTile(
+    {required double h,
+    required double w,
+    GestureTapCallback? drawerOnTap,
+    GestureTapCallback? profileOnTap}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       InkWell(
-        onTap: () {},
-        child: Image.asset(
-          "assets/icons/Menu.png",
-          color: Colors.black,
-        ),
-      ),
-      Container(
-        width: w * 0.1,
-        height: h * 0.06,
-        padding:
-            EdgeInsets.symmetric(vertical: h * 0.009, horizontal: w * 0.01),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(w * 0.02),
-        ),
+          onTap: drawerOnTap,
+          child: SizedBox(
+            width: w * 0.1,
+            height: h * 0.05,
+            child: Icon(
+              Icons.sort,
+              color: Colors.black,
+              size: w * 0.1,
+            ),
+          )),
+      InkWell(
+        onTap: profileOnTap,
         child: Container(
-          width: w * 0.09,
+          width: w * 0.1,
           height: h * 0.05,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(w * 0.02),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(w * 0.02),
-            child: Image.network(
-              "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740",
-              fit: BoxFit.cover,
-            ),
-          ),
+              border: Border.all(
+                color: MyColors.mainColor,
+              ),
+              color: Colors.white,
+              // borderRadius: BorderRadius.circular(w * 0.02),
+              shape: BoxShape.circle,
+              image: const DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740",
+                  ))),
         ),
       ),
     ],
@@ -74,39 +78,9 @@ searchWidget(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      InkWell(
-        onTap: search,
-        child: Container(
-          width: w * 0.75,
-          padding:
-              EdgeInsets.symmetric(vertical: h * 0.023, horizontal: w * 0.03),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(w * 0.1),
-            boxShadow: const [
-              BoxShadow(
-                  offset: Offset(0, 3),
-                  color: MyColors.backgroundColor,
-                  spreadRadius: 3,
-                  blurRadius: 3),
-            ],
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset("assets/icons/search.png"),
-              SizedBox(
-                width: w * 0.02,
-              ),
-              Text(
-                "Where are you going ? ",
-                style:
-                    headingStyle.copyWith(color: MyColors.unslectedIconColor),
-              )
-            ],
-          ),
-        ),
+      SizedBox(
+        width: w * 0.75,
+        child: searchButton(w: w, h: h),
       ),
       InkWell(
         onTap: filter,
@@ -132,13 +106,15 @@ searchWidget(
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 
-sectionTitle(
-    {required double h,
-    required double w,
-    required VoidCallback press,
-    required String title}) {
+sectionTitle({
+  required double h,
+  required double w,
+  required VoidCallback press,
+  required String title,
+  required String viewMore,
+}) {
   return Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
+    // crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
@@ -149,7 +125,7 @@ sectionTitle(
       InkWell(
         onTap: press,
         child: Text(
-          "View more",
+          viewMore,
           style: headingStyle.copyWith(
               color: MyColors.unslectedIconColor,
               fontWeight: FontWeight.w500,
@@ -167,7 +143,7 @@ categoryCard({
   required double h,
 }) {
   return Container(
-    margin: EdgeInsets.symmetric(vertical: h * 0.01),
+    margin: EdgeInsets.symmetric(vertical: h * 0.02),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(w * 0.05),
@@ -184,7 +160,7 @@ categoryCard({
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          width: w * 0.27,
+          width: w * 0.31,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius:
@@ -233,20 +209,29 @@ categoryCard({
               ],
             ),
             SizedBox(
-              height: h * 0.03,
+              height: h * 0.02,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "1180 L.E",
-                  style: headingStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: headingStyle.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                      fontSize: w * 0.033),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Per night", style: headingStyle),
+                    Text(
+                      "Per night",
+                      style: headingStyle.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins',
+                          fontSize: w * 0.034),
+                    ),
                     SizedBox(
                       width: w * 0.03,
                     ),
