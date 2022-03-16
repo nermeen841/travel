@@ -62,17 +62,11 @@ Widget googleAndFacebookRow({
             ],
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                FontAwesomeIcons.google,
-                color: Color(0xff3498DB),
-                size: 20,
-              ),
-              // Spacer(),
-              Text(
-                ' oogle',
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children:  [
+              Image.asset('assets/images/google icon 1.png'),
+             const Text(
+                'Google',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -87,7 +81,7 @@ Widget googleAndFacebookRow({
       InkWell(
         onTap: pressOnFacebook,
         child: Container(
-          padding: EdgeInsets.only(left: w * 0.03, right: w * 0.03),
+          padding: EdgeInsets.only(left: w * 0.026, right: w * 0.026),
           height: h * 0.06,
           width: w * 0.34,
           decoration: BoxDecoration(
@@ -102,15 +96,15 @@ Widget googleAndFacebookRow({
             ],
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
               Icon(
                 FontAwesomeIcons.facebookF,
                 color: Colors.white,
               ),
               Text(
-                'acebook',
+                ' Facebook',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,

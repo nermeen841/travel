@@ -119,7 +119,7 @@ Widget buildThirdOnboard(
                       BoxShadow(
                         color: Colors.grey.shade500,
                         blurRadius: 5,
-                        offset: const Offset(0, 5), // Shadow position
+                        offset: const Offset(0, 3), // Shadow position
                       ),
                     ]),
                 Center(

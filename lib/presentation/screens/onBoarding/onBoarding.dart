@@ -27,6 +27,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
     ];
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: w * 0.03, vertical: h * 0.02),
         child: Column(
@@ -62,10 +63,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   controller: boardController,
                   count: onboardItem.length,
                   effect: ExpandingDotsEffect(
-                    dotColor: MyColors.unslectedIconColor,
-                    dotHeight: 10,
-                    dotWidth: 8,
-                    spacing: 5.0,
+                    dotColor: MyColors.mainColor,
+                    dotHeight: 7,
+                    dotWidth: 12,
+                    spacing: 7.0,
                     expansionFactor: 4,
                     activeDotColor: MyColors.mainColor,
                   ),

@@ -19,7 +19,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
         body: ListView(
           children: [
             SizedBox(
-              height: h * 0.035,
+              height: h * 0.05,
             ),
             Image.asset(
               'assets/images/Van.png',
@@ -99,7 +99,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
                   ),
                 ]),
             Padding(
-              padding: EdgeInsets.only(right: w * 0.07, top: h * 0.045),
+              padding: EdgeInsets.only(right: w * 0.07, top: h * 0.05),
               child: InkWell(
                 onTap: () => Navigator.push(
                     context,

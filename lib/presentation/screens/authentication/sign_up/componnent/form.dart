@@ -172,7 +172,7 @@ class _SignupFormState extends State<SignupForm> {
               children: [
                 Text(
                   "City",
-                  style: headingStyle.copyWith(fontSize: w * 0.05),
+                  style: headingStyle.copyWith(fontSize: 16),
                 ),
                 SizedBox(
                   width: w * 0.01,
@@ -180,7 +180,7 @@ class _SignupFormState extends State<SignupForm> {
                 Icon(
                   Icons.keyboard_arrow_down,
                   color: MyColors.mainColor,
-                  size: w * 0.08,
+                  size: w * 0.065,
                 ),
               ],
             ),
@@ -188,7 +188,7 @@ class _SignupFormState extends State<SignupForm> {
               children: [
                 Text(
                   "Governete",
-                  style: headingStyle.copyWith(fontSize: w * 0.05),
+                  style: headingStyle.copyWith(fontSize: 16),
                 ),
                 SizedBox(
                   width: w * 0.01,
@@ -196,7 +196,7 @@ class _SignupFormState extends State<SignupForm> {
                 Icon(
                   Icons.keyboard_arrow_down,
                   color: MyColors.mainColor,
-                  size: w * 0.08,
+                  size: w * 0.065,
                 ),
               ],
             ),

@@ -40,19 +40,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         shrinkWrap: true,
         primary: true,
         children: [
+          SizedBox(height: h * 0.02),
           Align(
               alignment: Alignment.topLeft,
               child: InkWell(
                 onTap: () => Navigator.pop(context),
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_back_ios,
                   size: 35,
-                  color: const Color(0xff3A0CA3).withOpacity(0.55),
+                  color: Color(0xff3A0CA3),
                 ),
               )),
-          SizedBox(
-            height: h * 0.01,
-          ),
+          // SizedBox(
+          //   height: h * 0.01,
+          // ),
           Stack(
             children: [
               Center(
@@ -85,7 +86,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ],
           ),
           SizedBox(
-            height: h * 0.05,
+            height: h * 0.04,
           ),
           const Text(
             'Profile Details',
