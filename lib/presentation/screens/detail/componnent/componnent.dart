@@ -167,77 +167,78 @@ Widget details({required double h, required double w}) {
 ///////////////////////////////////////////////////////////////////////////////////
 
 Widget reviews({required double h, required double w, required context}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      InkWell(
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddReviewScreen()));
-        },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: w * 0.15,
-              height: h * 0.15,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: NetworkImage(
-                        "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740"),
-                    fit: BoxFit.cover),
+  return SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddReviewScreen()));
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: w * 0.15,
+                height: h * 0.15,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740"),
+                      fit: BoxFit.cover),
+                ),
               ),
-            ),
-            SizedBox(
-              width: w * 0.03,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Rate and reviw",
-                  style: headingStyle.copyWith(fontWeight: FontWeight.bold),
-                ),
-                RatingBar.builder(
-                  ignoreGestures: true,
-                  tapOnlyMode: false,
-                  initialRating: 0,
-                  minRating: 1,
-                  itemSize: w * 0.07,
-                  direction: Axis.horizontal,
-                  allowHalfRating: false,
-                  itemCount: 5,
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star_border_outlined,
-                    color: MyColors.mainColor,
+              SizedBox(
+                width: w * 0.03,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Rate and reviw",
+                    style: headingStyle.copyWith(fontWeight: FontWeight.bold),
                   ),
-                  onRatingUpdate: (rating) {},
-                ),
-                Text(
-                  "Share your experience to help others",
-                  style: headingStyle.copyWith(
-                      fontWeight: FontWeight.w500, color: Colors.grey),
-                ),
-              ],
-            ),
-          ],
+                  RatingBar.builder(
+                    ignoreGestures: true,
+                    tapOnlyMode: false,
+                    initialRating: 0,
+                    minRating: 1,
+                    itemSize: w * 0.07,
+                    direction: Axis.horizontal,
+                    allowHalfRating: false,
+                    itemCount: 5,
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star_border_outlined,
+                      color: MyColors.mainColor,
+                    ),
+                    onRatingUpdate: (rating) {},
+                  ),
+                  Text(
+                    "Share your experience to help others",
+                    style: headingStyle.copyWith(
+                        fontWeight: FontWeight.w500, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-      Padding(
-        padding: EdgeInsets.only(left: w * 0.3, right: w * 0.3),
-        child: Divider(
-          color: MyColors.mainColor,
+        Padding(
+          padding: EdgeInsets.only(left: w * 0.3, right: w * 0.3),
+          child: Divider(
+            color: MyColors.mainColor,
+          ),
         ),
-      ),
-      SizedBox(
-        height: h * 0.7,
-        child: ListView.builder(
+        ListView.builder(
             shrinkWrap: true,
-            primary: true,
+            primary: false,
             itemBuilder: (context, index) => Container(
                   margin: EdgeInsets.all(w * 0.02),
                   padding: EdgeInsets.symmetric(
@@ -318,7 +319,7 @@ Widget reviews({required double h, required double w, required context}) {
                   ),
                 ),
             itemCount: 10),
-      ),
-    ],
+      ],
+    ),
   );
 }

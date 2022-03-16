@@ -4,7 +4,7 @@ import 'package:travel/constants/colors.dart';
 
 favouriteCard({required double h, required double w}) {
   return Container(
-    height: h * 0.2,
+    height: h * 0.17,
     margin: EdgeInsets.symmetric(horizontal: w * 0.01),
     decoration: BoxDecoration(
       color: Colors.white,
@@ -22,7 +22,7 @@ favouriteCard({required double h, required double w}) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          width: w * 0.27,
+          width: w * 0.3,
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius:
@@ -76,7 +76,7 @@ favouriteCard({required double h, required double w}) {
                   ],
                 ),
                 SizedBox(
-                  width: w * 0.14,
+                  width: w * 0.1,
                 ),
                 Container(
                   width: w * 0.09,
@@ -106,7 +106,7 @@ favouriteCard({required double h, required double w}) {
               ],
             ),
             SizedBox(
-              height: h * 0.05,
+              height: h * 0.02,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +128,7 @@ favouriteCard({required double h, required double w}) {
                   tapOnlyMode: false,
                   initialRating: 4,
                   minRating: 1,
-                  itemSize: w * 0.045,
+                  itemSize: w * 0.04,
                   direction: Axis.horizontal,
                   allowHalfRating: false,
                   itemCount: 5,

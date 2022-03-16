@@ -15,7 +15,7 @@ class _RecommendedSectionState extends State<RecommendedSection> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: h * 0.22,
+      height: h * 0.2,
       child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
@@ -45,7 +45,7 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: h * 0.13, left: w * 0.02, right: w * 0.02),
+                        top: h * 0.1, left: w * 0.02, right: w * 0.02),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Column(

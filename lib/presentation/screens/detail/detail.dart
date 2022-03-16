@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/map/map_track.dart';
 
@@ -110,8 +111,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                     color: Colors.white,
                                     shape: BoxShape.circle),
                                 child: Center(
-                                  child: Image.asset(
-                                      "assets/icons/shape_location.png"),
+                                  child: Icon(
+                                    FontAwesomeIcons.locationArrow,
+                                    color: MyColors.mainColor,
+                                    size: w * 0.05,
+                                  ),
                                 ),
                               ),
                             ),

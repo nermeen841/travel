@@ -79,14 +79,14 @@ searchWidget(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       SizedBox(
-        width: w * 0.75,
+        width: w * 0.73,
         child: searchButton(w: w, h: h),
       ),
       InkWell(
         onTap: filter,
         child: Container(
-          width: w * 0.13,
-          height: h * 0.13,
+          width: w * 0.15,
+          height: h * 0.15,
           decoration: const BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
@@ -129,7 +129,7 @@ sectionTitle({
           style: headingStyle.copyWith(
               color: MyColors.unslectedIconColor,
               fontWeight: FontWeight.w500,
-              fontSize: w * 0.04),
+              fontSize: w * 0.03),
         ),
       ),
     ],

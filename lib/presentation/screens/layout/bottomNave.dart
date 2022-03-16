@@ -60,7 +60,7 @@ class _BottomNaveState extends State<BottomNave> {
         letIndexChange: (index) => true,
         // elevation: 0.0,
         // currentIndex: currentIndex,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         // selectedItemColor: MyColors.mainColor,
         // unselectedItemColor: MyColors.unslectedIconColor,
         // showSelectedLabels: false,
