@@ -33,9 +33,9 @@ class _DetailBodyState extends State<DetailBody> {
       details(w: w, h: h),
       reviews(w: w, h: h, context: context),
     ];
-    return Container(
-      width: double.infinity,
-      height: h,
+    return Padding(
+      // width: double.infinity,
+      // height: h * 0.6,
       padding: EdgeInsets.symmetric(horizontal: w * 0.03),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,8 @@ class _DetailBodyState extends State<DetailBody> {
           SizedBox(
             height: h * 0.03,
           ),
-          Expanded(
+          SizedBox(
+            height: h * 0.6,
             child: PageView.builder(
                 controller: pageController,
                 itemCount: screens.length,

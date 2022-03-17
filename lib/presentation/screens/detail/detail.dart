@@ -26,11 +26,15 @@ class _DetailScreenState extends State<DetailScreen> {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: PreferredSize(
-        preferredSize: Size(w, h),
-        child: ListView(
-          shrinkWrap: true,
-          primary: true,
+      appBar: AppBar(
+        elevation: 0.0,
+        toolbarHeight: 0.0,
+        backgroundColor: MyColors.mainColor,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          // shrinkWrap: true,
+          // primary: true,
           children: [
             SizedBox(
               width: w,
