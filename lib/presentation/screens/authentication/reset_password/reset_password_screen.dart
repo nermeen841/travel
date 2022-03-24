@@ -1,8 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
+
+import '../../../../generated/locale_keys.g.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   TextEditingController confirmNewPasswordController = TextEditingController();
@@ -43,7 +46,7 @@ class ResetPasswordScreen extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           Text(
-            'Reset  Password',
+            LocaleKeys.Reset_Password.tr(),
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: w * 0.06,
@@ -55,7 +58,7 @@ class ResetPasswordScreen extends StatelessWidget {
             height: h * 0.03,
           ),
           textFormField(
-            hintText: 'New Password',
+            hintText:  LocaleKeys.New_Password.tr(),
             controller: newPasswordController,
             validator: (val) {
               return null;
@@ -71,7 +74,7 @@ class ResetPasswordScreen extends StatelessWidget {
             height: h * 0.04,
           ),
           textFormField(
-            hintText: 'Confirm New Password',
+            hintText:  LocaleKeys.Confirm_Password.tr(),
             controller: confirmNewPasswordController,
             validator: (val) {
               return null;
@@ -87,7 +90,7 @@ class ResetPasswordScreen extends StatelessWidget {
             height: h * 0.06,
           ),
           defaultButton(
-              title: 'SUBMITTING...',
+              title:  LocaleKeys.Submitting.tr(),
               onPressed: () {
                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));
               },

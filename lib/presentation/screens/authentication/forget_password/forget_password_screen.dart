@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/authentication/reset_password/reset_password_screen.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
 
@@ -43,7 +45,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           Text(
-            'Forgot Your Password?',
+            LocaleKeys.Forgot_Password.tr(),
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: w * 0.06,
@@ -58,10 +60,10 @@ class ForgetPasswordScreen extends StatelessWidget {
             child: SizedBox(
               height: h * 0.06,
               // width: 500,
-              child: const Text(
-                'Don’t worry! It happens. Please enter the address associated with your account',
+              child: Text(
+                LocaleKeys.Do_not_worry.tr(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style:const TextStyle(
                     fontSize: 15,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
@@ -73,7 +75,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             height: h * 0.05,
           ),
           textFormField(
-            hintText: 'Email',
+            hintText:  LocaleKeys.Email.tr(),
             controller: emailController,
             validator: (val) {
               return null;
@@ -84,7 +86,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             height: h * 0.065,
           ),
           defaultButton(
-              title: 'SUBMIT',
+              title:  LocaleKeys.Submit.tr(),
               onPressed: () {
                 Navigator.push(
                     context,

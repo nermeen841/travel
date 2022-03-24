@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/colors.dart';
 import '../../../../../constants/constants.dart';
+import '../../../../../generated/locale_keys.g.dart';
 import '../../../../widgets/login_form/login_form.dart';
 import '../../../layout/bottomNave.dart';
 
@@ -33,7 +35,7 @@ class _SignupFormState extends State<SignupForm> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               textFormField(
-                hintText: 'First Name',
+                hintText: LocaleKeys.First_Name.tr(),
                 controller: firstNameController,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -53,7 +55,7 @@ class _SignupFormState extends State<SignupForm> {
                 height: h * 0.025,
               ),
               textFormField(
-                hintText: 'Last Name',
+                hintText: LocaleKeys.Last_Name.tr(),
                 controller: lastNameController,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -78,12 +80,13 @@ class _SignupFormState extends State<SignupForm> {
                     return null;
                   },
                   obscureText: false,
-                  hintText: "Phone number"),
+                  hintText: LocaleKeys.Phone_Number.tr(),
+              ),
               SizedBox(
                 height: h * 0.025,
               ),
               textFormField(
-                hintText: 'Email',
+                hintText: LocaleKeys.Email.tr(),
                 controller: emailController,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -103,7 +106,7 @@ class _SignupFormState extends State<SignupForm> {
                 height: h * 0.025,
               ),
               textFormField(
-                hintText: 'Password',
+                hintText: LocaleKeys.Password.tr(),
                 controller: passwordController,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -128,7 +131,7 @@ class _SignupFormState extends State<SignupForm> {
                 height: h * 0.025,
               ),
               textFormField(
-                hintText: 'Confirm Password',
+                hintText: LocaleKeys.Confirm_Password.tr(),
                 controller: confirmPasswordController,
                 validator: (val) {
                   if (val!.isEmpty) {
@@ -171,7 +174,7 @@ class _SignupFormState extends State<SignupForm> {
             Row(
               children: [
                 Text(
-                  "City",
+                  LocaleKeys.City.tr(),
                   style: headingStyle.copyWith(fontSize: 16),
                 ),
                 SizedBox(
@@ -187,7 +190,7 @@ class _SignupFormState extends State<SignupForm> {
             Row(
               children: [
                 Text(
-                  "Governete",
+                  LocaleKeys.Governorate.tr(),
                   style: headingStyle.copyWith(fontSize: 16),
                 ),
                 SizedBox(
@@ -206,7 +209,7 @@ class _SignupFormState extends State<SignupForm> {
           height: h * 0.04,
         ),
         defaultButton(
-            title: 'SIGN UP',
+            title: LocaleKeys.SignUp.tr(),
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 Navigator.push(

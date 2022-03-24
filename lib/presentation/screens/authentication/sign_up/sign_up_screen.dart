@@ -1,6 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/componnent/form.dart';
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 
@@ -45,7 +47,7 @@ class SignUpScreen extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           Text(
-            'Create Account',
+            LocaleKeys.Create_Account.tr(),
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: w * 0.056,
@@ -61,7 +63,7 @@ class SignUpScreen extends StatelessWidget {
             height: h * 0.04,
           ),
           Text(
-            'By singning up, you’re agree to our',
+            LocaleKeys.By_Singning.tr(),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: const Color(0xff3A0CA3),

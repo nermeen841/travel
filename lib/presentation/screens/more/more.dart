@@ -44,7 +44,7 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: h * 0.03,
+                height: h * 0.01,
               ),
               SizedBox(
                 width: w,

@@ -1,29 +1,32 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../../generated/locale_keys.g.dart';
 
 Widget richTextInSignUp() => RichText(
       textAlign: TextAlign.center,
-      text: const TextSpan(
+      text:  TextSpan(
         children: [
           TextSpan(
-            text: "Terms & condition",
-            style: TextStyle(
+            text: LocaleKeys.Terms.tr(),
+            style: const TextStyle(
               fontFamily: 'Poppins',
               fontSize: 12,
               fontWeight: FontWeight.w700,
               color: Color(0xff3A0CA3),
             ),
           ),
-          TextSpan(
-            text: " and",
-            style: TextStyle(
+           TextSpan(
+            text: LocaleKeys.AND.tr(),
+            style: const TextStyle(
               fontFamily: 'Poppins',
               fontSize: 12,
               color: Color(0xff3A0CA3),
             ),
           ),
           TextSpan(
-            text: " Privacy policy",
-            style: TextStyle(
+            text: LocaleKeys.Privacy_Policy.tr(),
+            style: const TextStyle(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
               fontSize: 16,

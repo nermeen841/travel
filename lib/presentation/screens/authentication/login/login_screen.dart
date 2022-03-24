@@ -1,7 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/authentication/forget_password/forget_password_screen.dart';
 import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
@@ -48,7 +50,7 @@ class LoginScreen extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           Text(
-            'Welcome Back!',
+            LocaleKeys.Welcome.tr(),
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: w * 0.056,
@@ -60,7 +62,7 @@ class LoginScreen extends StatelessWidget {
             height: h * 0.013,
           ),
           textFormField(
-            hintText: 'Email',
+            hintText: LocaleKeys.Email.tr(),
             controller: emailController,
             validator: (val) {
               return null;
@@ -71,7 +73,7 @@ class LoginScreen extends StatelessWidget {
             height: h * 0.03,
           ),
           textFormField(
-            hintText: 'Password',
+            hintText: LocaleKeys.Password.tr(),
             controller: passwordController,
             validator: (val) {
               return null;
@@ -90,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => ForgetPasswordScreen())),
             child: Text(
-              'Forget your password?',
+              LocaleKeys.Forget_Password.tr(),
               textAlign: TextAlign.end,
               style: TextStyle(
                   fontFamily: 'Poppins',
@@ -103,7 +105,7 @@ class LoginScreen extends StatelessWidget {
             height: h * 0.03,
           ),
           defaultButton(
-              title: 'LOG IN',
+              title: LocaleKeys.Login.tr(),
               onPressed: () {
                 Navigator.push(
                     context,
@@ -129,7 +131,7 @@ class LoginScreen extends StatelessWidget {
             height: h * 0.04,
           ),
           Text(
-            'Or connect using',
+            LocaleKeys.or_connect.tr(),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: const Color(0xff3A0CA3),

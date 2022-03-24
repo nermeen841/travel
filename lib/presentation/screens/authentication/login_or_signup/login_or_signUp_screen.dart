@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/sign_up_screen.dart';
 import 'package:travel/presentation/screens/layout/bottomNave.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginOrSignUpScreen extends StatelessWidget {
   const LoginOrSignUpScreen({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
               fit: BoxFit.contain,
             ),
             Text(
-              'Plan your trip',
+              LocaleKeys.Plan_your_trip.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: w * 0.075,
@@ -44,7 +46,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
                 height: h * 0.07,
                 width: w * 0.5,
                 child: Text(
-                  'Custom and fast planning with a low price',
+                  LocaleKeys.Custom_and_fast.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: w * 0.038,
@@ -60,7 +62,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
             defaultButton(
                 margin: EdgeInsets.symmetric(horizontal: w * 0.2),
                 textColor: Colors.white,
-                title: 'LOG IN',
+                title: LocaleKeys.Login.tr(),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -82,7 +84,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
             defaultButton(
                 margin: EdgeInsets.symmetric(horizontal: w * 0.2),
                 textColor: const Color(0xff3A0CA3),
-                title: 'SIGN UP',
+                title:LocaleKeys.SignUp.tr(),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignUpScreen()));
@@ -111,7 +113,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'SKIP',
+                      LocaleKeys.SKIP.tr(),
                       style: TextStyle(
                           fontSize: w * 0.045,
                           fontWeight: FontWeight.w400,
