@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
 import 'package:travel/presentation/screens/more/more.dart';
 import 'package:travel/presentation/screens/profile/user_profile.dart';
@@ -115,14 +117,14 @@ class _HomeScreenState extends State<HomeScreen> {
             sectionTitle(
                 h: h,
                 w: w,
-                viewMore: 'View More',
+                viewMore: LocaleKeys.More.tr(),
                 press: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewMoreScreen(
-                              title: "Categories",
+                        builder: (context) => ViewMoreScreen(
+                              title: LocaleKeys.Categories.tr(),
                             ))),
-                title: "Categories"),
+                title: LocaleKeys.Categories.tr()),
             SizedBox(
               height: h * 0.03,
             ),
@@ -137,10 +139,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 press: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewMoreScreen(
-                              title: "Recommended",
+                        builder: (context) =>  ViewMoreScreen(
+                              title: LocaleKeys.Recommended.tr(),
                             ))),
-                title: " Recommended"),
+                title: LocaleKeys.Recommended.tr()),
             SizedBox(
               height: h * 0.02,
             ),
@@ -155,10 +157,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 press: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ViewMoreScreen(
-                              title: "Popular Destinations",
+                        builder: (context) => ViewMoreScreen(
+                              title: LocaleKeys.Popular.tr(),
                             ))),
-                title: " Popular Destinations"),
+                title: LocaleKeys.Popular.tr()),
             SizedBox(
               height: h * 0.025,
             ),

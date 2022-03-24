@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/drawer_screens/about_us_screen.dart';
 
 Widget buildDrawerWidget({required context}) {
@@ -26,7 +28,7 @@ Widget buildDrawerWidget({required context}) {
           color: const Color(0xff3A0CA3),
         )),
         buildRowInDrawer(
-            title: 'About Us',
+            title: LocaleKeys.About_Us.tr(),
             icon: Icons.info_outline,
             onPress: () {
               Navigator.push(context,
@@ -36,23 +38,23 @@ Widget buildDrawerWidget({required context}) {
           height: h * 0.04,
         ),
         buildRowInDrawer(
-            title: 'Contact Us', icon: Icons.call_outlined, onPress: () {}),
+            title: LocaleKeys.Contact_Us.tr(), icon: Icons.call_outlined, onPress: () {}),
         SizedBox(
           height: h * 0.04,
         ),
         buildRowInDrawer(
-            title: 'Help & FAQ',
+            title: LocaleKeys.Help.tr(),
             icon: Icons.help_outline_outlined,
             onPress: () {}),
         SizedBox(
           height: h * 0.04,
         ),
         buildRowInDrawer(
-            title: 'Rate Us', icon: Icons.star_border_outlined, onPress: () {}),
+            title: LocaleKeys.Rate.tr(), icon: Icons.star_border_outlined, onPress: () {}),
         SizedBox(
           height: h * 0.04,
         ),
-        buildRowInDrawer(title: 'Log Out', icon: Icons.logout, onPress: () {}),
+        buildRowInDrawer(title: LocaleKeys.LOG_OUT.tr(), icon: Icons.logout, onPress: () {}),
         SizedBox(
           height: h * 0.07,
         ),
@@ -77,7 +79,7 @@ Widget buildDrawerWidget({required context}) {
                 offset: const Offset(0, 3), // Shadow position
               ),
             ],
-            title: 'LOG IN',
+            title: LocaleKeys.Login.tr(),
             onPressed: () {},
             fontSize: 15,
             height: h * 0.055,
@@ -99,7 +101,7 @@ Widget buildDrawerWidget({required context}) {
                 offset: const Offset(2, 5), // Shadow position
               ),
             ],
-            title: 'SIGN UP',
+            title: LocaleKeys.SignUp.tr(),
             onPressed: () {},
             fontSize: 15,
             height: h * 0.055,

@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/review/review.dart';
+
+import '../../../../generated/locale_keys.g.dart';
 
 headerTitle({required double h, required double w}) {
   return Padding(
@@ -202,7 +205,7 @@ Widget reviews({required double h, required double w, required context}) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Rate and reviw",
+                    LocaleKeys.RateAnd.tr(),
                     style: headingStyle.copyWith(fontWeight: FontWeight.bold),
                   ),
                   RatingBar.builder(
@@ -221,7 +224,7 @@ Widget reviews({required double h, required double w, required context}) {
                     onRatingUpdate: (rating) {},
                   ),
                   Text(
-                    "Share your experience to help others",
+                    LocaleKeys.Share.tr(),
                     style: headingStyle.copyWith(
                         fontWeight: FontWeight.w500, color: Colors.grey),
                   ),

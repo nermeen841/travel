@@ -1,8 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/widgets/profile_wdgets/profile_widgets.dart';
+
+import '../../../generated/locale_keys.g.dart';
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -88,9 +91,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           SizedBox(
             height: h * 0.04,
           ),
-          const Text(
-            'Profile Details',
-            style: TextStyle(
+           Text(
+            LocaleKeys.Profile_Details.tr(),
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               fontFamily: 'Poppins',
@@ -152,7 +155,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           defaultButton(
             margin: EdgeInsets.symmetric(horizontal: w * 0.13),
-            title: 'SAVE',
+            title: LocaleKeys.SAVE.tr(),
             onPressed: () {
               Navigator.pop(context);
             },

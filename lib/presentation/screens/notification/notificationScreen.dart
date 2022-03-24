@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/widgets/notification_widgets/notification_widgets.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -33,9 +35,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 SizedBox(
                   height: h * 0.03,
                 ),
-                const Text(
-                  'Notifications',
-                  style: TextStyle(
+                 Text(
+                  LocaleKeys.Notifications.tr(),
+                  style: const TextStyle(
                       color: Color(0xff3A0CA3),
                       fontSize: 30,
                       fontWeight: FontWeight.w700,
@@ -60,9 +62,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     primary: true,
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        '    NEW',
-                        style: TextStyle(
+                       Text(
+                        '    ${LocaleKeys.NEW.tr()}',
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
@@ -98,9 +100,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       SizedBox(
                         height: h * 0.03,
                       ),
-                      const Text(
-                        '    Earlier',
-                        style: TextStyle(
+                       Text(
+                        '    ${LocaleKeys.Earlier.tr()}',
+                        style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 22,
                           fontWeight: FontWeight.w700,

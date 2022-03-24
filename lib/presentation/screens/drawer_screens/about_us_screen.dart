@@ -1,6 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 
 class AboutUsScreen extends StatelessWidget {
   @override
@@ -25,9 +27,9 @@ class AboutUsScreen extends StatelessWidget {
                   color: const Color(0xff3A0CA3).withOpacity(0.55),
                 ),
               )),
-          const Text(
-            'About Us',
-            style: TextStyle(
+           Text(
+            LocaleKeys.About_Us.tr(),
+            style: const TextStyle(
               fontSize: 35,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.bold,

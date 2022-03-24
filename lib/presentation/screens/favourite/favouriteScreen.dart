@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/detail/detail.dart';
 import 'package:travel/presentation/screens/favourite/componnent/componnent.dart';
 
@@ -50,7 +52,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Favourite",
+
+                  LocaleKeys.Favourites.tr(),
                   style: headingStyle.copyWith(
                       fontWeight: FontWeight.bold, fontSize: w * 0.06),
                 ),

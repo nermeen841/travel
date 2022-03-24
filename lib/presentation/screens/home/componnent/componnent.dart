@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/constants/colors.dart';
@@ -52,15 +53,17 @@ headerTile(
 introTitle({required double h, required double w}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    mainAxisAlignment: MainAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
-        "The world is yours to",
+        "The world is yours to ",
         style: headingStyle.copyWith(
-            fontSize: w * 0.07, fontWeight: FontWeight.w400),
+            fontSize: w * 0.07, fontWeight: FontWeight.w400,
+
+        ),
       ),
       Text(
-        "Explore",
+        'Explore',
         style: headingStyle.copyWith(
             fontSize: w * 0.08, fontWeight: FontWeight.bold),
       ),

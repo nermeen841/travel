@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/detail/detail.dart';
 import 'package:travel/presentation/screens/search/componnent/componnent.dart';
 
@@ -22,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
         elevation: 0.0,
         automaticallyImplyLeading: false,
         title: Text(
-          "Search",
+          LocaleKeys.Search.tr(),
           style: headingStyle.copyWith(
               fontWeight: FontWeight.bold, fontSize: w * 0.06),
         ),

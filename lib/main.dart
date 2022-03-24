@@ -21,8 +21,8 @@ Future<void> main() async {
   // await Firebase.initializeApp();
   runApp(EasyLocalization(
     supportedLocales: const [
-      Locale('en', ''),
       Locale('ar', ''),
+      Locale('en', ''),
     ],
     path: 'assets/translations', // <-- change the path of the translation files
     assetLoader: const CodegenLoader(),

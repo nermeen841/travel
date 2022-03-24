@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/filter_result/filter_result.dart';
 
 import '../../screens/map/map_track.dart';
@@ -21,7 +23,7 @@ filterAlert({required double h, required double w, required context}) {
             children: [
               Center(
                 child: Text(
-                  "Where to go",
+                  LocaleKeys.Where_to_go.tr(),
                   style: headingStyle.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -34,7 +36,7 @@ filterAlert({required double h, required double w, required context}) {
                 textAlign: TextAlign.start,
                 cursorColor: MyColors.unslectedIconColor,
                 decoration: InputDecoration(
-                  hintText: "Place",
+                  hintText: LocaleKeys.Place.tr(),
                   helperStyle: headingStyle.copyWith(
                       color: MyColors.mainColor, fontWeight: FontWeight.w400),
                   border: UnderlineInputBorder(
@@ -65,7 +67,7 @@ filterAlert({required double h, required double w, required context}) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Categories",
+                    LocaleKeys.Categories.tr(),
                     style: headingStyle.copyWith(
                         color: MyColors.mainColor,
                         fontWeight: FontWeight.w400,
@@ -88,7 +90,7 @@ filterAlert({required double h, required double w, required context}) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Gevoernanate",
+                    LocaleKeys.Governorate.tr(),
                     style: headingStyle.copyWith(
                         color: MyColors.mainColor,
                         fontWeight: FontWeight.w400,
@@ -136,7 +138,7 @@ filterAlert({required double h, required double w, required context}) {
                         ),
                         child: Center(
                           child: Text(
-                            "search",
+                            LocaleKeys.Search.tr(),
                             style: headingStyle.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
