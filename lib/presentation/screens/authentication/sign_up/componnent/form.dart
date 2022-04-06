@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 
 import '../../../../../constants/colors.dart';
 import '../../../../../constants/constants.dart';
@@ -75,12 +77,12 @@ class _SignupFormState extends State<SignupForm> {
                 height: h * 0.025,
               ),
               textFormField(
-                  controller: phoneController,
-                  validator: (val) {
-                    return null;
-                  },
-                  obscureText: false,
-                  hintText: LocaleKeys.Phone_Number.tr(),
+                controller: phoneController,
+                validator: (val) {
+                  return null;
+                },
+                obscureText: false,
+                hintText: LocaleKeys.Phone_Number.tr(),
               ),
               SizedBox(
                 height: h * 0.025,
@@ -167,43 +169,50 @@ class _SignupFormState extends State<SignupForm> {
         SizedBox(
           height: h * 0.035,
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+        BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  LocaleKeys.City.tr(),
-                  style: headingStyle.copyWith(fontSize: 16),
+                Row(
+                  children: [
+                    Text(
+                      LocaleKeys.City.tr(),
+                      style: headingStyle.copyWith(fontSize: 16),
+                    ),
+                    SizedBox(
+                      width: w * 0.01,
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      color: MyColors.mainColor,
+                      size: w * 0.065,
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: w * 0.01,
-                ),
-                Icon(
-                  Icons.keyboard_arrow_down,
-                  color: MyColors.mainColor,
-                  size: w * 0.065,
-                ),
+                Row(
+                  children: [
+                    Text(
+                      LocaleKeys.Governorate.tr(),
+                      style: headingStyle.copyWith(fontSize: 16),
+                    ),
+                    SizedBox(
+                      width: w * 0.01,
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      color: MyColors.mainColor,
+                      size: w * 0.065,
+                    ),
+                  ],
+                )
               ],
-            ),
-            Row(
-              children: [
-                Text(
-                  LocaleKeys.Governorate.tr(),
-                  style: headingStyle.copyWith(fontSize: 16),
-                ),
-                SizedBox(
-                  width: w * 0.01,
-                ),
-                Icon(
-                  Icons.keyboard_arrow_down,
-                  color: MyColors.mainColor,
-                  size: w * 0.065,
-                ),
-              ],
-            ),
-          ],
+            );
+          },
         ),
         SizedBox(
           height: h * 0.04,

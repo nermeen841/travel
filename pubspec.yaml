@@ -48,6 +48,8 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   font_awesome_flutter: ^9.2.0
   curved_navigation_bar: ^1.0.3
+  dio: any
+  sqflite: ^2.0.2
 
   
 

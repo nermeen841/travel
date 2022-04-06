@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/constants/colors.dart';
@@ -58,8 +57,8 @@ introTitle({required double h, required double w}) {
       Text(
         "The world is yours to ",
         style: headingStyle.copyWith(
-            fontSize: w * 0.07, fontWeight: FontWeight.w400,
-
+          fontSize: w * 0.07,
+          fontWeight: FontWeight.w400,
         ),
       ),
       Text(
