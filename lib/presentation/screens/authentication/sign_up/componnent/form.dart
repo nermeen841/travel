@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/business_logic/appCubit/app_Cubit.dart';
+import 'package:travel/business_logic/appCubit/app_states.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 
 import '../../../../../constants/colors.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../generated/locale_keys.g.dart';
 import '../../../../widgets/login_form/login_form.dart';
+import '../../../../widgets/sign_up_form/sign_up_form.dart';
 import '../../../layout/bottomNave.dart';
 
 class SignupForm extends StatefulWidget {
@@ -178,37 +182,71 @@ class _SignupFormState extends State<SignupForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      LocaleKeys.City.tr(),
-                      style: headingStyle.copyWith(fontSize: 16),
-                    ),
-                    SizedBox(
-                      width: w * 0.01,
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: MyColors.mainColor,
-                      size: w * 0.065,
-                    ),
-                  ],
+
+                InkWell(
+                  onTap: () async{
+                   showCitysMenu(context: context, w: w, list: AuthenticationcubitCubit.get(context).city);
+                  },
+                  child: BlocConsumer<AppCubit,AppState>(
+                      listener: (context,state){},
+                      builder: (context,state) {
+                        return Row(
+                          children: [
+                            (AppCubit.get(context).city== null)?Text(
+                              LocaleKeys.City.tr(),
+                              style: headingStyle.copyWith(fontSize: 16),
+                            ):Text(
+                              AppCubit.get(context).city!,
+                              style: headingStyle.copyWith(fontSize: 16),
+                            ),
+                            SizedBox(
+                              width: w * 0.01,
+                            ),
+                            Icon(
+                              Icons.keyboard_arrow_down,
+                              color: MyColors.mainColor,
+                              size: w * 0.065,
+                            ),
+                          ],
+                        );
+                      }
+
+                  ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      LocaleKeys.Governorate.tr(),
-                      style: headingStyle.copyWith(fontSize: 16),
-                    ),
-                    SizedBox(
-                      width: w * 0.01,
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: MyColors.mainColor,
-                      size: w * 0.065,
-                    ),
-                  ],
+
+
+
+
+                InkWell(
+                  onTap: () {
+                    showGoverMenu(context:context,w: w,list: AuthenticationcubitCubit.get(context).governorate);
+                  },
+
+                  child: BlocConsumer<AppCubit,AppState>(
+                    listener: (context,state){},
+                    builder: (context,state){
+
+                      return Row(
+                        children: [
+                          (AppCubit.get(context).governorate != null)? Text(
+                            AppCubit.get(context).governorate!,
+                            style: headingStyle.copyWith(fontSize: 16),
+                          ) : Text(
+                            LocaleKeys.Governorate.tr(),
+                            style: headingStyle.copyWith(fontSize: 16),
+                          ),
+                          SizedBox(
+                            width: w * 0.01,
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: MyColors.mainColor,
+                            size: w * 0.065,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 )
               ],
             );
@@ -217,6 +255,8 @@ class _SignupFormState extends State<SignupForm> {
         SizedBox(
           height: h * 0.04,
         ),
+
+
         defaultButton(
             title: LocaleKeys.SignUp.tr(),
             onPressed: () {
