@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget textFormField({
   required TextEditingController? controller,
-  required FormFieldValidator<String>? validator,
+  FormFieldValidator<String>? validator,
   required bool obscureText,
   required String hintText,
   Widget? suffixIcon,
