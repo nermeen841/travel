@@ -50,7 +50,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   dio: any
   sqflite: ^2.0.2
-
+  conditional_builder_null_safety: ^0.0.6
   
 
 dev_dependencies:

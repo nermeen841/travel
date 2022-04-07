@@ -1,14 +1,20 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/appCubit/app_Cubit.dart';
+import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
 import 'package:travel/presentation/screens/splash/splash_screen.dart';
 import 'business_logic/auth_cubit/authenticationcubit_cubit.dart';
+import 'business_logic/home_cubit/home_cubit.dart';
 import 'generated/codegen_loader.g.dart';
 import 'network/dio/dio_helper.dart';
 import 'network/bloc_observer.dart';
+import 'network/myHttpOverrider.dart';
 
 // Color(0xff3a0ca3),
 
@@ -23,6 +29,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   // await Firebase.initializeApp();
   await DioHelper.inti();
+  HttpOverrides.global = MyHttpOverrides();
 
   BlocOverrides.runZoned(
     () {
@@ -48,7 +55,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthenticationcubitCubit>(
             create: (context) =>
-                AuthenticationcubitCubit()..getGovernorates(countryID: '1'))
+                AuthenticationcubitCubit()..getGovernorates(countryID: '1')..getCity(governorateID: '')),
+      BlocProvider<AppCubit>(create: (context)=> AppCubit()),
+      BlocProvider<CategoriesCubit>(create: (context)=> CategoriesCubit()..getCategory()),
+      BlocProvider<HomeCubit>(create: (context)=> HomeCubit()..getRecommended()),
       ],
       child: MaterialApp(
         theme: ThemeData(

@@ -6,7 +6,7 @@ import 'package:travel/presentation/screens/review/review.dart';
 
 import '../../../../generated/locale_keys.g.dart';
 
-headerTitle({required double h, required double w}) {
+headerTitle({required double h, required double w,required String name, required String city,required double? rate}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: w * 0.03),
     child: Row(
@@ -17,7 +17,7 @@ headerTitle({required double h, required double w}) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Pyramids",
+              name,
               style: headingStyle.copyWith(
                   fontWeight: FontWeight.bold, fontSize: w * 0.054),
             ),
@@ -35,7 +35,7 @@ headerTitle({required double h, required double w}) {
                   width: w * 0.01,
                 ),
                 Text(
-                  "Giza",
+                  city,
                   textAlign: TextAlign.start,
                   style: headingStyle.copyWith(
                       fontWeight: FontWeight.w400, fontSize: w * 0.04),
@@ -47,7 +47,7 @@ headerTitle({required double h, required double w}) {
         RatingBar.builder(
           ignoreGestures: true,
           tapOnlyMode: false,
-          initialRating: 4,
+          initialRating: rate!,
           minRating: 1,
           itemSize: w * 0.065,
           direction: Axis.horizontal,

@@ -1,47 +1,70 @@
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:travel/constants/network_services.dart';
 import 'package:travel/models/GetGovernoratesModel.dart';
 import 'package:travel/network/dio/dio_helper.dart';
 
-import 'package:http/http.dart' as http;
+import '../../models/CityModel.dart';
 part 'authenticationcubit_state.dart';
 
 class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
   AuthenticationcubitCubit() : super(AuthenticationcubitInitial());
 
   static AuthenticationcubitCubit get(context) => BlocProvider.of(context);
-//const String GetGovernorates = 'api/Cities/GetGovernorates';
 
   GetGovernoratesModel getGovernoratesModel = GetGovernoratesModel();
 
+  List governorate = [];
+
   void getGovernorates({required String countryID}) async {
-    // contactModel = ContactModel.fromJson(value.data);
+    governorate = [];
     emit(GetGovernoratesLoadingState());
-    try {
-      var response =
-          await http.get(Uri.parse(BaseUrl + GetGovernorates + "?countryID=1"));
-      var data = jsonDecode(response.body);
-      getGovernoratesModel = GetGovernoratesModel.fromJson(data);
-      print(data);
+    DioHelper.getData(url: GetGovernorates, query: {'countryID': countryID})
+        .then((value) {
+      for (var item in value.data) {
+        getGovernoratesModel = GetGovernoratesModel.fromJson(item);
+        governorate.add(getGovernoratesModel);
+      }
+
+      print(value.data);
       print('Successsssssssssssssssssssssssssssssssssssssssssss');
       emit(GetGovernoratesSuccessState());
-    } catch (error) {
+      return governorate;
+    }).catchError((error) {
       emit(GetGovernoratesErrorState(error.toString()));
       print(" errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" + error.toString());
-    }
-    // DioHelper.getData(url: GetGovernorates, query: {'countryID': countryID})
-    //     .then((value) {
-    //   getGovernoratesModel = GetGovernoratesModel.fromJson(value.data);
-    //   print(value.data);
-    //   print('Successsssssssssssssssssssssssssssssssssssssssssss');
-    //   emit(GetGovernoratesSuccessState());
-    // }).catchError((error) {
-    //   emit(GetGovernoratesErrorState(error.toString()));
-    //   print(" errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" + error.toString());
-    // });
+    });
   }
+
+
+  CityModel cityModel = CityModel();
+  List city = [];
+
+   getCity({required String governorateID}) async {
+    city = [];
+    emit(GetCitiesLoadingState());
+    DioHelper.getData(url: GetCities, query: {'governorateID': governorateID})
+        .then((value) {
+      for (var item in value.data) {
+        cityModel = CityModel.fromJson(item);
+        city.add(cityModel);
+      }
+
+      print(value.data);
+
+      print('Successsssssssssssssssssssssssssssssssssssssssssss111111111111111111111');
+      emit(GetCitiesSuccessState());
+      print(city[0].nameAR);
+
+      return city;
+    }).catchError((error) {
+      emit(GetCitiesErrorState(error.toString()));
+      print(" errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" + error.toString());
+    });
+  }
+
+
+
 }
