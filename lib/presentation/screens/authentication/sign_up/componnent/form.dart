@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/appCubit/app_Cubit.dart';
+import 'package:travel/business_logic/appCubit/app_states.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
+import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 
 import '../../../../../constants/colors.dart';
 import '../../../../../constants/constants.dart';
@@ -178,60 +181,55 @@ class _SignupFormState extends State<SignupForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      LocaleKeys.City.tr(),
-                      style: headingStyle.copyWith(fontSize: 16),
-                    ),
-                    SizedBox(
-                      width: w * 0.01,
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: MyColors.mainColor,
-                      size: w * 0.065,
-                    ),
-                  ],
+
+
+                InkWell(
+                  onTap: (){
+                    showCitysMenu(context: context, w: w, list: AuthenticationcubitCubit.get(context).city);
+                  },
+                  child: BlocConsumer<AppCubit,AppState>(
+                    listener: (context , state){},
+                    builder: (context , state){
+                      return Row(
+                        children: [
+                          (AppCubit.get(context).city != null)? Text(
+                            AppCubit.get(context).city!,
+                            style: headingStyle.copyWith(fontSize: 16),
+                          ) : Text(
+                            LocaleKeys.City.tr(),
+                            style: headingStyle.copyWith(fontSize: 16),
+                          ),
+
+
+
+                          SizedBox(
+                            width: w * 0.01,
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: MyColors.mainColor,
+                            size: w * 0.065,
+                          ),
+                        ],
+                      );
+                    },
+
+                  ),
                 ),
+
+
+
+
                 InkWell(
                   onTap: () {
-                    void showYearMenu() async {
-                      String yearSelected = '';
-                      await showMenu(
-                        context: context,
-                        position: const RelativeRect.fromLTRB(
-                            100, 380, 100, 200), //Map((String choice)
-                        items: AuthenticationcubitCubit.get(context)
-                            .governorate
-                            .map((choice) {
-                          return PopupMenuItem(
-                            value: choice,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                                setState(() {
-                                  yearSelected = choice;
-                                });
-                              },
-                              child: Text(
-                                choice,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: w * 0.04,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Tajawal'),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        elevation: 8.0,
-                      );
-                    }
+                    showGoverMenu(context: context, w: w, list: AuthenticationcubitCubit.get(context).governorate);
                   },
                   child: Row(
                     children: [
-                      Text(
+                      (AppCubit.get(context).governorate != null)? Text(
+                        AppCubit.get(context).governorate!,
+                        style: headingStyle.copyWith(fontSize: 16),
+                      ) : Text(
                         LocaleKeys.Governorate.tr(),
                         style: headingStyle.copyWith(fontSize: 16),
                       ),

@@ -71,7 +71,8 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
 
 
-  Future<void> register({
+
+   register({
     required String email,
     required String firstName,
     required String password,
@@ -115,4 +116,8 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
       emit(RegisterErrorState(error.toString()));
     });
   }
+
+
+
+
 }
