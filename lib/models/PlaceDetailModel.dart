@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class PlaceDetailModel {
   int? id;
   String? nameAR;
@@ -21,24 +23,24 @@ class PlaceDetailModel {
 
   PlaceDetailModel(
       {this.id,
-        this.nameAR,
-        this.nameEN,
-        this.overViewAR,
-        this.overViewEN,
-        this.details,
-        this.thumbnail,
-        this.rate,
-        this.subCategoryID,
-        this.subCategory,
-        this.advertisorID,
-        this.advertisor,
-        this.locationLong,
-        this.locationLat,
-        this.addressAR,
-        this.addressEN,
-        this.cityID,
-        this.city,
-        this.isActive});
+      this.nameAR,
+      this.nameEN,
+      this.overViewAR,
+      this.overViewEN,
+      this.details,
+      this.thumbnail,
+      this.rate,
+      this.subCategoryID,
+      this.subCategory,
+      this.advertisorID,
+      this.advertisor,
+      this.locationLong,
+      this.locationLat,
+      this.addressAR,
+      this.addressEN,
+      this.cityID,
+      this.city,
+      this.isActive});
 
   PlaceDetailModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -51,7 +53,7 @@ class PlaceDetailModel {
     rate = json['rate'];
     subCategoryID = json['subCategoryID'];
     subCategory = json['subCategory'] != null
-        ?  SubCategory.fromJson(json['subCategory'])
+        ? SubCategory.fromJson(json['subCategory'])
         : null;
     advertisorID = json['advertisorID'];
     advertisor = json['advertisor'];
@@ -60,7 +62,7 @@ class PlaceDetailModel {
     addressAR = json['addressAR'];
     addressEN = json['addressEN'];
     cityID = json['cityID'];
-    city = json['city'] != null ?  City.fromJson(json['city']) : null;
+    city = json['city'] != null ? City.fromJson(json['city']) : null;
     isActive = json['isActive'];
   }
 }
@@ -75,23 +77,21 @@ class SubCategory {
 
   SubCategory(
       {this.id,
-        this.categoryID,
-        this.category,
-        this.nameAR,
-        this.nameEN,
-        this.image});
+      this.categoryID,
+      this.category,
+      this.nameAR,
+      this.nameEN,
+      this.image});
 
   SubCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     categoryID = json['categoryID'];
-    category = json['category'] != null
-        ?  Category.fromJson(json['category'])
-        : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
     nameAR = json['nameAR'];
     nameEN = json['nameEN'];
     image = json['image'];
   }
-
 }
 
 class Category {
@@ -108,7 +108,6 @@ class Category {
     nameEN = json['nameEN'];
     image = json['image'];
   }
-
 }
 
 class City {
@@ -121,11 +120,11 @@ class City {
 
   City(
       {this.id,
-        this.nameAR,
-        this.nameEN,
-        this.governorateID,
-        this.governorate,
-        this.thumbnail});
+      this.nameAR,
+      this.nameEN,
+      this.governorateID,
+      this.governorate,
+      this.thumbnail});
 
   City.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -133,11 +132,10 @@ class City {
     nameEN = json['nameEN'];
     governorateID = json['governorateID'];
     governorate = json['governorate'] != null
-        ?  Governorate.fromJson(json['governorate'])
+        ? Governorate.fromJson(json['governorate'])
         : null;
     thumbnail = json['thumbnail'];
   }
-
 }
 
 class Governorate {
@@ -156,9 +154,8 @@ class Governorate {
     nameEN = json['nameEN'];
     countryID = json['countryID'];
     country =
-    json['country'] != null ?  Country.fromJson(json['country']) : null;
+        json['country'] != null ? Country.fromJson(json['country']) : null;
   }
-
 }
 
 class Country {
@@ -173,5 +170,4 @@ class Country {
     nameAR = json['nameAR'];
     nameEN = json['nameEN'];
   }
-
 }

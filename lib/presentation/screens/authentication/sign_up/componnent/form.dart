@@ -173,35 +173,33 @@ class _SignupFormState extends State<SignupForm> {
           height: h * 0.035,
         ),
         BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
-
                 InkWell(
-                  onTap: (){
-                    showCitysMenu(context: context, w: w, list: AuthenticationcubitCubit.get(context).city);
+                  onTap: () {
+                    showCitysMenu(
+                        context: context,
+                        w: w,
+                        list: AuthenticationcubitCubit.get(context).city);
                   },
-                  child: BlocConsumer<AppCubit,AppState>(
-                    listener: (context , state){},
-                    builder: (context , state){
+                  child: BlocConsumer<AppCubit, AppState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
                       return Row(
                         children: [
-                          (AppCubit.get(context).city != null)? Text(
-                            AppCubit.get(context).city!,
-                            style: headingStyle.copyWith(fontSize: 16),
-                          ) : Text(
-                            LocaleKeys.City.tr(),
-                            style: headingStyle.copyWith(fontSize: 16),
-                          ),
-
-
-
+                          (AppCubit.get(context).city != null)
+                              ? Text(
+                                  AppCubit.get(context).city!,
+                                  style: headingStyle.copyWith(fontSize: 16),
+                                )
+                              : Text(
+                                  LocaleKeys.City.tr(),
+                                  style: headingStyle.copyWith(fontSize: 16),
+                                ),
                           SizedBox(
                             width: w * 0.01,
                           ),
@@ -213,26 +211,27 @@ class _SignupFormState extends State<SignupForm> {
                         ],
                       );
                     },
-
                   ),
                 ),
-
-
-
-
                 InkWell(
                   onTap: () {
-                    showGoverMenu(context: context, w: w, list: AuthenticationcubitCubit.get(context).governorate);
+                    showGoverMenu(
+                        context: context,
+                        w: w,
+                        list:
+                            AuthenticationcubitCubit.get(context).governorate);
                   },
                   child: Row(
                     children: [
-                      (AppCubit.get(context).governorate != null)? Text(
-                        AppCubit.get(context).governorate!,
-                        style: headingStyle.copyWith(fontSize: 16),
-                      ) : Text(
-                        LocaleKeys.Governorate.tr(),
-                        style: headingStyle.copyWith(fontSize: 16),
-                      ),
+                      (AppCubit.get(context).governorate != null)
+                          ? Text(
+                              AppCubit.get(context).governorate!,
+                              style: headingStyle.copyWith(fontSize: 16),
+                            )
+                          : Text(
+                              LocaleKeys.Governorate.tr(),
+                              style: headingStyle.copyWith(fontSize: 16),
+                            ),
                       SizedBox(
                         width: w * 0.01,
                       ),
@@ -254,16 +253,13 @@ class _SignupFormState extends State<SignupForm> {
         defaultButton(
             title: LocaleKeys.SignUp.tr(),
             onPressed: () {
-              if (formKey.currentState!.validate()) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BottomNave(
-                      index: 0,
-                    ),
-                  ),
-                );
-              }
+              AuthenticationcubitCubit.get(context).register(
+                  email: emailController.text,
+                  firstName: firstNameController.text,
+                  password: passwordController.text,
+                  phone: phoneController.text,
+                  lastName: lastNameController.text,
+                  confirmPassword: confirmPasswordController.text);
             },
             fontSize: 16,
             height: h * 0.07,

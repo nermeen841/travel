@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class CityModel {
   int? id;
   String? nameAR;
@@ -5,14 +7,14 @@ class CityModel {
   int? governorateID;
   // /Null? thumbnail;
 
-  CityModel(
-      {this.id,
-        this.nameAR,
-        this.nameEN,
-        this.governorateID,
-        // this.governorate,
-        // this.thumbnail
-      });
+  CityModel({
+    this.id,
+    this.nameAR,
+    this.nameEN,
+    this.governorateID,
+    // this.governorate,
+    // this.thumbnail
+  });
 
   CityModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -22,6 +24,4 @@ class CityModel {
     // governorate = json['governorate'];
     // thumbnail = json['thumbnail'];
   }
-
-
 }

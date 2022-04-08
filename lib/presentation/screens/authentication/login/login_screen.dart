@@ -2,6 +2,8 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/authentication/forget_password/forget_password_screen.dart';
@@ -104,29 +106,34 @@ class LoginScreen extends StatelessWidget {
           SizedBox(
             height: h * 0.03,
           ),
-          defaultButton(
-              title: LocaleKeys.Login.tr(),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BottomNave(
-                              index: 0,
-                            )));
-              },
-              fontSize: 16,
-              height: h * 0.07,
-              width: 260,
-              color: Colors.white,
-              textColor: const Color(0xff3A0CA3),
-              margin: EdgeInsets.symmetric(horizontal: w * 0.05),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade500,
-                  blurRadius: 5,
-                  offset: const Offset(0, 5), // Shadow position
-                ),
-              ]),
+          BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
+              builder: ((context, state) => defaultButton(
+                      title: LocaleKeys.Login.tr(),
+                      onPressed: () {
+                        AuthenticationcubitCubit.get(context).login(
+                            email: emailController.text,
+                            password: passwordController.text);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const BottomNave(
+                        //               index: 0,
+                        //             )));
+                      },
+                      fontSize: 16,
+                      height: h * 0.07,
+                      width: 260,
+                      color: Colors.white,
+                      textColor: const Color(0xff3A0CA3),
+                      margin: EdgeInsets.symmetric(horizontal: w * 0.05),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade500,
+                          blurRadius: 5,
+                          offset: const Offset(0, 5), // Shadow position
+                        ),
+                      ])),
+              listener: (context, state) {}),
           SizedBox(
             height: h * 0.04,
           ),

@@ -1,7 +1,6 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, avoid_print
 
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -9,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/constants/network_services.dart';
 import 'package:travel/models/GetGovernoratesModel.dart';
 import 'package:travel/network/dio/dio_helper.dart';
-
 import '../../models/CityModel.dart';
 part 'authenticationcubit_state.dart';
 
@@ -42,11 +40,10 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     });
   }
 
-
   CityModel cityModel = CityModel();
   List city = [];
 
-   getCity({required String governorateID}) async {
+  getCity({required String governorateID}) async {
     city = [];
     emit(GetCitiesLoadingState());
     DioHelper.getData(url: GetCities, query: {'governorateID': governorateID})
@@ -58,7 +55,8 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
       print(value.data);
 
-      print('Successsssssssssssssssssssssssssssssssssssssssssss111111111111111111111');
+      print(
+          'Successsssssssssssssssssssssssssssssssssssssssssss111111111111111111111');
       emit(GetCitiesSuccessState());
       print(city[0].nameAR);
 
@@ -69,10 +67,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     });
   }
 
-
-
-
-   register({
+  register({
     required String email,
     required String firstName,
     required String password,
@@ -80,20 +75,22 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     required String lastName,
     required String confirmPassword,
   }) async {
-    Map<dynamic, dynamic> dob= {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    final String cityID = preferences.getString('city_id') ?? '';
+
+    Map<String, dynamic> dob = {
       "year": -80311291,
       "month": -16932004,
       "day": 6000061,
-      "dayOfWeek": 0,
+      "dayOfWeek": 0
     };
-     SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String cityID = preferences.getString('city_id') ?? '';
+    var birthDate = jsonEncode(dob);
     FormData formData = FormData.fromMap({
       "firstName": firstName,
       "lastName": lastName,
       "email": email,
       "phone": phone,
-      'dob': jsonEncode(dob),
+      'dob': birthDate,
       "password": password,
       "confirmPassword": confirmPassword,
       "cityID": cityID,
@@ -103,21 +100,32 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
       url: Register,
       data: formData,
       headers: {
-        'Content-Type':'application/json',
-        'Accept':'text/plain',
+        'Content-Type': 'application/json',
+        'Accept': 'text/plain',
       },
     ).then((value) {
-
+      print(value.statusCode);
       print(value.data);
       emit(RegisterSuccessState());
     }).catchError((error) {
-
       print(error.toString());
       emit(RegisterErrorState(error.toString()));
     });
   }
 
-
-
-
+  void login({required String email, required String password}) async {
+    FormData formData =
+        FormData.fromMap({"email": email, "password": password});
+    emit(LoginLoadingState());
+    DioHelper.postData(
+      url: Login,
+      data: formData,
+    ).then((value) {
+      print(value.data);
+      print(value.statusCode);
+    }).catchError((error) {
+      emit(LoginErrorState(error.toString()));
+      print("login error : " + error.toString());
+    });
+  }
 }

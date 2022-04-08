@@ -1,19 +1,17 @@
 // ignore_for_file: avoid_print
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/business_logic/appCubit/app_Cubit.dart';
 import 'package:travel/business_logic/appCubit/app_states.dart';
-
 import '../../../business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import '../../../generated/locale_keys.g.dart';
 
 Widget richTextInSignUp() => RichText(
       textAlign: TextAlign.center,
-      text:  TextSpan(
+      text: TextSpan(
         children: [
           TextSpan(
             text: LocaleKeys.Terms.tr(),
@@ -24,7 +22,7 @@ Widget richTextInSignUp() => RichText(
               color: Color(0xff3A0CA3),
             ),
           ),
-           TextSpan(
+          TextSpan(
             text: LocaleKeys.AND.tr(),
             style: const TextStyle(
               fontFamily: 'Poppins',
@@ -45,7 +43,6 @@ Widget richTextInSignUp() => RichText(
       ),
     );
 
-
 void showGoverMenu({
   required context,
   required double w,
@@ -53,22 +50,24 @@ void showGoverMenu({
 }) async {
   await showMenu(
     context: context,
-    position: const RelativeRect.fromLTRB(
-        300, 380, 0, 100), //Map((String choice)
-    items:list.map((choice) {
+    position:
+        const RelativeRect.fromLTRB(300, 380, 0, 100), //Map((String choice)
+    items: list.map((choice) {
       return PopupMenuItem(
         value: choice.nameEN.toString(),
-        child: BlocConsumer<AppCubit,AppState>(
-          listener: (context,state){},
-          builder: (context,state){
+        child: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {},
+          builder: (context, state) {
             return InkWell(
-              onTap:
-                  () async{
-               AuthenticationcubitCubit.get(context).getCity(governorateID: choice.id.toString());
-                AppCubit.get(context).governorate= choice.nameEN.toString();
-                AppCubit.get(context).choseGovernorates(choice.nameEN.toString());
+              onTap: () async {
+                AuthenticationcubitCubit.get(context)
+                    .getCity(governorateID: choice.id.toString());
+                AppCubit.get(context).governorate = choice.nameEN.toString();
+                AppCubit.get(context)
+                    .choseGovernorates(choice.nameEN.toString());
                 Navigator.pop(context);
-                print("------------------------------------------"+choice.nameEN.toString());
+                print("------------------------------------------" +
+                    choice.nameEN.toString());
               },
               child: Text(
                 choice.nameEN.toString(),
@@ -86,8 +85,6 @@ void showGoverMenu({
     elevation: 8.0,
   );
 }
-
-
 
 void showCitysMenu({
   required context,
@@ -96,23 +93,24 @@ void showCitysMenu({
 }) async {
   await showMenu(
     context: context,
-    position: const RelativeRect.fromLTRB(
-        0, 380, 300, 100), //Map((String choice)
-    items:list.map((choice) {
+    position:
+        const RelativeRect.fromLTRB(0, 380, 300, 100), //Map((String choice)
+    items: list.map((choice) {
       return PopupMenuItem(
         value: choice.nameEN.toString(),
-        child: BlocConsumer<AppCubit,AppState>(
-          listener: (context,state){},
-          builder: (context,state){
+        child: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {},
+          builder: (context, state) {
             return InkWell(
-              onTap:
-                  () async{
-                 SharedPreferences preferences = await SharedPreferences.getInstance();
-                 preferences.setString( 'city_id', choice.id.toString());
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.setString('city_id', choice.id.toString());
                 AppCubit.get(context).city = choice.nameEN.toString();
                 AppCubit.get(context).choseCity(choice.nameEN.toString());
                 Navigator.pop(context);
-                print("------------------------------------------"+choice.nameEN.toString());
+                print("------------------------------------------" +
+                    choice.nameEN.toString());
               },
               child: Text(
                 choice.nameEN.toString(),
@@ -130,4 +128,3 @@ void showCitysMenu({
     elevation: 8.0,
   );
 }
-

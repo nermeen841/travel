@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class RecommendedModel {
   int? id;
   String? nameAR;
@@ -21,24 +23,24 @@ class RecommendedModel {
 
   RecommendedModel(
       {this.id,
-        this.nameAR,
-        this.nameEN,
-        this.overViewAR,
-        this.overViewEN,
-        this.details,
-        this.thumbnail,
-        this.rate,
-        this.subCategoryID,
-        this.subCategory,
-        this.advertisorID,
-        this.advertisor,
-        this.locationLong,
-        this.locationLat,
-        this.addressAR,
-        this.addressEN,
-        this.cityID,
-        this.city,
-        this.isActive});
+      this.nameAR,
+      this.nameEN,
+      this.overViewAR,
+      this.overViewEN,
+      this.details,
+      this.thumbnail,
+      this.rate,
+      this.subCategoryID,
+      this.subCategory,
+      this.advertisorID,
+      this.advertisor,
+      this.locationLong,
+      this.locationLat,
+      this.addressAR,
+      this.addressEN,
+      this.cityID,
+      this.city,
+      this.isActive});
 
   RecommendedModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

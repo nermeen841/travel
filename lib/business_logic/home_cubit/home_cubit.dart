@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,11 +19,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   List recommended = [];
 
-   getRecommended() async {
-     recommended = [];
+  getRecommended() async {
+    recommended = [];
     emit(RecommendedLoadingState());
-    DioHelper.getData(url: GetRecommendedPlacesInHome,)
-        .then((value) {
+    DioHelper.getData(
+      url: GetRecommendedPlacesInHome,
+    ).then((value) {
       for (var item in value.data) {
         recommendedModel = RecommendedModel.fromJson(item);
         recommended.add(recommendedModel);
@@ -39,29 +41,20 @@ class HomeCubit extends Cubit<HomeState> {
 
   PlaceDetailModel placeDetailModel = PlaceDetailModel();
 
-   getPlaceDetail({required String id, required context}){
-     emit(PlaceDetailLoadingState());
-     DioHelper.getData(url: GetPlaceInDetails,query: {
-       'id': id,
-     }).then((value) {
-       placeDetailModel = PlaceDetailModel.fromJson(value.data);
-       print(value.data);
-       Navigator.push(
-           context,
-           MaterialPageRoute(
-               builder: (context) => const DetailScreen()));
-       emit(PlaceDetailSuccessState());
-       return placeDetailModel;
-     }).catchError((error){
-       print(error.toString());
-       emit(PlaceDetailErrorState(error.toString()));
-     });
-   }
-
-
-
-
-
-
-
+  getPlaceDetail({required String id, required context}) {
+    emit(PlaceDetailLoadingState());
+    DioHelper.getData(url: GetPlaceInDetails, query: {
+      'id': id,
+    }).then((value) {
+      placeDetailModel = PlaceDetailModel.fromJson(value.data);
+      print(value.data);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const DetailScreen()));
+      emit(PlaceDetailSuccessState());
+      return placeDetailModel;
+    }).catchError((error) {
+      print(error.toString());
+      emit(PlaceDetailErrorState(error.toString()));
+    });
+  }
 }

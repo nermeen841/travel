@@ -31,10 +31,6 @@ class DioHelper {
     String? token,
   }) async {
     return dio.post(url,
-        data: data,
-        options: Options(
-          headers: headers,
-        ),
-        queryParameters: query);
+        data: data, options: Options(headers: headers), queryParameters: query);
   }
 }
