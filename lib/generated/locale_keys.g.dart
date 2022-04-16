@@ -15,13 +15,9 @@ abstract class LocaleKeys {
   static const AND = 'AND';
   static const Write_Review = 'Write Review';
   static const EDIT = 'EDIT';
-  // "The world":"العالم لك",
-  //     "Explore":"لتستكشفه",
-  //
   static const Email = 'Email';
   static const Explore = 'Explore';
   static const The_world = 'The world';
-
   static const Where_are = 'Where are';
   static const Clear = 'Clear';
   static const Last_Searched = 'Last_Searched';
@@ -42,12 +38,6 @@ abstract class LocaleKeys {
   static const Share = 'Share';
   static const Details = 'Details';
   static const RateAnd = 'RateAnd';
-  //"overview":"نظرة عامة",
-  //     "Details":"التفاصيل",
-  //     "Share":"شارك تجربتك لمساعدة الآخرين",
-  //     "RateAnd":"تقييم ومراجعة",
-  //
-
   static const About_Us = 'About Us';
   static const City = 'City';
   static const Contact_Us = 'Contact Us';
@@ -57,7 +47,6 @@ abstract class LocaleKeys {
   static const Login = 'Login';
   static const SignUp = 'SignUp';
   static const SKIP = 'SKIP';
-
   static const Governorate = 'Governorate';
   static const Popular = 'Popular Destinations';
   static const Recommended = 'Recommended';
@@ -68,10 +57,6 @@ abstract class LocaleKeys {
   static const Profile_Details = 'Profile Details';
   static const DateOfBirth = 'DateOfBirth';
   static const Address = 'Address';
-  // "Profile Details":"تفاصيل الملف الشخصي",
-  //     "DateOfBirth":"تاريخ الميلاد",
-  //     "Address":"العنوان",
-  //
   static const Please_select_your_language = 'Please select your language';
   static const Forgot_Password = 'Forgot Password';
   static const Forget_Password = 'Forget Password';
@@ -81,6 +66,5 @@ abstract class LocaleKeys {
   static const Password = 'Password';
   static const Confirm_Password = 'Confirm Password';
   static const New_Password = 'New Password';
-
-
+  static const LOGIN_ERROR = "login_error";
 }

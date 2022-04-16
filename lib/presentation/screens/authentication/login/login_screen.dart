@@ -7,8 +7,9 @@ import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart'
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/authentication/forget_password/forget_password_screen.dart';
-import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
+
+import '../../layout/bottomNave.dart';
 
 class LoginScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -111,14 +112,10 @@ class LoginScreen extends StatelessWidget {
                       title: LocaleKeys.Login.tr(),
                       onPressed: () {
                         AuthenticationcubitCubit.get(context).login(
+                            context: context,
+                            w: w,
                             email: emailController.text,
                             password: passwordController.text);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const BottomNave(
-                        //               index: 0,
-                        //             )));
                       },
                       fontSize: 16,
                       height: h * 0.07,
@@ -133,7 +130,16 @@ class LoginScreen extends StatelessWidget {
                           offset: const Offset(0, 5), // Shadow position
                         ),
                       ])),
-              listener: (context, state) {}),
+              listener: (context, state) {
+                if (state is LoginSuccessState) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BottomNave(
+                                index: 0,
+                              )));
+                }
+              }),
           SizedBox(
             height: h * 0.04,
           ),

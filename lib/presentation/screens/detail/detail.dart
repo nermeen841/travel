@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel/business_logic/appCubit/app_Cubit.dart';
-import 'package:travel/business_logic/appCubit/app_states.dart';
 import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/business_logic/home_cubit/home_states.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/map/map_track.dart';
 
+import '../../../business_logic/database_helper/app_Cubit.dart';
+import '../../../business_logic/database_helper/app_states.dart';
 import 'componnent/body.dart';
 import 'componnent/componnent.dart';
 
@@ -37,12 +37,12 @@ class _DetailScreenState extends State<DetailScreen> {
         toolbarHeight: 0.0,
         backgroundColor: MyColors.mainColor,
       ),
-      body: BlocConsumer<AppCubit,AppState>(
-        listener: (context,state){},
-        builder: (context,state){
+      body: BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {},
+        builder: (context, state) {
           return ConditionalBuilder(
             condition: state is! PlaceDetailLoadingState,
-            builder: (context)=> SingleChildScrollView(
+            builder: (context) => SingleChildScrollView(
               child: Column(
                 // shrinkWrap: true,
                 // primary: true,
@@ -55,7 +55,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         Swiper(
                           pagination: SwiperPagination(
                               builder: DotSwiperPaginationBuilder(
-                                  color: MyColors.backgroundColor.withOpacity(0.5),
+                                  color:
+                                      MyColors.backgroundColor.withOpacity(0.5),
                                   activeColor: MyColors.mainColor),
                               alignment: Alignment.bottomCenter),
                           itemBuilder: (BuildContext context, int i) {
@@ -118,7 +119,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                     onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => MapTrackScreen())),
+                                            builder: (context) =>
+                                                MapTrackScreen())),
                                     child: Container(
                                       width: w * 0.09,
                                       height: h * 0.05,
@@ -145,8 +147,19 @@ class _DetailScreenState extends State<DetailScreen> {
                   SizedBox(
                     height: h * 0.02,
                   ),
-                  headerTitle(h: h, w: w, city: HomeCubit.get(context).placeDetailModel.city!.nameEN.toString(),
-                      name: HomeCubit.get(context).placeDetailModel.nameEN.toString(),rate: HomeCubit.get(context).placeDetailModel.rate),
+                  headerTitle(
+                      h: h,
+                      w: w,
+                      city: HomeCubit.get(context)
+                          .placeDetailModel
+                          .city!
+                          .nameEN
+                          .toString(),
+                      name: HomeCubit.get(context)
+                          .placeDetailModel
+                          .nameEN
+                          .toString(),
+                      rate: HomeCubit.get(context).placeDetailModel.rate),
                   SizedBox(
                     height: h * 0.02,
                   ),
@@ -154,11 +167,12 @@ class _DetailScreenState extends State<DetailScreen> {
                 ],
               ),
             ),
-            fallback: (context)=> Center(child: CircularProgressIndicator(color: MyColors.mainColor,)),
-
+            fallback: (context) => Center(
+                child: CircularProgressIndicator(
+              color: MyColors.mainColor,
+            )),
           );
         },
-
       ),
     );
   }

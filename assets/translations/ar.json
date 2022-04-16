@@ -65,5 +65,6 @@
     "Write Review":"اكتب رأيك",
     "Privacy Policy":"سياسة الخصوصية",
     "Terms And Conditions":"الشروط و الاحكام",
-    "Please select your language":"من فضلك اختيار لغتك"
+    "Please select your language":"من فضلك اختيار لغتك",
+    "login_error":"البيانات التي قمت بإدخالها غير مرتبطه بحساب"
 }

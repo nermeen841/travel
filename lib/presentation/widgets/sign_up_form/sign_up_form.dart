@@ -4,9 +4,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel/business_logic/appCubit/app_Cubit.dart';
-import 'package:travel/business_logic/appCubit/app_states.dart';
 import '../../../business_logic/auth_cubit/authenticationcubit_cubit.dart';
+import '../../../business_logic/database_helper/app_Cubit.dart';
+import '../../../business_logic/database_helper/app_states.dart';
 import '../../../generated/locale_keys.g.dart';
 
 Widget richTextInSignUp() => RichText(

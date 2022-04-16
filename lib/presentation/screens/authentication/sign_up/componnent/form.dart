@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel/business_logic/appCubit/app_Cubit.dart';
-import 'package:travel/business_logic/appCubit/app_states.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
+import 'package:travel/business_logic/database_helper/app_Cubit.dart';
+import 'package:travel/business_logic/database_helper/app_states.dart';
+import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
-
 import '../../../../../constants/colors.dart';
 import '../../../../../constants/constants.dart';
 import '../../../../../generated/locale_keys.g.dart';
 import '../../../../widgets/login_form/login_form.dart';
-import '../../../layout/bottomNave.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -42,18 +41,6 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 hintText: LocaleKeys.First_Name.tr(),
                 controller: firstNameController,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "first name is required",
-                        style: headingStyle.copyWith(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.black,
-                    ));
-                  }
-                  return null;
-                },
                 obscureText: false,
               ),
               SizedBox(
@@ -62,18 +49,6 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 hintText: LocaleKeys.Last_Name.tr(),
                 controller: lastNameController,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "last name is required",
-                        style: headingStyle.copyWith(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.black,
-                    ));
-                  }
-                  return null;
-                },
                 obscureText: false,
               ),
               SizedBox(
@@ -93,18 +68,6 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 hintText: LocaleKeys.Email.tr(),
                 controller: emailController,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "email is required",
-                        style: headingStyle.copyWith(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.black,
-                    ));
-                  }
-                  return null;
-                },
                 obscureText: false,
               ),
               SizedBox(
@@ -113,18 +76,6 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 hintText: LocaleKeys.Password.tr(),
                 controller: passwordController,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "password is required",
-                        style: headingStyle.copyWith(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.black,
-                    ));
-                  }
-                  return null;
-                },
                 obscureText: true,
                 suffixIcon: Icon(
                   Icons.visibility,
@@ -138,27 +89,6 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 hintText: LocaleKeys.Confirm_Password.tr(),
                 controller: confirmPasswordController,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "you  must confirm your password",
-                        style: headingStyle.copyWith(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.black,
-                    ));
-                  } else if (passwordController.text !=
-                      confirmPasswordController.text) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "password not match",
-                        style: headingStyle.copyWith(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.black,
-                    ));
-                  }
-                  return null;
-                },
                 obscureText: true,
                 suffixIcon: Icon(
                   Icons.visibility,
@@ -250,30 +180,40 @@ class _SignupFormState extends State<SignupForm> {
         SizedBox(
           height: h * 0.04,
         ),
-        defaultButton(
-            title: LocaleKeys.SignUp.tr(),
-            onPressed: () {
-              AuthenticationcubitCubit.get(context).register(
-                  email: emailController.text,
-                  firstName: firstNameController.text,
-                  password: passwordController.text,
-                  phone: phoneController.text,
-                  lastName: lastNameController.text,
-                  confirmPassword: confirmPasswordController.text);
-            },
-            fontSize: 16,
-            height: h * 0.07,
-            width: 260,
-            color: Colors.white,
-            textColor: const Color(0xff3A0CA3),
-            margin: EdgeInsets.symmetric(horizontal: w * 0.06),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade500,
-                blurRadius: 5,
-                offset: const Offset(0, 5), // Shadow position
-              ),
-            ]),
+        BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
+            builder: (context, state) {
+          return defaultButton(
+              title: LocaleKeys.SignUp.tr(),
+              onPressed: () {
+                AuthenticationcubitCubit.get(context).register(
+                    context: context,
+                    w: w,
+                    email: emailController.text,
+                    firstName: firstNameController.text,
+                    password: passwordController.text,
+                    phone: phoneController.text,
+                    lastName: lastNameController.text,
+                    confirmPassword: confirmPasswordController.text);
+              },
+              fontSize: 16,
+              height: h * 0.07,
+              width: 260,
+              color: Colors.white,
+              textColor: const Color(0xff3A0CA3),
+              margin: EdgeInsets.symmetric(horizontal: w * 0.06),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade500,
+                  blurRadius: 5,
+                  offset: const Offset(0, 5), // Shadow position
+                ),
+              ]);
+        }, listener: (context, state) {
+          if (state is RegisterSuccessState) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: ((context) => LoginScreen())));
+          }
+        }),
       ],
     );
   }

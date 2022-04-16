@@ -6,7 +6,6 @@
     "Login":"LOG IN",
     "SignUp":"SIGN UP",
     "SKIP":"SKIP",
-
     "Email":"Email",
     "Create Account":"Create Account",
     "Phone Number":"Phone Number",
@@ -55,7 +54,6 @@
     "Submit":"SUBMIT",
     "Popular Destinations":"Popular Destinations",
     "Recommended":"Recommended",
-
     "Welcome":"Welcome Back!",
     "Submitting":"SUBMITTING...",
     "Confirm Password":"Confirm Password",
@@ -63,5 +61,6 @@
     "Forgot Password":"Forgot Your Password?",
     "Do not worry":"Don't worry! It happens. Please enter the address associated with your account",
     "Please select your language":"Please select your language",
-    "Governorate":"Governorate"
+    "Governorate":"Governorate",
+    "login_error":"The data you entered is not associated with an account"
 }
