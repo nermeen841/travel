@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/business_logic/database_helper/database_cubit.dart';
+import 'package:travel/constants/constants.dart';
 import 'package:travel/constants/network_services.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/models/GetGovernoratesModel.dart';
@@ -194,6 +195,112 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     } catch (error) {
       emit(LoginErrorState(error.toString()));
       print("login error : " + error.toString());
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  Future<void> resetPasswordToken(
+      {required String email, required context}) async {
+    prefs.setString('email', email);
+    emit(ResetPassordTokenLoadingState());
+    try {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        "Accept": "text/plain"
+      };
+      final body = jsonEncode({"username": email});
+      var response = await http.post(
+        Uri.parse(RESET_PASS_TOKEN),
+        body: body,
+        headers: headers,
+        encoding: Encoding.getByName('utf-8'),
+      );
+      var data = jsonDecode(response.body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        prefs.setString('pass_token', data['token']);
+        emit(ResetPassordTokenSuccessState());
+      } else if (response.statusCode == 400) {
+        print(response.body);
+      } else if (response.statusCode == 404) {
+        print(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              LocaleKeys.LOGIN_ERROR.tr(),
+              style: const TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        );
+      }
+    } catch (e) {
+      emit(ResetPassordTokenErrorState(e.toString()));
+      print("reset token error : " + e.toString());
+    }
+  }
+
+////////////////////////////////////////////////////////////////////////
+
+  Future<void> resetPassword({
+    required String newPassword,
+    required String confirmNewPassword,
+    required context,
+  }) async {
+    final String email = prefs.getString("email").toString();
+    final String token = prefs.getString("pass_token").toString();
+    emit(ResetPasswordLoadingState());
+    try {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        "Accept": "text/plain"
+      };
+      final body = jsonEncode({
+        "username": email,
+        "newPassword": newPassword,
+        "confirmNewPassword": confirmNewPassword,
+        "token": token,
+      });
+      var response = await http.post(
+        Uri.parse(RESET_PASS),
+        body: body,
+        headers: headers,
+        encoding: Encoding.getByName('utf-8'),
+      );
+      var data = jsonDecode(response.body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Password Updated Successfully',
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        );
+        emit(ResetPasswordSuccessState());
+      } else if (response.statusCode == 400) {
+        print(response.body);
+      } else if (response.statusCode == 404) {
+        print(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "please try again later",
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        );
+      }
+    } catch (e) {
+      emit(ResetPasswordErrorState(e.toString()));
+      print("reset token error : " + e.toString());
     }
   }
 }

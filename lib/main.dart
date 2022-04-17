@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
 import 'package:travel/business_logic/database_helper/database_cubit.dart';
+import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/screens/splash/splash_screen.dart';
 import 'business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'business_logic/database_helper/app_Cubit.dart';
@@ -24,6 +25,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await startShared();
   HttpOverrides.global = MyHttpOverrides();
 
   BlocOverrides.runZoned(

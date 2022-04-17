@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/constants/colors.dart';
 
 Widget defaultButton({
   required String title,
@@ -34,3 +36,36 @@ Widget defaultButton({
         ),
       ),
     );
+//////////////////////////////////////////////////////////////////
+
+late SharedPreferences prefs;
+Future startShared() async {
+  prefs = await SharedPreferences.getInstance();
+}
+
+///////////////////////////////////////////////////////////////////////
+
+void dialog(context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return WillPopScope(
+        child: Opacity(
+          opacity: 0.7,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            color: Colors.black12,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: MyColors.mainColor,
+              ),
+            ),
+          ),
+        ),
+        onWillPop: () async => false,
+      );
+    },
+  );
+}

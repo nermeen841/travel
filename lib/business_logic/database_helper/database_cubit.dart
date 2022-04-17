@@ -63,7 +63,7 @@ class DataBaseCubit extends Cubit<AppState> {
     database?.transaction((txn) async {
       txn
           .rawInsert(
-              'INSERT INTO user( firstName , lastName ,email , image , userId ,userPhone,birthDate , userAddress  ) VALUES("$firstName" , "$lastName" ,"$email" , "$image" , "$userId" ,"$userPhone", "$birthDate" , "$userAddress")')
+              'INSERT INTO user( firstName , lastName ,email , image , userId ,userPhone , birthDate , userAddress  ) VALUES("$firstName" , "$lastName" ,"$email" , "$image" , "$userId" ,"$userPhone", "$birthDate" , "$userAddress")')
           .then((value) {
         emit(InsertdatabaseState());
         getfromDataBase(database);
@@ -72,8 +72,16 @@ class DataBaseCubit extends Cubit<AppState> {
       return null;
     });
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+
+  deleteTableContent() {
+    database!.delete("user").then((value) {
+      userData = [];
+      emit(DeleteTablecontentDatabase());
+      print("table content deleted successfulllllllllly");
+    }).catchError((error) {
+      print("error deletind table content" + error.toString());
+    });
+  }
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-

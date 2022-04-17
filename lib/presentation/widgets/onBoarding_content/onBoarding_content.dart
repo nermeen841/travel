@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/screens/authentication/login_or_signup/login_or_signUp_screen.dart';
 
@@ -104,7 +105,10 @@ Widget buildThirdOnboard(
                 defaultButton(
                     title: 'GET STARTED',
                     textColor: Colors.white,
-                    onPressed: () {
+                    onPressed: () async {
+                      SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                      pref.setBool("onBoarding", true);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

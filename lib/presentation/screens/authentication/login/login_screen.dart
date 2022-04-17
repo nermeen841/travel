@@ -11,9 +11,20 @@ import 'package:travel/presentation/widgets/login_form/login_form.dart';
 
 import '../../layout/bottomNave.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
+  bool secureText = true;
+
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -61,31 +72,66 @@ class LoginScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: const Color(0xff3A0CA3)),
           ),
-          SizedBox(
-            height: h * 0.013,
-          ),
-          textFormField(
-            hintText: LocaleKeys.Email.tr(),
-            controller: emailController,
-            validator: (val) {
-              return null;
-            },
-            obscureText: false,
-          ),
-          SizedBox(
-            height: h * 0.03,
-          ),
-          textFormField(
-            hintText: LocaleKeys.Password.tr(),
-            controller: passwordController,
-            validator: (val) {
-              return null;
-            },
-            obscureText: true,
-            suffixIcon: Icon(
-              Icons.visibility,
-              color: const Color(0xff3A0CA3).withOpacity(0.55),
-              size: 25,
+          Form(
+            key: formKey,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: h * 0.013,
+                ),
+                textFormField(
+                  hintText: LocaleKeys.Email.tr(),
+                  controller: emailController,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return "email is required";
+                    } else if (!val.contains("@") || !val.contains(".com")) {
+                      return "eamil is invalid";
+                    }
+                    return null;
+                  },
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: h * 0.03,
+                ),
+                textFormField(
+                  hintText: LocaleKeys.Password.tr(),
+                  controller: passwordController,
+                  validator: (val) {
+                    if (val!.length < 8) {
+                      return "passord must be at least 8 charachters";
+                    }
+                    return null;
+                  },
+                  obscureText: secureText,
+                  suffixIcon: (secureText)
+                      ? InkWell(
+                          onTap: () {
+                            setState(() {
+                              secureText = false;
+                            });
+                          },
+                          child: Icon(
+                            Icons.visibility_outlined,
+                            color: const Color(0xff3A0CA3).withOpacity(0.55),
+                            size: 25,
+                          ),
+                        )
+                      : InkWell(
+                          onTap: () {
+                            setState(() {
+                              secureText = true;
+                            });
+                          },
+                          child: Icon(
+                            Icons.visibility_off_outlined,
+                            color: const Color(0xff3A0CA3).withOpacity(0.55),
+                            size: 25,
+                          ),
+                        ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: h * 0.03),
@@ -111,11 +157,13 @@ class LoginScreen extends StatelessWidget {
               builder: ((context, state) => defaultButton(
                       title: LocaleKeys.Login.tr(),
                       onPressed: () {
-                        AuthenticationcubitCubit.get(context).login(
-                            context: context,
-                            w: w,
-                            email: emailController.text,
-                            password: passwordController.text);
+                        if (formKey.currentState!.validate()) {
+                          AuthenticationcubitCubit.get(context).login(
+                              context: context,
+                              w: w,
+                              email: emailController.text,
+                              password: passwordController.text);
+                        }
                       },
                       fontSize: 16,
                       height: h * 0.07,
@@ -132,12 +180,13 @@ class LoginScreen extends StatelessWidget {
                       ])),
               listener: (context, state) {
                 if (state is LoginSuccessState) {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const BottomNave(
                                 index: 0,
-                              )));
+                              )),
+                      (route) => false);
                 }
               }),
           SizedBox(

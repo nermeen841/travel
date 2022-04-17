@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/constants/colors.dart';
-
+import '../../../../constants/constants.dart';
 import '../../search/componnent/componnent.dart';
 
 headerTile(
@@ -24,25 +24,28 @@ headerTile(
               size: w * 0.1,
             ),
           )),
-      InkWell(
-        onTap: profileOnTap,
-        child: Container(
-          width: w * 0.1,
-          height: h * 0.05,
-          decoration: BoxDecoration(
-              border: Border.all(
-                color: MyColors.mainColor,
+      (prefs.getBool("is_login") == true)
+          ? InkWell(
+              onTap: profileOnTap,
+              child: Container(
+                width: w * 0.1,
+                height: h * 0.05,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: MyColors.mainColor,
+                  ),
+                  color: Colors.white,
+                  // borderRadius: BorderRadius.circular(w * 0.02),
+                  shape: BoxShape.circle,
+                  image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740",
+                      )),
+                ),
               ),
-              color: Colors.white,
-              // borderRadius: BorderRadius.circular(w * 0.02),
-              shape: BoxShape.circle,
-              image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740",
-                  ))),
-        ),
-      ),
+            )
+          : Container()
     ],
   );
 }

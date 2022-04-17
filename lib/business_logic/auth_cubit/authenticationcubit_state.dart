@@ -14,6 +14,33 @@ class LoginErrorState extends AuthenticationcubitState {
   LoginErrorState(this.error);
 }
 
+class ResetPassordTokenLoadingState extends AuthenticationcubitState {}
+
+class ResetPassordTokenSuccessState extends AuthenticationcubitState {}
+
+class ResetPassordTokenErrorState extends AuthenticationcubitState {
+  final String error;
+  ResetPassordTokenErrorState(this.error);
+}
+
+class ResetPasswordLoadingState extends AuthenticationcubitState {}
+
+class ResetPasswordSuccessState extends AuthenticationcubitState {}
+
+class ResetPasswordErrorState extends AuthenticationcubitState {
+  final String error;
+  ResetPasswordErrorState(this.error);
+}
+
+class ChangePasswordLoadingState extends AuthenticationcubitState {}
+
+class ChangePasswordSuccessState extends AuthenticationcubitState {}
+
+class ChangePasswordErrorState extends AuthenticationcubitState {
+  final String error;
+  ChangePasswordErrorState(this.error);
+}
+
 class RegisterLoadingState extends AuthenticationcubitState {}
 
 class RegisterSuccessState extends AuthenticationcubitState {}

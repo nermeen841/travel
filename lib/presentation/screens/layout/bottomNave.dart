@@ -58,13 +58,7 @@ class _BottomNaveState extends State<BottomNave> {
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 600),
         letIndexChange: (index) => true,
-        // elevation: 0.0,
-        // currentIndex: currentIndex,
         backgroundColor: Colors.transparent,
-        // selectedItemColor: MyColors.mainColor,
-        // unselectedItemColor: MyColors.unslectedIconColor,
-        // showSelectedLabels: false,
-        // showUnselectedLabels: false,
         onTap: (value) {
           setState(() {
             currentIndex = value;
@@ -91,26 +85,6 @@ class _BottomNaveState extends State<BottomNave> {
             Icons.favorite,
             color: (currentIndex == 4) ? MyColors.mainColor : Colors.white,
           ),
-          // BottomNavigationBarItem(
-          //     activeIcon: Icon(Icons.home),
-          //     icon: Icon(Icons.home_outlined),
-          //     label: ''),
-          // BottomNavigationBarItem(
-          //     activeIcon: Icon(Icons.search),
-          //     icon: Icon(Icons.search_outlined),
-          //     label: ''),
-          // BottomNavigationBarItem(
-          //     activeIcon: Icon(Icons.explore),
-          //     icon: Icon(Icons.explore_outlined),
-          //     label: ''),
-          // BottomNavigationBarItem(
-          //     activeIcon: Icon(Icons.notifications),
-          //     icon: Icon(Icons.notifications_outlined),
-          //     label: ''),
-          // BottomNavigationBarItem(
-          //     activeIcon: Icon(Icons.favorite),
-          //     icon: Icon(Icons.favorite_outline),
-          //     label: ''),
         ],
       ),
       body: screens[currentIndex],

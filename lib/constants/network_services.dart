@@ -12,3 +12,7 @@ const String GetCities = 'api/Cities/GetCities';
 const String GetGovernorates = 'api/Cities/GetGovernorates';
 const String GetPlaceReviews = 'api/Reviews/GetPlaceReviews';
 const String PostReview = 'api/Reviews/PostReview';
+const String RESET_PASS_TOKEN = BaseUrl + "api/Auth/ResetPasswordToken";
+const String RESET_PASS = BaseUrl + "api/Auth/ResetPassword";
+const String CHANGE_PASS = BaseUrl + "api/Auth/ChangePassword";
+const String EDIT_PROFILE = BaseUrl + "api/Client/EditProfile";

@@ -2,6 +2,8 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/authentication/reset_password/reset_password_screen.dart';
@@ -14,7 +16,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -59,11 +61,10 @@ class ForgetPasswordScreen extends StatelessWidget {
           Center(
             child: SizedBox(
               height: h * 0.06,
-              // width: 500,
               child: Text(
                 LocaleKeys.Do_not_worry.tr(),
                 textAlign: TextAlign.center,
-                style:const TextStyle(
+                style: const TextStyle(
                     fontSize: 15,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
@@ -74,38 +75,59 @@ class ForgetPasswordScreen extends StatelessWidget {
           SizedBox(
             height: h * 0.05,
           ),
-          textFormField(
-            hintText:  LocaleKeys.Email.tr(),
-            controller: emailController,
-            validator: (val) {
-              return null;
-            },
-            obscureText: false,
+          Form(
+            key: formKey,
+            child: textFormField(
+              hintText: LocaleKeys.Email.tr(),
+              controller: emailController,
+              validator: (val) {
+                if (val!.isEmpty) {
+                  return "email is required";
+                } else if (!val.contains("@") || !val.contains(".com")) {
+                  return "eamil is invalid";
+                }
+                return null;
+              },
+              obscureText: false,
+            ),
           ),
           SizedBox(
             height: h * 0.065,
           ),
-          defaultButton(
-              title:  LocaleKeys.Submit.tr(),
-              onPressed: () {
+          BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
+            listener: (context, state) {
+              if (state is ResetPassordTokenSuccessState) {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ResetPasswordScreen()));
-              },
-              fontSize: 16,
-              height: h * 0.07,
-              width: 260,
-              color: Colors.white,
-              textColor: const Color(0xff3A0CA3),
-              margin: const EdgeInsets.symmetric(horizontal: 25),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade500,
-                  blurRadius: 5,
-                  offset: const Offset(0, 5), // Shadow position
-                ),
-              ]),
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResetPasswordScreen()),
+                );
+              }
+            },
+            builder: (context, state) {
+              return defaultButton(
+                  title: LocaleKeys.Submit.tr(),
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      AuthenticationcubitCubit.get(context).resetPasswordToken(
+                          email: emailController.text, context: context);
+                    }
+                  },
+                  fontSize: 16,
+                  height: h * 0.07,
+                  width: 260,
+                  color: Colors.white,
+                  textColor: const Color(0xff3A0CA3),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      blurRadius: 5,
+                      offset: const Offset(0, 5), // Shadow position
+                    ),
+                  ]);
+            },
+          ),
         ],
       ),
     );

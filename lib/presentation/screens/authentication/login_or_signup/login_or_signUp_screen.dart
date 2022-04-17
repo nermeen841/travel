@@ -84,7 +84,7 @@ class LoginOrSignUpScreen extends StatelessWidget {
             defaultButton(
                 margin: EdgeInsets.symmetric(horizontal: w * 0.2),
                 textColor: const Color(0xff3A0CA3),
-                title:LocaleKeys.SignUp.tr(),
+                title: LocaleKeys.SignUp.tr(),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignUpScreen()));
@@ -103,12 +103,15 @@ class LoginOrSignUpScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(right: w * 0.07, top: h * 0.05),
               child: InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BottomNave(
-                              index: 0,
-                            ))),
+                onTap: () async {
+                  prefs.setBool("is_login", false);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BottomNave(
+                                index: 0,
+                              )));
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

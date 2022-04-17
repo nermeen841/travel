@@ -51,10 +51,6 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                 itemCount: onboardItem.length,
               ),
             ),
-
-            // SizedBox(
-            //   height: h * 0.02,
-            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,

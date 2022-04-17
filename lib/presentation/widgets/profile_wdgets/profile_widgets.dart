@@ -47,15 +47,17 @@ Widget buildProfileRow({
 }
 
 Widget profileFormField({
-  required TextEditingController? controller,
+  required String initialValue,
   required FormFieldValidator<String>? validator,
+  required ValueChanged<String>? onChange,
   required bool obscureText,
   required String hintText,
   Widget? suffixIcon,
 }) =>
     TextFormField(
-      controller: controller,
+      initialValue: initialValue,
       validator: validator,
+      onChanged: onChange,
       keyboardType: TextInputType.text,
       cursorColor: Colors.grey,
       obscureText: obscureText,

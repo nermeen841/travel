@@ -25,6 +25,8 @@ class _SignupFormState extends State<SignupForm> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  bool secureText = true;
+  bool secureText2 = true;
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,14 @@ class _SignupFormState extends State<SignupForm> {
                 hintText: LocaleKeys.First_Name.tr(),
                 controller: firstNameController,
                 obscureText: false,
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return "first name is required";
+                  } else if (val.length < 2) {
+                    return "first name must be more than 2 charachters and less than 52 charachters";
+                  }
+                  return null;
+                },
               ),
               SizedBox(
                 height: h * 0.025,
@@ -50,6 +60,14 @@ class _SignupFormState extends State<SignupForm> {
                 hintText: LocaleKeys.Last_Name.tr(),
                 controller: lastNameController,
                 obscureText: false,
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return "last name is required";
+                  } else if (val.length < 2) {
+                    return "last name must be more than 2 charachters and less than 52 charachters";
+                  }
+                  return null;
+                },
               ),
               SizedBox(
                 height: h * 0.025,
@@ -57,6 +75,13 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 controller: phoneController,
                 validator: (val) {
+                  if (val!.isNotEmpty) {
+                    if (val.length != 11) {
+                      return "phone number is invalid";
+                    }
+                  } else {
+                    return null;
+                  }
                   return null;
                 },
                 obscureText: false,
@@ -69,6 +94,14 @@ class _SignupFormState extends State<SignupForm> {
                 hintText: LocaleKeys.Email.tr(),
                 controller: emailController,
                 obscureText: false,
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return "email is required";
+                  } else if (!val.contains("@") || !val.contains(".com")) {
+                    return "eamil is invalid";
+                  }
+                  return null;
+                },
               ),
               SizedBox(
                 height: h * 0.025,
@@ -76,12 +109,38 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 hintText: LocaleKeys.Password.tr(),
                 controller: passwordController,
-                obscureText: true,
-                suffixIcon: Icon(
-                  Icons.visibility,
-                  color: const Color(0xff3A0CA3).withOpacity(0.55),
-                  size: 25,
-                ),
+                obscureText: secureText,
+                validator: (val) {
+                  if (val!.length < 8) {
+                    return "passord must be at least 8 charachters";
+                  }
+                  return null;
+                },
+                suffixIcon: (secureText)
+                    ? InkWell(
+                        onTap: () {
+                          setState(() {
+                            secureText = false;
+                          });
+                        },
+                        child: Icon(
+                          Icons.visibility_outlined,
+                          color: const Color(0xff3A0CA3).withOpacity(0.55),
+                          size: 25,
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          setState(() {
+                            secureText = true;
+                          });
+                        },
+                        child: Icon(
+                          Icons.visibility_off_outlined,
+                          color: const Color(0xff3A0CA3).withOpacity(0.55),
+                          size: 25,
+                        ),
+                      ),
               ),
               SizedBox(
                 height: h * 0.025,
@@ -89,12 +148,41 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 hintText: LocaleKeys.Confirm_Password.tr(),
                 controller: confirmPasswordController,
-                obscureText: true,
-                suffixIcon: Icon(
-                  Icons.visibility,
-                  color: const Color(0xff3A0CA3).withOpacity(0.55),
-                  size: 25,
-                ),
+                obscureText: secureText2,
+                validator: (val) {
+                  if (val!.length < 8) {
+                    return "passord must be at least 8 charachters";
+                  } else if (passwordController.text !=
+                      confirmPasswordController.text) {
+                    return "password not match";
+                  }
+                  return null;
+                },
+                suffixIcon: (secureText2)
+                    ? InkWell(
+                        onTap: () {
+                          setState(() {
+                            secureText2 = false;
+                          });
+                        },
+                        child: Icon(
+                          Icons.visibility_outlined,
+                          color: const Color(0xff3A0CA3).withOpacity(0.55),
+                          size: 25,
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          setState(() {
+                            secureText2 = true;
+                          });
+                        },
+                        child: Icon(
+                          Icons.visibility_off_outlined,
+                          color: const Color(0xff3A0CA3).withOpacity(0.55),
+                          size: 25,
+                        ),
+                      ),
               ),
             ],
           ),
@@ -185,15 +273,17 @@ class _SignupFormState extends State<SignupForm> {
           return defaultButton(
               title: LocaleKeys.SignUp.tr(),
               onPressed: () {
-                AuthenticationcubitCubit.get(context).register(
-                    context: context,
-                    w: w,
-                    email: emailController.text,
-                    firstName: firstNameController.text,
-                    password: passwordController.text,
-                    phone: phoneController.text,
-                    lastName: lastNameController.text,
-                    confirmPassword: confirmPasswordController.text);
+                if (formKey.currentState!.validate()) {
+                  AuthenticationcubitCubit.get(context).register(
+                      context: context,
+                      w: w,
+                      email: emailController.text,
+                      firstName: firstNameController.text,
+                      password: passwordController.text,
+                      phone: phoneController.text,
+                      lastName: lastNameController.text,
+                      confirmPassword: confirmPasswordController.text);
+                }
               },
               fontSize: 16,
               height: h * 0.07,
