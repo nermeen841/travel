@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/presentation/screens/profile/change_password.dart';
 import 'package:travel/presentation/screens/profile/edit_profile.dart';
 import 'package:travel/presentation/widgets/profile_wdgets/profile_widgets.dart';
 
@@ -115,6 +116,30 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         title2: DataBaseCubit.get(context).userData[index]
                             ['userAddress'])
                     : Container(),
+                SizedBox(
+                  height: h * 0.06,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangePassword()));
+                  },
+                  child: const Text(
+                    "Change Passord",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Poppins',
+                      color: Color(0xff3A0CA3),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: h * 0.06,
+                ),
                 SizedBox(
                   height: h * 0.02,
                 ),

@@ -303,4 +303,68 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
       print("reset token error : " + e.toString());
     }
   }
+
+  //////////////////////////////////////////////////////////////////
+
+  Future<void> changePassword({
+    required String newPassword,
+    required String currentPassword,
+    required String confirmNewPassword,
+    required context,
+  }) async {
+    final String email = prefs.getString("email").toString();
+    final String token = prefs.getString("pass_token").toString();
+    emit(ChangePasswordLoadingState());
+    try {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        // "Accept": "text/plain"
+      };
+      final body = jsonEncode({
+        "username": email,
+        "currentPassword": currentPassword,
+        "newPassword": newPassword,
+        "confirmNewPassword": confirmNewPassword,
+      });
+      var response = await http.post(
+        Uri.parse(CHANGE_PASS),
+        body: body,
+        headers: headers,
+        encoding: Encoding.getByName('utf-8'),
+      );
+      var data = jsonDecode(response.body);
+      print(response.body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Password Updated Successfully',
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        );
+        emit(ChangePasswordSuccessState());
+      } else if (response.statusCode == 400) {
+        print(response.body);
+      } else if (response.statusCode == 404) {
+        print(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "please try again later",
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        );
+      }
+    } catch (e) {
+      emit(ChangePasswordErrorState(e.toString()));
+      print("change password error : " + e.toString());
+    }
+  }
 }
