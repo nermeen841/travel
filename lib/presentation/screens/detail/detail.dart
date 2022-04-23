@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/business_logic/home_cubit/home_states.dart';
@@ -10,6 +11,8 @@ import 'package:travel/presentation/screens/map/map_track.dart';
 
 import '../../../business_logic/database_helper/app_Cubit.dart';
 import '../../../business_logic/database_helper/app_states.dart';
+import '../../../business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
+import '../../../constants/constants.dart';
 import 'componnent/body.dart';
 import 'componnent/componnent.dart';
 
@@ -94,23 +97,89 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               Column(
                                 children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      width: w * 0.09,
-                                      height: h * 0.05,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.favorite_outline,
-                                          color: MyColors.mainColor,
-                                          size: w * 0.06,
+                                  BlocConsumer<FavouriteCubit, FavouriteState>(
+                                    listener: (context, state) {
+                                      // TODO: implement listener
+                                    },
+                                    builder: (context, state) {
+                                      return InkWell(
+                                        onTap: () {
+                                          final bool isLogin =
+                                              prefs.getBool("is_login") ??
+                                                  false;
+                                          if (isLogin) {
+                                            if (FavouriteCubit.get(context)
+                                                        .isFavourite[
+                                                    HomeCubit.get(context)
+                                                        .placeDetailModel
+                                                        .id!] ==
+                                                true) {
+                                              FavouriteCubit.get(context)
+                                                  .removeFromFavourite(
+                                                      placeID:
+                                                          HomeCubit.get(context)
+                                                              .placeDetailModel
+                                                              .id!);
+                                            } else if (FavouriteCubit.get(
+                                                                context)
+                                                            .isFavourite[
+                                                        HomeCubit.get(context)
+                                                            .placeDetailModel
+                                                            .id!] ==
+                                                    false ||
+                                                FavouriteCubit.get(context)
+                                                            .isFavourite[
+                                                        HomeCubit.get(context)
+                                                            .placeDetailModel
+                                                            .id!] ==
+                                                    null) {
+                                              FavouriteCubit.get(context)
+                                                  .addToFavourite(
+                                                      placeID:
+                                                          HomeCubit.get(context)
+                                                              .placeDetailModel
+                                                              .id!);
+                                            }
+                                          } else {
+                                            Fluttertoast.showToast(
+                                                msg: "you must login first",
+                                                toastLength: Toast.LENGTH_LONG,
+                                                gravity: ToastGravity.TOP,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                          }
+                                        },
+                                        child: Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
+                                          width: w * 0.09,
+                                          height: h * 0.05,
+                                          decoration: const BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle),
+                                          child: Center(
+                                            child: (FavouriteCubit.get(context)
+                                                            .isFavourite[
+                                                        HomeCubit.get(context)
+                                                            .placeDetailModel
+                                                            .id!] ==
+                                                    true)
+                                                ? Icon(
+                                                    Icons.favorite,
+                                                    color: MyColors.mainColor,
+                                                    size: w * 0.06,
+                                                  )
+                                                : Icon(
+                                                    Icons.favorite_outline,
+                                                    color: MyColors.mainColor,
+                                                    size: w * 0.06,
+                                                  ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   ),
                                   SizedBox(
                                     height: h * 0.02,

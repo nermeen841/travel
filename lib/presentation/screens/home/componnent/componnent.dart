@@ -146,6 +146,9 @@ sectionTitle({
 categoryCard({
   required double w,
   required double h,
+  required String address,
+  required String name,
+  required double? rate,
 }) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: h * 0.02),
@@ -195,7 +198,7 @@ categoryCard({
               height: h * 0.01,
             ),
             Text(
-              "Hotel Burj Alarab",
+              name,
               style: headingStyle.copyWith(fontWeight: FontWeight.bold),
             ),
             Row(
@@ -206,7 +209,7 @@ categoryCard({
                   size: w * 0.055,
                 ),
                 Text(
-                  "Umm Sequim 3",
+                  address,
                   style: headingStyle.copyWith(
                       fontWeight: FontWeight.w400,
                       color: MyColors.unslectedIconColor),
@@ -243,11 +246,11 @@ categoryCard({
                     RatingBar.builder(
                       ignoreGestures: true,
                       tapOnlyMode: false,
-                      initialRating: 4,
+                      initialRating: rate ?? 0.0,
                       minRating: 1,
                       itemSize: w * 0.045,
                       direction: Axis.horizontal,
-                      allowHalfRating: false,
+                      allowHalfRating: true,
                       itemCount: 5,
                       itemBuilder: (context, _) => Icon(
                         Icons.star,

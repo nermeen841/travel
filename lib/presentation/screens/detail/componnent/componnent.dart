@@ -1,12 +1,21 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:travel/business_logic/home_cubit/home_cubit.dart';
+import 'package:travel/business_logic/home_cubit/home_states.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/review/review.dart';
 
 import '../../../../generated/locale_keys.g.dart';
 
-headerTitle({required double h, required double w,required String name, required String city,required double? rate}) {
+headerTitle(
+    {required double h,
+    required double w,
+    required String name,
+    required String city,
+    required double? rate}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: w * 0.03),
     child: Row(
@@ -51,7 +60,7 @@ headerTitle({required double h, required double w,required String name, required
           minRating: 1,
           itemSize: w * 0.065,
           direction: Axis.horizontal,
-          allowHalfRating: false,
+          allowHalfRating: true,
           itemCount: 5,
           itemBuilder: (context, _) => Icon(
             Icons.star,
@@ -66,16 +75,28 @@ headerTitle({required double h, required double w,required String name, required
 
 ////////////////////////////////////////////////////////////////////////////////
 
-Widget overview({required double w, required double h}) {
-  return Text(
-    "Giza, Egypt The Great Pyramid of Giza is the oldest and largest of the three pyramids in the Giza Necropolis bordering what is now El Giza, Egypt. It is the oldest of the Seven Wonders of the Ancient World, and the only one to remain largely intact",
-    style: headingStyle.copyWith(height: h * 0.003, wordSpacing: w * 0.007),
-    textAlign: TextAlign.start,
-    textHeightBehavior: const TextHeightBehavior(
-        leadingDistribution: TextLeadingDistribution.even,
-        applyHeightToFirstAscent: true,
-        applyHeightToLastDescent: true),
-  );
+overview({required double w, required double h}) {
+  return BlocConsumer<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return ConditionalBuilder(
+            condition: state is! PlaceDetailLoadingState,
+            builder: (context) {
+              return Text(
+                HomeCubit.get(context).placeDetailModel.overViewEN!,
+                style: headingStyle.copyWith(
+                    height: h * 0.003, wordSpacing: w * 0.007),
+                textAlign: TextAlign.start,
+                textHeightBehavior: const TextHeightBehavior(
+                    leadingDistribution: TextLeadingDistribution.even,
+                    applyHeightToFirstAscent: true,
+                    applyHeightToLastDescent: true),
+              );
+            },
+            fallback: (context) => CircularProgressIndicator(
+                  color: MyColors.mainColor,
+                ));
+      },
+      listener: (context, state) {});
 }
 
 ////////////////////////////////////////////////////////////////////////////////

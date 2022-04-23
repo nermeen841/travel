@@ -124,7 +124,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ChangePassword()));
+                            builder: (context) => ChangePassword(
+                                  email: DataBaseCubit.get(context)
+                                      .userData[index]['email'],
+                                )));
                   },
                   child: const Text(
                     "Change Passord",

@@ -11,7 +11,6 @@ class RecommendedErrorState extends HomeState {
   RecommendedErrorState(this.error);
 }
 
-
 class PlaceDetailLoadingState extends HomeState {}
 
 class PlaceDetailSuccessState extends HomeState {}
@@ -21,7 +20,11 @@ class PlaceDetailErrorState extends HomeState {
   PlaceDetailErrorState(this.error);
 }
 
+class GetHomeCategoryLoadingState extends HomeState {}
 
+class GetHomeCategorySuccessState extends HomeState {}
 
-
-
+class GetHomeCategoryErrorState extends HomeState {
+  final String error;
+  GetHomeCategoryErrorState(this.error);
+}

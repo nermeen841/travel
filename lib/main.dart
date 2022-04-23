@@ -7,11 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
 import 'package:travel/business_logic/database_helper/database_cubit.dart';
+import 'package:travel/business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/screens/splash/splash_screen.dart';
 import 'business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'business_logic/database_helper/app_Cubit.dart';
 import 'business_logic/home_cubit/home_cubit.dart';
+import 'business_logic/search_cubit/search_cubit.dart';
 import 'generated/codegen_loader.g.dart';
 import 'network/bloc_observer.dart';
 import 'network/myHttpOverrider.dart';
@@ -57,10 +59,15 @@ class MyApp extends StatelessWidget {
         BlocProvider<AppCubit>(create: (context) => AppCubit()),
         BlocProvider<DataBaseCubit>(
             create: (context) => DataBaseCubit()..createDb()),
+        BlocProvider<FavouriteCubit>(create: (context) => FavouriteCubit()),
         BlocProvider<CategoriesCubit>(
             create: (context) => CategoriesCubit()..getCategory()),
         BlocProvider<HomeCubit>(
-            create: (context) => HomeCubit()..getRecommended()),
+            create: (context) => HomeCubit()
+              ..getRecommended()
+              ..getHomeCategory()),
+        BlocProvider<SearchCubit>(
+            create: (context) => SearchCubit()..getcitySearch())
       ],
       child: MaterialApp(
         theme: ThemeData(

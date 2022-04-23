@@ -1,9 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/filter_result/filter_result.dart';
+import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 
+import '../../../business_logic/database_helper/app_Cubit.dart';
+import '../../../business_logic/database_helper/app_states.dart';
+import '../../../business_logic/search_cubit/search_cubit.dart';
 import '../../screens/map/map_track.dart';
 
 TextEditingController filter = TextEditingController();
@@ -85,22 +90,52 @@ filterAlert({required double h, required double w, required context}) {
               SizedBox(
                 height: h * 0.05,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    LocaleKeys.Governorate.tr(),
-                    style: headingStyle.copyWith(
-                        color: MyColors.mainColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: w * 0.04),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down,
-                    color: MyColors.mainColor,
-                  ),
-                ],
+              BlocConsumer<SearchCubit, SearchState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  return InkWell(
+                    onTap: () {
+                      showCitysMenu(
+                          positioned:
+                              const RelativeRect.fromLTRB(170, 470, 50, 100),
+                          context: context,
+                          w: w,
+                          list: SearchCubit.get(context).citySearch);
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        BlocConsumer<AppCubit, AppState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return (AppCubit.get(context).city != null)
+                                ? Text(
+                                    AppCubit.get(context).city!,
+                                    style: headingStyle.copyWith(
+                                        color: MyColors.mainColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: w * 0.04),
+                                  )
+                                : Text(
+                                    LocaleKeys.City.tr(),
+                                    style: headingStyle.copyWith(
+                                        color: MyColors.mainColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: w * 0.04),
+                                  );
+                          },
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          color: MyColors.mainColor,
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
               Divider(
                 color: MyColors.mainColor,

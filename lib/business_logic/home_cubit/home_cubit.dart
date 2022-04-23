@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants/network_services.dart';
 import '../../models/PlaceDetailModel.dart';
 import '../../models/RecommendedModel.dart';
+import '../../models/home_category.dart';
 import '../../presentation/screens/detail/detail.dart';
 import 'home_states.dart';
 
@@ -62,5 +63,31 @@ class HomeCubit extends Cubit<HomeState> {
       emit(PlaceDetailErrorState(error.toString()));
     }
     return placeDetailModel;
+  }
+
+  HomeCategoryModel homeCategory = HomeCategoryModel();
+  List<HomeCategoryModel> categoryInHome = [];
+
+  Future<List<HomeCategoryModel>> getHomeCategory() async {
+    categoryInHome = [];
+
+    emit(GetHomeCategoryLoadingState());
+    try {
+      var response = await http.get(Uri.parse(GetTopCategories));
+      var data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        for (var item in data) {
+          homeCategory = HomeCategoryModel.fromJson(item);
+          categoryInHome.add(homeCategory);
+        }
+
+        emit(GetHomeCategorySuccessState());
+        return categoryInHome;
+      }
+    } catch (error) {
+      print(error.toString());
+      emit(GetHomeCategoryErrorState(error.toString()));
+    }
+    return categoryInHome;
   }
 }

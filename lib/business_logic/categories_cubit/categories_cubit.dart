@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/constants/network_services.dart';
 import '../../models/GetCategoriesModel.dart';
+import '../../models/TopPlacesInCategory.dart';
 import 'categories_states.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {
@@ -34,5 +35,34 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       print(" errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" + e.toString());
     }
     return category;
+  }
+
+  TopPlacesInCategoryModel topPlacesInCategory = TopPlacesInCategoryModel();
+
+  List<TopPlacesInCategoryModel> topCategory = [];
+
+  Future<List<TopPlacesInCategoryModel>> getTopCategory(
+      {required String categoryID}) async {
+    topCategory = [];
+    emit(GetTopCategoriesLoadingState());
+
+    try {
+      var response = await http.get(
+          Uri.parse(GetTopPlacesInCategoryInHome + "?categoryID=$categoryID"));
+      //{{baseUrl}}/api/Places/GetTopPlacesInCategory?categoryID=14
+      var data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        for (var item in data) {
+          topPlacesInCategory = TopPlacesInCategoryModel.fromJson(item);
+          topCategory.add(topPlacesInCategory);
+        }
+        emit(GetTopCategoriesSuccessState());
+        return topCategory;
+      }
+    } catch (e) {
+      emit(GetTopCategoriesErrorState(e.toString()));
+      print(" errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" + e.toString());
+    }
+    return topCategory;
   }
 }

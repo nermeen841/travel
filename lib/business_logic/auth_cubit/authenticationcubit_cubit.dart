@@ -308,17 +308,16 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
   Future<void> changePassword({
     required String newPassword,
+    required String email,
     required String currentPassword,
     required String confirmNewPassword,
     required context,
   }) async {
-    final String email = prefs.getString("email").toString();
-    final String token = prefs.getString("pass_token").toString();
+    String errorData = '';
     emit(ChangePasswordLoadingState());
     try {
       Map<String, String> headers = {
         'Content-Type': 'application/json',
-        // "Accept": "text/plain"
       };
       final body = jsonEncode({
         "username": email,
@@ -347,14 +346,26 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
           ),
         );
         emit(ChangePasswordSuccessState());
-      } else if (response.statusCode == 400) {
-        print(response.body);
+      } else if (response.statusCode == 500) {
+        data.forEach((element) {
+          errorData += element['description'] + '\n';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "old password is  " + errorData,
+                style: const TextStyle(
+                    color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+              ),
+              backgroundColor: Colors.black,
+            ),
+          );
+        });
       } else if (response.statusCode == 404) {
         print(response.body);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
-              "please try again later",
+              "email doesn't connect with account",
               style: TextStyle(
                   color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
             ),

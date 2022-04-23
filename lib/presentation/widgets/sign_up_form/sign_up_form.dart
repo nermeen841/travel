@@ -89,12 +89,13 @@ void showGoverMenu({
 void showCitysMenu({
   required context,
   required double w,
+  required RelativeRect positioned,
   required List list,
 }) async {
   await showMenu(
     context: context,
-    position:
-        const RelativeRect.fromLTRB(0, 380, 300, 100), //Map((String choice)
+    position: positioned,
+    //Map((String choice)
     items: list.map((choice) {
       return PopupMenuItem(
         value: choice.nameEN.toString(),

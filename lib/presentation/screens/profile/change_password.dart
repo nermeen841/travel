@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../constants/constants.dart';
@@ -6,7 +8,8 @@ import '../../../generated/locale_keys.g.dart';
 import '../../widgets/login_form/login_form.dart';
 
 class ChangePassword extends StatefulWidget {
-  const ChangePassword({Key? key}) : super(key: key);
+  final String email;
+  const ChangePassword({Key? key, required this.email}) : super(key: key);
 
   @override
   State<ChangePassword> createState() => _ChangePasswordState();
@@ -47,7 +50,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
                 textFormField(
                   hintText: "current password",
-                  controller: newPasswordController,
+                  controller: currentPasswordController,
                   obscureText: secureText,
                   validator: (val) {
                     if (val!.length < 8) {
@@ -63,7 +66,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             });
                           },
                           child: Icon(
-                            Icons.visibility_outlined,
+                            Icons.visibility_off_outlined,
                             color: const Color(0xff3A0CA3).withOpacity(0.55),
                             size: 25,
                           ),
@@ -75,7 +78,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             });
                           },
                           child: Icon(
-                            Icons.visibility_off_outlined,
+                            Icons.visibility_outlined,
                             color: const Color(0xff3A0CA3).withOpacity(0.55),
                             size: 25,
                           ),
@@ -87,7 +90,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 textFormField(
                   hintText: "new password",
                   controller: newPasswordController,
-                  obscureText: secureText,
+                  obscureText: secureText2,
                   validator: (val) {
                     if (val!.length < 8) {
                       return "passord must be at least 8 charachters";
@@ -102,7 +105,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             });
                           },
                           child: Icon(
-                            Icons.visibility_outlined,
+                            Icons.visibility_off_outlined,
                             color: const Color(0xff3A0CA3).withOpacity(0.55),
                             size: 25,
                           ),
@@ -114,7 +117,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             });
                           },
                           child: Icon(
-                            Icons.visibility_off_outlined,
+                            Icons.visibility_outlined,
                             color: const Color(0xff3A0CA3).withOpacity(0.55),
                             size: 25,
                           ),
@@ -144,7 +147,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             });
                           },
                           child: Icon(
-                            Icons.visibility_outlined,
+                            Icons.visibility_off_outlined,
                             color: const Color(0xff3A0CA3).withOpacity(0.55),
                             size: 25,
                           ),
@@ -156,7 +159,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             });
                           },
                           child: Icon(
-                            Icons.visibility_off_outlined,
+                            Icons.visibility_outlined,
                             color: const Color(0xff3A0CA3).withOpacity(0.55),
                             size: 25,
                           ),
@@ -165,15 +168,35 @@ class _ChangePasswordState extends State<ChangePassword> {
                 SizedBox(
                   height: h * 0.06,
                 ),
-                defaultButton(
-                  margin: EdgeInsets.symmetric(horizontal: w * 0.13),
-                  title: "save",
-                  onPressed: () {},
-                  fontSize: w * 0.05,
-                  height: h * 0.06,
-                  width: 260,
-                  color: const Color(0xff3A0CA3),
-                  textColor: Colors.white,
+                BlocConsumer<AuthenticationcubitCubit,
+                    AuthenticationcubitState>(
+                  builder: (context, state) {
+                    return defaultButton(
+                      margin: EdgeInsets.symmetric(horizontal: w * 0.13),
+                      title: "save",
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          AuthenticationcubitCubit.get(context).changePassword(
+                              email: widget.email,
+                              newPassword: newPasswordController.text,
+                              currentPassword: currentPasswordController.text,
+                              confirmNewPassword:
+                                  confirmNewPasswordController.text,
+                              context: context);
+                        }
+                      },
+                      fontSize: w * 0.05,
+                      height: h * 0.06,
+                      width: 260,
+                      color: const Color(0xff3A0CA3),
+                      textColor: Colors.white,
+                    );
+                  },
+                  listener: (context, state) {
+                    if (state is ChangePasswordSuccessState) {
+                      Navigator.pop(context);
+                    }
+                  },
                 ),
               ],
             ),
