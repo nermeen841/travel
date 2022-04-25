@@ -86,7 +86,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     required double w,
   }) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String cityID = preferences.getString('city_id') ?? '';
+    final int cityID = preferences.getInt('city_id') ?? 0;
     String errorData = '';
     emit(RegisterLoadingState());
     try {
@@ -376,6 +376,78 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     } catch (e) {
       emit(ChangePasswordErrorState(e.toString()));
       print("change password error : " + e.toString());
+    }
+  }
+
+//////////////////////////////////////////////////////////////////////////////
+
+  Future<void> updateProfile({
+    required String email,
+    required String firstName,
+    required String phone,
+    required String image,
+    required String lastName,
+    required context,
+    required double w,
+  }) async {
+    String errorData = '';
+    final String token = prefs.getString("user_token") ?? "";
+    final int cityID = prefs.getInt('city_id') ?? 0;
+    emit(UpdateProfileLoadingState());
+    try {
+      var dob = <String, int>{"year": 0, "month": 0, "day": 0, "dayOfWeek": 0};
+      Map<String, String> headers = {
+        "Authorization": "Bearer $token",
+        'Content-Type': 'application/json; charset=UTF-8',
+      };
+      var body = jsonEncode(<String, dynamic>{
+        "avatar": image,
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "phone": phone,
+        'dob': dob,
+        "cityID": cityID,
+      });
+      print(body);
+      var response = await http.post(
+        Uri.parse(EDIT_USER_PROFILE),
+        body: body,
+        headers: headers,
+        encoding: Encoding.getByName('utf-8'),
+      );
+      print(response.statusCode);
+      print(response.body);
+      var data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(data);
+        //  DataBaseCubit.get(context).deleteTableContent();
+        //                       DataBaseCubit.get(context).inserttoDatabase(
+        //                           firstName: firstName,
+        //                           lastName: lastName,
+        //                           userAddress: addressController,
+        //                           image: image1,
+        //                           email: emailController!,
+        //                           userId: widget.userId.toString());
+        //                       Navigator.pop(context);
+        emit(UpdateProfileSuccessState());
+      } else if (response.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              data['message'],
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Poppins',
+                  fontSize: w * 0.04),
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (error) {
+      print(error.toString());
+      emit(UpdateProfileErrorState(error.toString()));
     }
   }
 }

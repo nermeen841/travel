@@ -67,3 +67,12 @@ class GetCitiesErrorState extends AuthenticationcubitState {
   final String error;
   GetCitiesErrorState(this.error);
 }
+
+class UpdateProfileLoadingState extends AuthenticationcubitState {}
+
+class UpdateProfileSuccessState extends AuthenticationcubitState {}
+
+class UpdateProfileErrorState extends AuthenticationcubitState {
+  final String error;
+  UpdateProfileErrorState(this.error);
+}

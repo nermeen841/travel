@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import '../../../../constants/constants.dart';
 import '../../search/componnent/componnent.dart';
 
@@ -77,7 +78,7 @@ introTitle({required double h, required double w}) {
 searchWidget(
     {required double h,
     required double w,
-    required VoidCallback search,
+    required context,
     required VoidCallback filter}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.center,

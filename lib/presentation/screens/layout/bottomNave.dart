@@ -36,7 +36,7 @@ class _BottomNaveState extends State<BottomNave> {
       });
     } else {
       setState(() {
-        currentIndex = widget.index;
+        currentIndex = 0;
       });
     }
   }
@@ -58,6 +58,7 @@ class _BottomNaveState extends State<BottomNave> {
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 600),
         letIndexChange: (index) => true,
+        index: currentIndex,
         backgroundColor: Colors.transparent,
         onTap: (value) {
           setState(() {

@@ -18,3 +18,5 @@ class GetdatabaseState extends AppState {}
 class LoadingDatafromDatabase extends AppState {}
 
 class DeleteTablecontentDatabase extends AppState {}
+
+class CategorySelectedSuccess extends AppState {}

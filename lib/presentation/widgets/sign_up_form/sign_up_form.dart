@@ -106,12 +106,52 @@ void showCitysMenu({
               onTap: () async {
                 SharedPreferences preferences =
                     await SharedPreferences.getInstance();
-                preferences.setString('city_id', choice.id.toString());
+                preferences.setInt('city_id', choice.id);
                 AppCubit.get(context).city = choice.nameEN.toString();
                 AppCubit.get(context).choseCity(choice.nameEN.toString());
                 Navigator.pop(context);
                 print("------------------------------------------" +
                     choice.nameEN.toString());
+              },
+              child: Text(
+                choice.nameEN.toString(),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: w * 0.04,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Tajawal'),
+              ),
+            );
+          },
+        ),
+      );
+    }).toList(),
+    elevation: 8.0,
+  );
+}
+
+void showCategoryMenu({
+  required context,
+  required double w,
+  required RelativeRect positioned,
+  required List list,
+}) async {
+  await showMenu(
+    context: context,
+    position: positioned,
+    //Map((String choice)
+    items: list.map((choice) {
+      return PopupMenuItem(
+        value: choice.nameEN.toString(),
+        child: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return InkWell(
+              onTap: () {
+                AppCubit.get(context).categorySelected =
+                    choice.nameEN.toString();
+                AppCubit.get(context).chooseCategory(choice.nameEN.toString());
+                Navigator.pop(context);
               },
               child: Text(
                 choice.nameEN.toString(),

@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
+import 'package:travel/business_logic/categories_cubit/categories_states.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/filter_result/filter_result.dart';
+import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 
 import '../../../business_logic/database_helper/app_Cubit.dart';
@@ -67,22 +70,44 @@ filterAlert({required double h, required double w, required context}) {
               SizedBox(
                 height: h * 0.05,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    LocaleKeys.Categories.tr(),
-                    style: headingStyle.copyWith(
-                        color: MyColors.mainColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: w * 0.04),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down,
-                    color: MyColors.mainColor,
-                  ),
-                ],
+              BlocConsumer<CategoriesCubit, CategoriesState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return InkWell(
+                    onTap: () {
+                      showCategoryMenu(
+                          context: context,
+                          w: w,
+                          positioned:
+                              const RelativeRect.fromLTRB(170, 470, 50, 100),
+                          list: CategoriesCubit.get(context).category);
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        BlocConsumer<AppCubit, AppState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return Text(
+                              (AppCubit.get(context).categorySelected != null)
+                                  ? AppCubit.get(context).categorySelected!
+                                  : LocaleKeys.Categories.tr(),
+                              style: headingStyle.copyWith(
+                                  color: MyColors.mainColor,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: w * 0.04),
+                            );
+                          },
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          color: MyColors.mainColor,
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
               Divider(
                 color: MyColors.mainColor,
@@ -91,9 +116,7 @@ filterAlert({required double h, required double w, required context}) {
                 height: h * 0.05,
               ),
               BlocConsumer<SearchCubit, SearchState>(
-                listener: (context, state) {
-                  // TODO: implement listener
-                },
+                listener: (context, state) {},
                 builder: (context, state) {
                   return InkWell(
                     onTap: () {
@@ -147,41 +170,53 @@ filterAlert({required double h, required double w, required context}) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Center(
-                    child: InkWell(
-                      onTap: () {
+                  BlocConsumer<SearchCubit, SearchState>(
+                    listener: (context, state) {
+                      if (state is GetSearchSuccessState) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) =>
+                                  const BottomNave(index: 1))),
+                        );
+                      } else {
                         Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const FilterResultScreen()));
-                      },
-                      child: Container(
-                        width: w * 0.5,
-                        height: h * 0.07,
-                        decoration: BoxDecoration(
-                          color: MyColors.mainColor,
-                          borderRadius: BorderRadius.circular(w * 0.1),
-                          boxShadow: const [
-                            BoxShadow(
-                                offset: Offset(0, 3),
-                                color: MyColors.backgroundColor,
-                                spreadRadius: 3,
-                                blurRadius: 3)
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            LocaleKeys.Search.tr(),
-                            style: headingStyle.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
+                      }
+                    },
+                    builder: (context, state) {
+                      return Center(
+                        child: InkWell(
+                          onTap: () {
+                            SearchCubit.get(context)
+                                .searchData(place: filter.text);
+                          },
+                          child: Container(
+                            width: w * 0.5,
+                            height: h * 0.07,
+                            decoration: BoxDecoration(
+                              color: MyColors.mainColor,
+                              borderRadius: BorderRadius.circular(w * 0.1),
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: Offset(0, 3),
+                                    color: MyColors.backgroundColor,
+                                    spreadRadius: 3,
+                                    blurRadius: 3)
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                LocaleKeys.Search.tr(),
+                                style: headingStyle.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                   SizedBox(
                     width: w * 0.014,

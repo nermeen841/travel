@@ -10,7 +10,7 @@ class AppCubit extends Cubit<AppState> {
 
   String? governorate;
   String? city;
-
+  String? categorySelected;
   void choseGovernorates(String value) {
     governorate = value;
     emit(GovernoratesChoseSuccessState());
@@ -19,5 +19,10 @@ class AppCubit extends Cubit<AppState> {
   void choseCity(String value) {
     city = value;
     emit(CityChoseSuccessState());
+  }
+
+  void chooseCategory(String value) {
+    categorySelected = value;
+    emit(CategorySelectedSuccess());
   }
 }

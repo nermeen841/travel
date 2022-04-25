@@ -153,7 +153,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => EditProfileScreen()));
+                            builder: (context) => const EditProfileScreen()));
                   },
                   fontSize: w * 0.05,
                   height: h * 0.06,

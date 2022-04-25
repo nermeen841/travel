@@ -6,6 +6,7 @@ import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
+import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/screens/more/more.dart';
 import 'package:travel/presentation/screens/profile/user_profile.dart';
 import 'package:travel/presentation/widgets/drawer_widget/drawer_widget.dart';
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
             searchWidget(
               h: h,
               w: w * 1.04,
-              search: () {},
+              context: context,
               filter: () => filterAlert(h: h, w: w, context: context),
             ),
             SizedBox(
@@ -139,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 press: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  ViewMoreScreen(
+                        builder: (context) => ViewMoreScreen(
                               title: LocaleKeys.Recommended.tr(),
                             ))),
                 title: LocaleKeys.Recommended.tr()),
