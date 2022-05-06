@@ -59,7 +59,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<AppCubit>(create: (context) => AppCubit()),
         BlocProvider<DataBaseCubit>(
             create: (context) => DataBaseCubit()..createDb()),
-        BlocProvider<FavouriteCubit>(create: (context) => FavouriteCubit()),
+        BlocProvider<FavouriteCubit>(
+            create: (context) => FavouriteCubit()..getFavouriteCat()),
         BlocProvider<CategoriesCubit>(
             create: (context) => CategoriesCubit()..getCategory()),
         BlocProvider<HomeCubit>(

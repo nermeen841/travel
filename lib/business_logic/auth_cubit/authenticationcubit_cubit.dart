@@ -103,7 +103,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
         "cityID": cityID,
       });
       Map<String, String> headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
         "Accept": "text/plain"
       };
       var response = await http.post(
@@ -159,7 +159,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
         Uri.parse(BaseUrl + Login),
         body: formData,
         headers: headers,
-        encoding: Encoding.getByName('utf-8'),
+        // encoding: Encoding.getByName('utf-8'),
       );
       print(response.body);
 
@@ -174,6 +174,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
           image: data['user']['avatar'],
         );
         prefs.setString("user_token", data['token']);
+        prefs.setString('user_image', data['user']['avatar']);
         prefs.setBool("is_login", true);
         print(response.body);
         emit(LoginSuccessState());

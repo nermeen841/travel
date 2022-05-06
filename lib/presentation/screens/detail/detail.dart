@@ -98,9 +98,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               Column(
                                 children: [
                                   BlocConsumer<FavouriteCubit, FavouriteState>(
-                                    listener: (context, state) {
-                                      // TODO: implement listener
-                                    },
+                                    listener: (context, state) {},
                                     builder: (context, state) {
                                       return InkWell(
                                         onTap: () {

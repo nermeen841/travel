@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/constants/constants.dart';
 import '../../../business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import '../../../business_logic/database_helper/app_Cubit.dart';
 import '../../../business_logic/database_helper/app_states.dart';
@@ -130,6 +131,50 @@ void showCitysMenu({
   );
 }
 
+void showCitySearchMenu({
+  required context,
+  required double w,
+  required RelativeRect positioned,
+  required List list,
+}) async {
+  await showMenu(
+    context: context,
+    position: positioned,
+    //Map((String choice)
+    items: list.map((choice) {
+      return PopupMenuItem(
+        value: choice.nameEN.toString(),
+        child: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return InkWell(
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.setInt('city_id_search', choice.id);
+                AppCubit.get(context).city = choice.nameEN.toString();
+                AppCubit.get(context).choseCity(choice.nameEN.toString());
+                Navigator.pop(context);
+                print("------------------------------------------" +
+                    choice.nameEN.toString());
+              },
+              child: Text(
+                choice.nameEN.toString(),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: w * 0.04,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Tajawal'),
+              ),
+            );
+          },
+        ),
+      );
+    }).toList(),
+    elevation: 8.0,
+  );
+}
+
 void showCategoryMenu({
   required context,
   required double w,
@@ -148,6 +193,7 @@ void showCategoryMenu({
           builder: (context, state) {
             return InkWell(
               onTap: () {
+                prefs.setInt("search_cat", choice.id);
                 AppCubit.get(context).categorySelected =
                     choice.nameEN.toString();
                 AppCubit.get(context).chooseCategory(choice.nameEN.toString());

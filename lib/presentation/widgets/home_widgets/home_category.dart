@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/categories_cubit/categories_states.dart';
 import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/constants/colors.dart';
-import 'package:travel/presentation/screens/detail/detail.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
-
 import '../../../business_logic/categories_cubit/categories_cubit.dart';
 import '../../../business_logic/home_cubit/home_states.dart';
 

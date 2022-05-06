@@ -6,7 +6,6 @@ import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/generated/locale_keys.g.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
-import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/screens/more/more.dart';
 import 'package:travel/presentation/screens/profile/user_profile.dart';
 import 'package:travel/presentation/widgets/drawer_widget/drawer_widget.dart';

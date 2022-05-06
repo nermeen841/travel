@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/constants/colors.dart';
-import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import '../../../../constants/constants.dart';
 import '../../search/componnent/componnent.dart';
 

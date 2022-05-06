@@ -24,3 +24,23 @@ class RemoveFromFavouriteErrorState extends FavouriteState {
 
   RemoveFromFavouriteErrorState(this.error);
 }
+
+class GetFavouriteCategoryLoadingState extends FavouriteState {}
+
+class GetFavouriteCategorySuccessState extends FavouriteState {}
+
+class GetFavouriteCategoryErrorState extends FavouriteState {
+  final String error;
+
+  GetFavouriteCategoryErrorState(this.error);
+}
+
+class GetFavouritePlacesLoadingState extends FavouriteState {}
+
+class GetFavouritePlacesSuccessState extends FavouriteState {}
+
+class GetFavouritePlacesErrorState extends FavouriteState {
+  final String error;
+
+  GetFavouritePlacesErrorState(this.error);
+}

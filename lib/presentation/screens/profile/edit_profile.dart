@@ -259,21 +259,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               onPressed: () {
                                 AuthenticationcubitCubit.get(context)
                                     .updateProfile(
-                                        email:
-                                            emailController ??
-                                                DataBaseCubit
-                                                        .get(context)
-                                                    .userData[i]['email'],
-                                        firstName:
-                                            usernameController ??
-                                                DataBaseCubit
-                                                        .get(context)
-                                                    .userData[i]['firstName'],
-                                        phone:
-                                            phoneController ??
-                                                DataBaseCubit
-                                                        .get(context)
-                                                    .userData[i]['userPhone'],
+                                        email: emailController ??
+                                            DataBaseCubit.get(context)
+                                                .userData[i]['email'],
+                                        firstName: usernameController ??
+                                            DataBaseCubit.get(context)
+                                                .userData[i]['firstName'],
+                                        phone: (DataBaseCubit.get(context)
+                                                    .userData[i]['userPhone'] !=
+                                                "null")
+                                            ? DataBaseCubit.get(context)
+                                                .userData[i]['userPhone']
+                                            : (phoneController != null)
+                                                ? phoneController
+                                                : "",
                                         image: image1,
                                         lastName: lastnameController ??
                                             DataBaseCubit.get(context)

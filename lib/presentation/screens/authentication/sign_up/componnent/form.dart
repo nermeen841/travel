@@ -47,7 +47,7 @@ class _SignupFormState extends State<SignupForm> {
                 validator: (val) {
                   if (val!.isEmpty) {
                     return "first name is required";
-                  } else if (val.length < 2) {
+                  } else if (val.length < 3) {
                     return "first name must be more than 2 charachters and less than 52 charachters";
                   }
                   return null;
@@ -63,7 +63,7 @@ class _SignupFormState extends State<SignupForm> {
                 validator: (val) {
                   if (val!.isEmpty) {
                     return "last name is required";
-                  } else if (val.length < 2) {
+                  } else if (val.length < 3) {
                     return "last name must be more than 2 charachters and less than 52 charachters";
                   }
                   return null;

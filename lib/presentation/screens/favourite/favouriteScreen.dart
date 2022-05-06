@@ -1,10 +1,13 @@
 // ignore_for_file: file_names
 
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel/business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
+import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/generated/locale_keys.g.dart';
-import 'package:travel/presentation/screens/detail/detail.dart';
 import 'package:travel/presentation/screens/favourite/componnent/componnent.dart';
 
 class FavouriteScreen extends StatefulWidget {
@@ -15,12 +18,6 @@ class FavouriteScreen extends StatefulWidget {
 }
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
-  List<String> text = [
-    "Resturants",
-    "Hotels",
-    "Cafes",
-    "Parks",
-  ];
   late PageController pageController;
   @override
   void initState() {
@@ -41,94 +38,189 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         automaticallyImplyLeading: false,
         toolbarHeight: 0.0,
       ),
-      body: Container(
-        width: w,
-        height: h,
-        padding:
-            EdgeInsets.symmetric(vertical: h * 0.01, horizontal: w * 0.035),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-
-                  LocaleKeys.Favourites.tr(),
-                  style: headingStyle.copyWith(
-                      fontWeight: FontWeight.bold, fontSize: w * 0.06),
-                ),
-              ),
-              SizedBox(
-                height: h * 0.03,
-              ),
-              Center(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  height: h * 0.08,
-                  padding: EdgeInsets.only(top: h * 0.02),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(w * 0.08),
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(0, 3),
-                          color: MyColors.backgroundColor,
-                          spreadRadius: 3,
-                          blurRadius: 3)
-                    ],
-                  ),
-                  child: Center(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(text.length,
-                          (index) => buildDot(index: index, h: h, w: w),
-                          growable: true),
+      body: BlocConsumer<FavouriteCubit, FavouriteState>(
+        listener: (context, state) {
+          if (state is GetFavouriteCategorySuccessState) {
+            FavouriteCubit.get(context).getFavouritePlaces(
+                categoryId:
+                    FavouriteCubit.get(context).favouriteCategory[0].id!);
+          }
+        },
+        builder: (context, state) {
+          return ConditionalBuilder(
+              condition: state is! GetFavouriteCategoryLoadingState,
+              builder: (context) => Container(
+                    width: w,
+                    height: h,
+                    padding: EdgeInsets.symmetric(
+                        vertical: h * 0.01, horizontal: w * 0.035),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              LocaleKeys.Favourites.tr(),
+                              style: headingStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: w * 0.06),
+                            ),
+                          ),
+                          SizedBox(
+                            height: h * 0.03,
+                          ),
+                          Center(
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              height: h * 0.08,
+                              padding: EdgeInsets.only(top: h * 0.02),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(w * 0.08),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      offset: Offset(0, 3),
+                                      color: MyColors.backgroundColor,
+                                      spreadRadius: 3,
+                                      blurRadius: 3)
+                                ],
+                              ),
+                              child: Center(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: List.generate(
+                                      FavouriteCubit.get(context)
+                                          .favouriteCategory
+                                          .length,
+                                      (index) => buildDot(
+                                          index: index,
+                                          categoryId:
+                                              FavouriteCubit.get(context)
+                                                  .favouriteCategory[index]
+                                                  .id!,
+                                          h: h,
+                                          w: w,
+                                          text: FavouriteCubit.get(context)
+                                              .favouriteCategory[index]
+                                              .nameEN!),
+                                      growable: true),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: h * 0.03,
+                          ),
+                          SizedBox(
+                            width: w,
+                            height: h * 0.63,
+                            child: BlocConsumer<FavouriteCubit, FavouriteState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return PageView.builder(
+                                    controller: pageController,
+                                    itemCount: FavouriteCubit.get(context)
+                                        .favouriteCategory
+                                        .length,
+                                    onPageChanged: (val) {
+                                      setState(() {
+                                        currentIndex = val;
+                                      });
+                                    },
+                                    itemBuilder: (context, index) {
+                                      return ConditionalBuilder(
+                                          condition: state
+                                              is! GetFavouritePlacesLoadingState,
+                                          builder: (context) =>
+                                              ListView.separated(
+                                                  shrinkWrap: true,
+                                                  primary: true,
+                                                  itemBuilder:
+                                                      (context, index) =>
+                                                          InkWell(
+                                                            child: favouriteCard(
+                                                                placeId: FavouriteCubit.get(
+                                                                        context)
+                                                                    .favouritePlaces[
+                                                                        index]
+                                                                    .id!,
+                                                                address: FavouriteCubit.get(
+                                                                        context)
+                                                                    .favouritePlaces[
+                                                                        index]
+                                                                    .addressEN!,
+                                                                categoryId: FavouriteCubit.get(
+                                                                        context)
+                                                                    .favouritePlaces[
+                                                                        index]
+                                                                    .categoryID!,
+                                                                name: FavouriteCubit.get(
+                                                                        context)
+                                                                    .favouritePlaces[
+                                                                        index]
+                                                                    .nameEN!,
+                                                                w: w,
+                                                                h: h,
+                                                                rate: FavouriteCubit
+                                                                        .get(
+                                                                            context)
+                                                                    .favouritePlaces[
+                                                                        index]
+                                                                    .rate!),
+                                                            onTap: () {
+                                                              HomeCubit.get(context).getPlaceDetail(
+                                                                  id: FavouriteCubit
+                                                                          .get(
+                                                                              context)
+                                                                      .favouritePlaces[
+                                                                          index]
+                                                                      .id!
+                                                                      .toString(),
+                                                                  context:
+                                                                      context);
+                                                            },
+                                                          ),
+                                                  separatorBuilder:
+                                                      (context, index) =>
+                                                          SizedBox(
+                                                            height: h * 0.03,
+                                                          ),
+                                                  itemCount: FavouriteCubit.get(
+                                                          context)
+                                                      .favouritePlaces
+                                                      .length),
+                                          fallback: (context) => Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: MyColors.mainColor,
+                                                ),
+                                              ));
+                                    });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: h * 0.03,
-              ),
-              SizedBox(
-                width: w,
-                height: h * 0.63,
-                child: PageView.builder(
-                    controller: pageController,
-                    itemCount: text.length,
-                    onPageChanged: (val) {
-                      setState(() {
-                        currentIndex = val;
-                      });
-                    },
-                    itemBuilder: (context, index) {
-                      return ListView.separated(
-                          shrinkWrap: true,
-                          primary: true,
-                          itemBuilder: (context, index) => InkWell(
-                                child: favouriteCard(w: w, h: h),
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const DetailScreen())),
-                              ),
-                          separatorBuilder: (context, index) => SizedBox(
-                                height: h * 0.03,
-                              ),
-                          itemCount: 5);
-                    }),
-              ),
-            ],
-          ),
-        ),
+              fallback: (context) => Center(
+                    child: CircularProgressIndicator(
+                      color: MyColors.mainColor,
+                    ),
+                  ));
+        },
       ),
     );
   }
 
   AnimatedContainer buildDot(
-      {required int index, required double h, required double w}) {
+      {required int index,
+      required int categoryId,
+      required double h,
+      required double w,
+      required String text}) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       color: Colors.transparent,
@@ -138,6 +230,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           pageController.animateToPage(index,
               duration: const Duration(microseconds: 500),
               curve: Curves.fastOutSlowIn);
+          FavouriteCubit.get(context)
+              .getFavouritePlaces(categoryId: categoryId);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,7 +239,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           children: [
             Center(
               child: Text(
-                text[index],
+                text,
                 style: headingStyle.copyWith(
                     fontSize: w * 0.04,
                     fontWeight: (currentIndex == index)

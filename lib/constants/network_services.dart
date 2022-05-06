@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-const String BaseUrl = "https://tours.eastus.cloudapp.azure.com/";
+const String BaseUrl = "http://129.152.21.161/";
 const String Register = 'api/Auth/register';
 const String Login = 'api/Auth/Login';
 const String VIewMoreCategories = 'api/Categories/GetCategories';
@@ -22,3 +22,5 @@ const String AddToFavourite = BaseUrl + "api/Places/SavePlace";
 const String RemoveFromFavourite = BaseUrl + "api/Places/UnsavePlace";
 const String EDIT_USER_PROFILE = BaseUrl + "api/Client/EditProfile";
 const String SEARCH_DATA = BaseUrl + "api/Places/SearchPlaces";
+const String Favourite_Category = BaseUrl + "api/Places/GetSavedCategories";
+const String FAVOURITE_PLACES = BaseUrl + "api/Places/GetSavedPlacesInCategory";

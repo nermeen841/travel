@@ -4,11 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
 import 'package:travel/business_logic/categories_cubit/categories_states.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.g.dart';
-import 'package:travel/presentation/screens/filter_result/filter_result.dart';
 import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
-
 import '../../../business_logic/database_helper/app_Cubit.dart';
 import '../../../business_logic/database_helper/app_states.dart';
 import '../../../business_logic/search_cubit/search_cubit.dart';
@@ -120,7 +119,7 @@ filterAlert({required double h, required double w, required context}) {
                 builder: (context, state) {
                   return InkWell(
                     onTap: () {
-                      showCitysMenu(
+                      showCitySearchMenu(
                           positioned:
                               const RelativeRect.fromLTRB(170, 470, 50, 100),
                           context: context,
@@ -187,8 +186,13 @@ filterAlert({required double h, required double w, required context}) {
                       return Center(
                         child: InkWell(
                           onTap: () {
-                            SearchCubit.get(context)
-                                .searchData(place: filter.text);
+                            final int cityId =
+                                prefs.getInt("city_id_search") ?? 0;
+                            final int catId = prefs.getInt("search_cat") ?? 0;
+                            SearchCubit.get(context).searchResult(
+                                place: filter.text,
+                                cityId: cityId,
+                                categoryId: catId);
                           },
                           child: Container(
                             width: w * 0.5,

@@ -27,7 +27,7 @@ searchButton({
           controller: search,
           cursorColor: MyColors.unslectedIconColor,
           onChanged: (value) {
-            SearchCubit.get(context).searchData(place: search.text);
+            SearchCubit.get(context).searchResult(place: search.text);
           },
           decoration: InputDecoration(
             fillColor: Colors.white,

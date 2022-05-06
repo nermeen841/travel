@@ -16,7 +16,6 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -24,111 +23,136 @@ class ForgetPasswordScreen extends StatelessWidget {
         toolbarHeight: 0.0,
       ),
       backgroundColor: Colors.white,
-      body: ListView(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 35),
-        children: [
-          SizedBox(
-            height: h * 0.03,
-          ),
-          Align(
-              alignment: Alignment.topLeft,
-              child: InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: 35,
-                  color: const Color(0xff3A0CA3).withOpacity(0.55),
-                ),
-              )),
-          Image.asset(
-            'assets/images/Waiting.png',
-            width: w * 0.3,
-            height: h * 0.32,
-            fit: BoxFit.contain,
-          ),
-          Text(
-            LocaleKeys.Forgot_Password.tr(),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: w * 0.06,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-                color: const Color(0xff3A0CA3)),
-          ),
-          SizedBox(
-            height: h * 0.04,
-          ),
-          Center(
-            child: SizedBox(
-              height: h * 0.06,
-              child: Text(
-                LocaleKeys.Do_not_worry.tr(),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 15,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff3A0CA3)),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: h * 0.03,
               ),
-            ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    size: 35,
+                    color: const Color(0xff3A0CA3).withOpacity(0.55),
+                  ),
+                ),
+              ),
+              Image.asset(
+                'assets/images/Waiting.png',
+                width: w * 0.4,
+                // height: h * 0.32,
+                fit: BoxFit.contain,
+              ),
+              Text(
+                LocaleKeys.Forgot_Password.tr(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: w * 0.06,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff3A0CA3)),
+              ),
+              SizedBox(
+                height: h * 0.04,
+              ),
+              Center(
+                child: SizedBox(
+                  height: h * 0.06,
+                  child: Text(
+                    LocaleKeys.Do_not_worry.tr(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff3A0CA3)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: h * 0.05,
+              ),
+              textFormField(
+                hintText: LocaleKeys.Email.tr(),
+                controller: emailController,
+                obscureText: false,
+              ),
+              SizedBox(
+                height: h * 0.065,
+              ),
+              BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
+                listener: (context, state) {
+                  if (state is ResetPassordTokenSuccessState) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ResetPasswordScreen()),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return defaultButton(
+                      title: LocaleKeys.Submit.tr(),
+                      onPressed: () {
+                        if (emailController.text.isNotEmpty) {
+                          AuthenticationcubitCubit.get(context)
+                              .resetPasswordToken(
+                                  email: emailController.text,
+                                  context: context);
+                        } else {
+                          if (emailController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "email is required",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                      fontSize: w * 0.04),
+                                ),
+                                backgroundColor: Colors.black,
+                              ),
+                            );
+                          } else if (!emailController.text.contains("@") ||
+                              !emailController.text.contains(".com")) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "email is invalid",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                      fontSize: w * 0.04),
+                                ),
+                                backgroundColor: Colors.black,
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      fontSize: 16,
+                      height: h * 0.07,
+                      width: 260,
+                      color: Colors.white,
+                      textColor: const Color(0xff3A0CA3),
+                      margin: const EdgeInsets.symmetric(horizontal: 25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade500,
+                          blurRadius: 5,
+                          offset: const Offset(0, 5), // Shadow position
+                        ),
+                      ]);
+                },
+              ),
+            ],
           ),
-          SizedBox(
-            height: h * 0.05,
-          ),
-          Form(
-            key: formKey,
-            child: textFormField(
-              hintText: LocaleKeys.Email.tr(),
-              controller: emailController,
-              validator: (val) {
-                if (val!.isEmpty) {
-                  return "email is required";
-                } else if (!val.contains("@") || !val.contains(".com")) {
-                  return "eamil is invalid";
-                }
-                return null;
-              },
-              obscureText: false,
-            ),
-          ),
-          SizedBox(
-            height: h * 0.065,
-          ),
-          BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
-            listener: (context, state) {
-              if (state is ResetPassordTokenSuccessState) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ResetPasswordScreen()),
-                );
-              }
-            },
-            builder: (context, state) {
-              return defaultButton(
-                  title: LocaleKeys.Submit.tr(),
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      AuthenticationcubitCubit.get(context).resetPasswordToken(
-                          email: emailController.text, context: context);
-                    }
-                  },
-                  fontSize: 16,
-                  height: h * 0.07,
-                  width: 260,
-                  color: Colors.white,
-                  textColor: const Color(0xff3A0CA3),
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade500,
-                      blurRadius: 5,
-                      offset: const Offset(0, 5), // Shadow position
-                    ),
-                  ]);
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

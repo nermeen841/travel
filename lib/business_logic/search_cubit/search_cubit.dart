@@ -3,11 +3,10 @@
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:travel/constants/constants.dart';
+import 'package:travel/models/search_model.dart';
 import '../../constants/network_services.dart';
 import '../../models/CitySearchModel.dart';
 import 'package:http/http.dart' as http;
-
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
@@ -42,8 +41,11 @@ class SearchCubit extends Cubit<SearchState> {
     return citySearch;
   }
 
-  Future<List<CitySearchModel>> searchData(
-      {required String place, int? categoryId, String? cityId}) async {
+  List<SearchModel> searchData = [];
+  SearchModel? searchModel;
+  Future<List<SearchModel>> searchResult(
+      {required String place, int? categoryId, int? cityId}) async {
+    searchData = [];
     emit(GetSearchLoadingState());
     try {
       Map<String, String> headers = {
@@ -52,7 +54,7 @@ class SearchCubit extends Cubit<SearchState> {
       var body = jsonEncode(<String, dynamic>{
         "place": place,
         "catID": categoryId ?? 0,
-        "lastName": cityId ?? 0,
+        "cityID": cityId ?? 0,
       });
       var response = await http.post(
         Uri.parse(SEARCH_DATA),
@@ -63,13 +65,17 @@ class SearchCubit extends Cubit<SearchState> {
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         print(data);
+        for (var item in data) {
+          searchModel = SearchModel.fromJson(item);
+          searchData.add(searchModel!);
+        }
         emit(GetSearchSuccessState());
-        return citySearch;
+        return searchData;
       }
     } catch (e) {
       emit(GetSearchErrorState(e.toString()));
       print("errroro : " + e.toString());
     }
-    return citySearch;
+    return searchData;
   }
 }
