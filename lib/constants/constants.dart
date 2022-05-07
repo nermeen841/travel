@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/constants/colors.dart';
 
@@ -43,6 +44,14 @@ Future startShared() async {
   prefs = await SharedPreferences.getInstance();
 }
 
+////////////////////////////////////////////////////////////////////
+
+//map marker customize image methode
+late BitmapDescriptor markerImage;
+mapIcon() async {
+  markerImage = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(), 'assets/icons/location.png');
+}
 ///////////////////////////////////////////////////////////////////////
 
 void dialog(context) {

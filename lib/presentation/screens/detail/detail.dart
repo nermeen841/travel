@@ -187,7 +187,18 @@ class _DetailScreenState extends State<DetailScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                MapTrackScreen())),
+                                                MapTrackScreen(
+                                                  latitude:
+                                                      HomeCubit.get(context)
+                                                          .placeDetailModel
+                                                          .locationLat
+                                                          .toString(),
+                                                  logtitude:
+                                                      HomeCubit.get(context)
+                                                          .placeDetailModel
+                                                          .locationLong
+                                                          .toString(),
+                                                ))),
                                     child: Container(
                                       width: w * 0.09,
                                       height: h * 0.05,

@@ -13,6 +13,7 @@ import 'package:travel/presentation/screens/splash/splash_screen.dart';
 import 'business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'business_logic/database_helper/app_Cubit.dart';
 import 'business_logic/home_cubit/home_cubit.dart';
+import 'business_logic/search history/search_history_cubit.dart';
 import 'business_logic/search_cubit/search_cubit.dart';
 import 'generated/codegen_loader.g.dart';
 import 'network/bloc_observer.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await startShared();
+  await mapIcon();
   HttpOverrides.global = MyHttpOverrides();
 
   BlocOverrides.runZoned(
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
             create: (context) => DataBaseCubit()..createDb()),
         BlocProvider<FavouriteCubit>(
             create: (context) => FavouriteCubit()..getFavouriteCat()),
+        BlocProvider<SearchHistoryCubit>(
+            create: (context) => SearchHistoryCubit()..createDb()),
         BlocProvider<CategoriesCubit>(
             create: (context) => CategoriesCubit()..getCategory()),
         BlocProvider<HomeCubit>(
