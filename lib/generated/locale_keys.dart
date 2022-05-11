@@ -67,4 +67,14 @@ abstract class LocaleKeys {
   static const Confirm_Password = 'Confirm Password';
   static const New_Password = 'New Password';
   static const LOGIN_ERROR = "login_error";
+  static const UPDATE_PROFILE = "update_profile";
+  static const EMAIL_REQUIRED = "email_required";
+  static const INVALID_EMAIL = "invalid_email";
+  static const PASS_LENGTH = "pass_length";
+  static const PASS_NOT_MATCH = "pass_not_match";
+  static const FIRSTNAME_LENGTH = "firstname_length";
+  static const LAST_NAME_LENGTH = "lastname_length";
+  static const FIRSTNAME_REQUIRED = "firstname_required";
+  static const LASTNAME_REQUIRED = "lastname_required";
+  static const PHONE_INVALID = "phone_invalid";
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/detail/componnent/componnent.dart';
 
-import '../../../../generated/locale_keys.g.dart';
+import '../../../../generated/locale_keys.dart';
 
 class DetailBody extends StatefulWidget {
   const DetailBody({Key? key}) : super(key: key);
@@ -15,9 +15,9 @@ class DetailBody extends StatefulWidget {
 class _DetailBodyState extends State<DetailBody> {
   int currentIndex = 0;
   List<String> text = [
-  LocaleKeys.overview.tr(),
-  LocaleKeys.Details.tr(),
-  LocaleKeys.Reviews.tr(),
+    LocaleKeys.overview.tr(),
+    LocaleKeys.Details.tr(),
+    LocaleKeys.Reviews.tr(),
   ];
 
   late PageController pageController;

@@ -3,9 +3,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
+import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/constants.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/forget_password/forget_password_screen.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
 
@@ -84,9 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: emailController,
                   validator: (val) {
                     if (val!.isEmpty) {
-                      return "email is required";
+                      return LocaleKeys.EMAIL_REQUIRED.tr();
                     } else if (!val.contains("@") || !val.contains(".com")) {
-                      return "eamil is invalid";
+                      return LocaleKeys.INVALID_EMAIL.tr();
                     }
                     return null;
                   },

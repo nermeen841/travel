@@ -2,7 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/componnent/form.dart';
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 

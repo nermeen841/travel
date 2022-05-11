@@ -79,7 +79,18 @@ class CodegenLoader extends AssetLoader {
     "The world": "العالم لك",
     "Explore": "لتستكشفه",
     "Please select your language": "من فضلك اختيار لغتك",
-    "login_error": "البيانات التي قمت بإدخالها غير مرتبطه بحساب"
+    "login_error": "البيانات التي قمت بإدخالها غير مرتبطه بحساب",
+    "update_profile": "تم تحديث الحساب بنجاح",
+    "email_required": "البريد الإلكتروني مطلوب",
+    "invalid_email": "البريد الالكتروني غير صحيح",
+    "pass_length": "كلمة المرور يجب ان تحتوي علي 8 أحرف",
+    "pass_not_match": "كلمة المرور غير متطابقه",
+    "firstname_length":
+        "الاسم الاول يجب ان  يبدء من 3 احرف وان لا يزيد عن 52 حرف",
+    "lastname_length": " اللقب يجب ان  يبدء من 3 احرف وان لا يزيد عن 52 حرف",
+    "firstname_required": "يجب ادخال الاسم الاول",
+    "lastname_required": "يجب ادخال اللقب",
+    "phone_invalid": "رقم الهاتف غير صحيح"
   };
   static const Map<String, dynamic> en = {
     "Search": "Search",
@@ -146,7 +157,19 @@ class CodegenLoader extends AssetLoader {
         "Don't worry! It happens. Please enter the address associated with your account",
     "Please select your language": "Please select your language",
     "Governorate": "Governorate",
-    "login_error": "The data you entered is not associated with an account"
+    "login_error": "The data you entered is not associated with an account",
+    "update_profile": "profile updated Successfilly",
+    "email_required": "email is required",
+    "invalid_email": "eamil is invalid",
+    "pass_length": "passord must be at least 8 charachters",
+    "pass_not_match": "password not match",
+    "firstname_length":
+        "first name must be more than 3 charachters and less than 52 charachters",
+    "lastname_length":
+        "last name must be more than 3 charachters and less than 52 charachters",
+    "firstname_required": "first name is required",
+    "lastname_required": "last name is required",
+    "phone_invalid": "phone number is invalid"
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {

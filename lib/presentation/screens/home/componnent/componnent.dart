@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel/constants/colors.dart';
 import '../../../../constants/constants.dart';
 import '../../search/componnent/componnent.dart';
@@ -7,6 +8,7 @@ import '../../search/componnent/componnent.dart';
 headerTile(
     {required double h,
     required double w,
+    required context,
     GestureTapCallback? drawerOnTap,
     GestureTapCallback? profileOnTap}) {
   return Row(
@@ -37,12 +39,19 @@ headerTile(
                   color: Colors.white,
                   // borderRadius: BorderRadius.circular(w * 0.02),
                   shape: BoxShape.circle,
-                  image: const DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740",
-                      )),
                 ),
+                child: (prefs.getString("user_image") != null)
+                    ? customCachedNetworkImage(
+                        context: context,
+                        fit: BoxFit.cover,
+                        url: prefs.getString("user_image")!)
+                    : Center(
+                        child: Icon(
+                          FontAwesomeIcons.fileImage,
+                          size: w * 0.2,
+                          color: Colors.black,
+                        ),
+                      ),
               ),
             )
           : Container()

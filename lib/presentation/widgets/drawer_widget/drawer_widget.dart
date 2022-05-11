@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/database_helper/app_states.dart';
 import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/constants.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/sign_up_screen.dart';
 import 'package:travel/presentation/screens/drawer_screens/about_us_screen.dart';

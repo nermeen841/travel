@@ -8,7 +8,7 @@ import 'package:travel/business_logic/home_cubit/home_states.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/review/review.dart';
 
-import '../../../../generated/locale_keys.g.dart';
+import '../../../../generated/locale_keys.dart';
 
 headerTitle(
     {required double h,

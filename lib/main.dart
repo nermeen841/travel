@@ -15,7 +15,7 @@ import 'business_logic/database_helper/app_Cubit.dart';
 import 'business_logic/home_cubit/home_cubit.dart';
 import 'business_logic/search history/search_history_cubit.dart';
 import 'business_logic/search_cubit/search_cubit.dart';
-import 'generated/codegen_loader.g.dart';
+import 'generated/codegen_loader.dart';
 import 'network/bloc_observer.dart';
 import 'network/myHttpOverrider.dart';
 

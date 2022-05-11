@@ -8,7 +8,7 @@ import 'package:travel/constants/constants.dart';
 import '../../../business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import '../../../business_logic/database_helper/app_Cubit.dart';
 import '../../../business_logic/database_helper/app_states.dart';
-import '../../../generated/locale_keys.g.dart';
+import '../../../generated/locale_keys.dart';
 
 Widget richTextInSignUp() => RichText(
       textAlign: TextAlign.center,

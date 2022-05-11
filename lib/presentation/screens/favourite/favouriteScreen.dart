@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
 import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/constants/colors.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/favourite/componnent/componnent.dart';
 
 import '../../../constants/constants.dart';

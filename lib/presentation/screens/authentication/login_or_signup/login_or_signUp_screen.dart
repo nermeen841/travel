@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/sign_up_screen.dart';
 import 'package:travel/presentation/screens/layout/bottomNave.dart';

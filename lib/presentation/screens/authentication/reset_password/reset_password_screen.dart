@@ -8,7 +8,7 @@ import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
 
-import '../../../../generated/locale_keys.g.dart';
+import '../../../../generated/locale_keys.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   @override
@@ -89,7 +89,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   controller: newPasswordController,
                   validator: (val) {
                     if (val!.length < 8) {
-                      return "passord must be at least 8 charachters";
+                      return LocaleKeys.PASS_LENGTH.tr();
                     }
                     return null;
                   },
@@ -128,10 +128,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   controller: confirmNewPasswordController,
                   validator: (val) {
                     if (val!.length < 8) {
-                      return "passord must be at least 8 charachters";
+                      return LocaleKeys.PASS_LENGTH.tr();
                     } else if (newPasswordController.text !=
                         confirmNewPasswordController.text) {
-                      return "password not match";
+                      return LocaleKeys.PASS_NOT_MATCH.tr();
                     }
                     return null;
                   },

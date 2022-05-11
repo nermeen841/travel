@@ -66,5 +66,15 @@
     "Privacy Policy":"سياسة الخصوصية",
     "Terms And Conditions":"الشروط و الاحكام",
     "Please select your language":"من فضلك اختيار لغتك",
-    "login_error":"البيانات التي قمت بإدخالها غير مرتبطه بحساب"
+    "login_error":"البيانات التي قمت بإدخالها غير مرتبطه بحساب",
+    "update_profile":"تم تحديث الحساب بنجاح",
+    "email_required":"البريد الإلكتروني مطلوب",
+    "invalid_email":"البريد الالكتروني غير صحيح",
+    "pass_length":"كلمة المرور يجب ان تحتوي علي 8 أحرف",
+    "pass_not_match":"كلمة المرور غير متطابقه",
+    "firstname_length":"الاسم الاول يجب ان  يبدء من 3 احرف وان لا يزيد عن 52 حرف",
+    "lastname_length":" اللقب يجب ان  يبدء من 3 احرف وان لا يزيد عن 52 حرف",
+    "firstname_required":"يجب ادخال الاسم الاول",
+    "lastname_required":"يجب ادخال اللقب",
+    "phone_invalid":"رقم الهاتف غير صحيح"
 }

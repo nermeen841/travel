@@ -62,5 +62,15 @@
     "Do not worry":"Don't worry! It happens. Please enter the address associated with your account",
     "Please select your language":"Please select your language",
     "Governorate":"Governorate",
-    "login_error":"The data you entered is not associated with an account"
+    "login_error":"The data you entered is not associated with an account",
+    "update_profile":"profile updated Successfilly",
+    "email_required":"email is required",
+    "invalid_email":"eamil is invalid",
+    "pass_length":"passord must be at least 8 charachters",
+    "pass_not_match":"password not match",
+    "firstname_length":"first name must be more than 3 charachters and less than 52 charachters",
+    "lastname_length":"last name must be more than 3 charachters and less than 52 charachters",
+    "firstname_required":"first name is required",
+    "lastname_required":"last name is required",
+    "phone_invalid":"phone number is invalid"
 }

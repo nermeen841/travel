@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/constants/constants.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/reset_password/reset_password_screen.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
 
@@ -109,7 +109,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  "email is required",
+                                  LocaleKeys.EMAIL_REQUIRED.tr(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Poppins',
@@ -123,7 +123,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  "email is invalid",
+                                  LocaleKeys.INVALID_EMAIL.tr(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Poppins',

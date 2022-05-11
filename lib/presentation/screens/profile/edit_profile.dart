@@ -5,14 +5,16 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/business_logic/database_helper/app_states.dart';
 import 'package:travel/business_logic/database_helper/database_cubit.dart';
+import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/widgets/profile_wdgets/profile_widgets.dart';
 
-import '../../../generated/locale_keys.g.dart';
+import '../../../generated/locale_keys.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? phoneController;
   String? dateOfBirthController;
   String? addressController;
+  String? birthDate;
 
   File? image;
   String image1 = "";
@@ -98,9 +101,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
-                              child: (image == null)
-                                  ? Image.asset('assets/images/Ellipse 110.png')
-                                  : Image.file(image!),
+                              child: (prefs.getString("user_image") != null &&
+                                      image == null)
+                                  ? customCachedNetworkImage(
+                                      context: context,
+                                      fit: BoxFit.cover,
+                                      url: prefs.getString("user_image")!)
+                                  : (image != null)
+                                      ? Image.file(image!)
+                                      : Center(
+                                          child: Icon(
+                                            FontAwesomeIcons.fileImage,
+                                            size: w * 0.2,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                             ),
                           ),
                           InkWell(
@@ -144,6 +159,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         height: h * 0.05,
                       ),
                       profileFormField(
+                          readOnly: false,
+                          enabled: true,
                           initialValue: DataBaseCubit.get(context).userData[i]
                               ['firstName'],
                           validator: (val) {
@@ -160,6 +177,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         height: h * 0.023,
                       ),
                       profileFormField(
+                          readOnly: false,
+                          enabled: true,
                           initialValue: DataBaseCubit.get(context).userData[i]
                               ['lastName'],
                           validator: (val) {
@@ -176,6 +195,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         height: h * 0.023,
                       ),
                       profileFormField(
+                          enabled: true,
+                          readOnly: false,
                           validator: (val) {
                             return null;
                           },
@@ -192,6 +213,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         height: h * 0.02,
                       ),
                       profileFormField(
+                          enabled: true,
+                          readOnly: false,
                           validator: (val) {
                             return null;
                           },
@@ -211,25 +234,50 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       SizedBox(
                         height: h * 0.02,
                       ),
-                      profileFormField(
+                      InkWell(
+                        onTap: () async {
+                          final date = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime(1995, 1, 1),
+                            firstDate: DateTime(1995, 1, 1),
+                            lastDate: DateTime(2022, 1, 1),
+                            initialDatePickerMode: DatePickerMode.year,
+                            builder: (context, child) {
+                              return Theme(
+                                  data: ThemeData(
+                                    primaryColor: MyColors.mainColor,
+                                    accentColor: MyColors.mainColor,
+                                  ),
+                                  child: child ?? Container());
+                            },
+                          );
+                          if (date != null) {
+                            var formatter = DateFormat('yyyy/MM/dd');
+
+                            setState(() {
+                              birthDate = formatter.format(date);
+                              print(birthDate);
+                            });
+                          }
+                        },
+                        child: profileFormField(
+                          readOnly: true,
+                          enabled: false,
                           validator: (val) {
                             return null;
                           },
                           obscureText: false,
                           hintText: 'Date Of Birth',
-                          initialValue: (DataBaseCubit.get(context).userData[i]
-                                      ['birthDate'] !=
-                                  "null")
-                              ? DataBaseCubit.get(context).userData[i]
-                                  ['birthDate']
-                              : "",
-                          onChange: (String value) {
-                            emailController = value;
-                          }),
+                          initialValue: birthDate ?? "",
+                          onChange: (String value) {},
+                        ),
+                      ),
                       SizedBox(
                         height: h * 0.02,
                       ),
                       profileFormField(
+                          readOnly: false,
+                          enabled: true,
                           validator: (val) {
                             return null;
                           },
@@ -259,6 +307,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               onPressed: () {
                                 AuthenticationcubitCubit.get(context)
                                     .updateProfile(
+                                        address: addressController!,
+                                        userId: DataBaseCubit.get(context)
+                                            .userData[i]['userId'],
                                         email: emailController ??
                                             DataBaseCubit.get(context)
                                                 .userData[i]['email'],
@@ -274,6 +325,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                 ? phoneController
                                                 : "",
                                         image: image1,
+                                        birthDate: birthDate,
                                         lastName: lastnameController ??
                                             DataBaseCubit.get(context)
                                                 .userData[i]['lastName'],

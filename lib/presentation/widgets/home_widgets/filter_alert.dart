@@ -5,7 +5,7 @@ import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
 import 'package:travel/business_logic/categories_cubit/categories_states.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 import '../../../business_logic/database_helper/app_Cubit.dart';

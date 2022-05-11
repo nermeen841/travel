@@ -51,6 +51,8 @@ Widget profileFormField({
   required FormFieldValidator<String>? validator,
   required ValueChanged<String>? onChange,
   required bool obscureText,
+  required bool readOnly,
+  required bool enabled,
   required String hintText,
   Widget? suffixIcon,
 }) =>
@@ -58,6 +60,8 @@ Widget profileFormField({
       initialValue: initialValue,
       validator: validator,
       onChanged: onChange,
+      readOnly: readOnly,
+      enabled: enabled,
       keyboardType: TextInputType.text,
       cursorColor: Colors.grey,
       obscureText: obscureText,

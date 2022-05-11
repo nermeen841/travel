@@ -6,7 +6,7 @@ import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/business_logic/search%20history/search_history_cubit.dart';
 import 'package:travel/business_logic/search_cubit/search_cubit.dart';
 import 'package:travel/constants/colors.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/search/componnent/componnent.dart';
 
 class SearchScreen extends StatefulWidget {

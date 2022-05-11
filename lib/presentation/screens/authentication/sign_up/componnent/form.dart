@@ -8,7 +8,7 @@ import 'package:travel/presentation/screens/authentication/login/login_screen.da
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 import '../../../../../constants/colors.dart';
 import '../../../../../constants/constants.dart';
-import '../../../../../generated/locale_keys.g.dart';
+import '../../../../../generated/locale_keys.dart';
 import '../../../../widgets/login_form/login_form.dart';
 
 class SignupForm extends StatefulWidget {
@@ -46,9 +46,9 @@ class _SignupFormState extends State<SignupForm> {
                 obscureText: false,
                 validator: (val) {
                   if (val!.isEmpty) {
-                    return "first name is required";
+                    return LocaleKeys.FIRSTNAME_REQUIRED.tr();
                   } else if (val.length < 3) {
-                    return "first name must be more than 2 charachters and less than 52 charachters";
+                    return LocaleKeys.FIRSTNAME_LENGTH.tr();
                   }
                   return null;
                 },
@@ -62,9 +62,9 @@ class _SignupFormState extends State<SignupForm> {
                 obscureText: false,
                 validator: (val) {
                   if (val!.isEmpty) {
-                    return "last name is required";
+                    return LocaleKeys.LASTNAME_REQUIRED.tr();
                   } else if (val.length < 3) {
-                    return "last name must be more than 2 charachters and less than 52 charachters";
+                    return LocaleKeys.LAST_NAME_LENGTH.tr();
                   }
                   return null;
                 },
@@ -77,7 +77,7 @@ class _SignupFormState extends State<SignupForm> {
                 validator: (val) {
                   if (val!.isNotEmpty) {
                     if (val.length != 11) {
-                      return "phone number is invalid";
+                      return LocaleKeys.PHONE_INVALID.tr();
                     }
                   } else {
                     return null;
@@ -96,9 +96,9 @@ class _SignupFormState extends State<SignupForm> {
                 obscureText: false,
                 validator: (val) {
                   if (val!.isEmpty) {
-                    return "email is required";
+                    return LocaleKeys.EMAIL_REQUIRED.tr();
                   } else if (!val.contains("@") || !val.contains(".com")) {
-                    return "eamil is invalid";
+                    return LocaleKeys.INVALID_EMAIL.tr();
                   }
                   return null;
                 },
@@ -112,7 +112,7 @@ class _SignupFormState extends State<SignupForm> {
                 obscureText: secureText,
                 validator: (val) {
                   if (val!.length < 8) {
-                    return "passord must be at least 8 charachters";
+                    return LocaleKeys.PASS_LENGTH.tr();
                   }
                   return null;
                 },
@@ -151,10 +151,10 @@ class _SignupFormState extends State<SignupForm> {
                 obscureText: secureText2,
                 validator: (val) {
                   if (val!.length < 8) {
-                    return "passord must be at least 8 charachters";
+                    return LocaleKeys.PASS_LENGTH.tr();
                   } else if (passwordController.text !=
                       confirmPasswordController.text) {
-                    return "password not match";
+                    return LocaleKeys.PASS_NOT_MATCH.tr();
                   }
                   return null;
                 },

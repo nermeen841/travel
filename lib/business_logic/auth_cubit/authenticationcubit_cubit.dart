@@ -2,13 +2,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/business_logic/database_helper/database_cubit.dart';
+import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/constants/network_services.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/models/GetGovernoratesModel.dart';
 import '../../models/CityModel.dart';
 part 'authenticationcubit_state.dart';
@@ -90,14 +92,12 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     String errorData = '';
     emit(RegisterLoadingState());
     try {
-      var dob = <String, int>{"year": 0, "month": 0, "day": 0, "dayOfWeek": 0};
-
       var body = jsonEncode(<String, dynamic>{
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
         "phone": phone,
-        'dob': dob,
+        'dob': "1995/1/14",
         "password": password,
         "confirmPassword": confirmPassword,
         "cityID": cityID,
@@ -165,6 +165,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
+        DataBaseCubit.get(context).deleteTableContent();
         DataBaseCubit.get(context).inserttoDatabase(
           email: data['user']['email'],
           userPhone: data['user']['phoneNumber'],
@@ -388,15 +389,17 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     required String phone,
     required String image,
     required String lastName,
+    required String address,
+    String? birthDate,
     required context,
     required double w,
+    required userId,
   }) async {
     String errorData = '';
     final String token = prefs.getString("user_token") ?? "";
-    final int cityID = prefs.getInt('city_id') ?? 0;
+    final int cityID = prefs.getInt('city_id')!;
     emit(UpdateProfileLoadingState());
     try {
-      var dob = <String, int>{"year": 0, "month": 0, "day": 0, "dayOfWeek": 0};
       Map<String, String> headers = {
         "Authorization": "Bearer $token",
         'Content-Type': 'application/json; charset=UTF-8',
@@ -407,7 +410,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
         "lastName": lastName,
         "email": email,
         "phone": phone,
-        'dob': dob,
+        'dob': (birthDate != null) ? birthDate : "",
         "cityID": cityID,
       });
       print(body);
@@ -422,15 +425,28 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         print(data);
-        //  DataBaseCubit.get(context).deleteTableContent();
-        //                       DataBaseCubit.get(context).inserttoDatabase(
-        //                           firstName: firstName,
-        //                           lastName: lastName,
-        //                           userAddress: addressController,
-        //                           image: image1,
-        //                           email: emailController!,
-        //                           userId: widget.userId.toString());
-        //                       Navigator.pop(context);
+        if (data['status'] == "Success") {
+          Fluttertoast.showToast(
+              msg: LocaleKeys.UPDATE_PROFILE.tr(),
+              gravity: ToastGravity.TOP,
+              backgroundColor: MyColors.mainColor,
+              toastLength: Toast.LENGTH_LONG,
+              textColor: Colors.white);
+          prefs.setString('user_image', image);
+          DataBaseCubit.get(context).deleteTableContent();
+          DataBaseCubit.get(context).inserttoDatabase(
+              firstName: firstName,
+              lastName: lastName,
+              userPhone: phone,
+              userAddress: "",
+              image: image,
+              email: email,
+              birthDate: birthDate,
+              userId: userId);
+          Navigator.pop(context);
+          emit(UpdateProfileSuccessState());
+        }
+
         emit(UpdateProfileSuccessState());
       } else if (response.statusCode == 400) {
         ScaffoldMessenger.of(context).showSnackBar(

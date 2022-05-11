@@ -4,7 +4,7 @@ import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart'
 import 'package:travel/constants/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../constants/constants.dart';
-import '../../../generated/locale_keys.g.dart';
+import '../../../generated/locale_keys.dart';
 import '../../widgets/login_form/login_form.dart';
 
 class ChangePassword extends StatefulWidget {

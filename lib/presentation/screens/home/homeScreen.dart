@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:travel/constants/colors.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
 import 'package:travel/presentation/screens/more/more.dart';
 import 'package:travel/presentation/screens/profile/user_profile.dart';
@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
             headerTile(
                 h: h,
                 w: w,
+                context: context,
                 drawerOnTap: () {
                   scaffoldKey.currentState!.openDrawer();
                 },

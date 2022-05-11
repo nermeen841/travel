@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/search_cubit/search_cubit.dart';
 import 'package:travel/constants/colors.dart';
-import 'package:travel/generated/locale_keys.g.dart';
+import 'package:travel/generated/locale_keys.dart';
 
 import '../../layout/bottomNave.dart';
 

@@ -3,6 +3,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/favourite/favouriteScreen.dart';
 import 'package:travel/presentation/screens/home/homeScreen.dart';
@@ -78,6 +80,7 @@ class _BottomNaveState extends State<BottomNave> {
   @override
   void initState() {
     getIndex();
+    DataBaseCubit.get(context).createDb();
     getLocation();
     super.initState();
   }
