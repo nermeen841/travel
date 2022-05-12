@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/constants/colors.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/widgets/notification_widgets/notification_widgets.dart';
 
@@ -19,12 +20,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     double w = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        backgroundColor: Colors.grey.shade300,
-        appBar: AppBar(
-          toolbarHeight: 0.0,
-          automaticallyImplyLeading: false,
-          elevation: 0.0,
-        ),
+        backgroundColor: Colors.transparent,
         body: Align(
           alignment: Alignment.topRight,
           child: SingleChildScrollView(
@@ -33,12 +29,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: h * 0.03,
+                  height: h * 0.085,
                 ),
                 Text(
                   LocaleKeys.Notifications.tr(),
-                  style: const TextStyle(
-                      color: Color(0xff3A0CA3),
+                  style: TextStyle(
+                      color: MyColors.mainColor,
                       fontSize: 30,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Poppins'),

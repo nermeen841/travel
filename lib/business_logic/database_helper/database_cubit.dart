@@ -21,6 +21,7 @@ class DataBaseCubit extends Cubit<AppState> {
           .catchError((error) {});
     }, onOpen: (database) {
       getfromDataBase(database);
+      emit(GetdatabaseState());
     }).then((value) {
       database = value;
       emit(CreatedatabaseState());
@@ -37,17 +38,6 @@ class DataBaseCubit extends Cubit<AppState> {
       emit(GetdatabaseState());
     });
   }
-////////////////////////////////////////////////////////////////////////////////////////////
-
-  // deletaFromDB({required int id}) {
-  //   database.rawDelete('DELETE FROM favourite WHERE navyId = ?', ['$id']).then(
-  //       (value) {
-  //     getfromDataBase(database);
-  //     isfavourite["$id"] = false;
-  //     emit(DeletedatabaseState());
-  //   }).catchError((error) {});
-  // }
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 
   void inserttoDatabase({

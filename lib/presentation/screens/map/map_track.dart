@@ -79,10 +79,6 @@ class _MapTrackScreenState extends State<MapTrackScreen> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        toolbarHeight: 0.0,
-      ),
       body: Stack(
         children: [
           googleMapUI(),

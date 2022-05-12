@@ -18,12 +18,19 @@ Widget buildDrawerWidget({required context}) {
     margin: EdgeInsets.only(
       top: h * 0.01,
     ),
-    // padding: EdgeInsets.only(top: h * 0.06,),
     width: 330,
     height: h,
-    decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+    decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xff3A0CA3).withOpacity(0.99),
+            Colors.white,
+            Colors.white,
+          ],
+        ),
+        borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30), bottomRight: Radius.circular(25))),
     child: ListView(
       padding: EdgeInsets.only(bottom: h * 0.02),
@@ -31,7 +38,7 @@ Widget buildDrawerWidget({required context}) {
         DrawerHeader(
             child: Image.asset(
           'assets/icons/logo.png',
-          color: const Color(0xff3A0CA3),
+          color: Colors.white,
         )),
         buildRowInDrawer(
             title: LocaleKeys.About_Us.tr(),

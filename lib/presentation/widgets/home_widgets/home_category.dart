@@ -62,50 +62,64 @@ class _HomeCategoryState extends State<HomeCategory> {
               width: w,
               height: h * 0.2,
               color: Colors.transparent,
-              child: PageView.builder(
-                  itemCount: homeCategory.length,
-                  controller: pageController,
-                  onPageChanged: (index) {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      width: w,
-                      height: h * 0.2,
-                      child: BlocConsumer<CategoriesCubit, CategoriesState>(
-                        listener: (context, state) {},
-                        builder: (context, state) {
-                          final toCategory =
-                              CategoriesCubit.get(context).topCategory;
-                          return ListView.separated(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => InkWell(
-                                    onTap: () {
-                                      HomeCubit.get(context).getPlaceDetail(
-                                          context: context,
-                                          id: toCategory[index].id.toString());
-                                    },
-                                    child: categoryCard(
-                                      w: w,
-                                      h: h,
-                                      address: toCategory[index]
-                                          .addressEN
-                                          .toString(),
-                                      name: toCategory[index].nameEN.toString(),
-                                      rate: toCategory[index].rate,
-                                    ),
-                                  ),
-                              separatorBuilder: (context, index) => SizedBox(
-                                    width: w * 0.025,
-                                  ),
-                              itemCount: toCategory.length);
-                        },
+              child: (CategoriesCubit.get(context).topCategory.isNotEmpty)
+                  ? PageView.builder(
+                      itemCount: homeCategory.length,
+                      controller: pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          width: w,
+                          height: h * 0.2,
+                          child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              final toCategory =
+                                  CategoriesCubit.get(context).topCategory;
+                              return ListView.separated(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) => InkWell(
+                                        onTap: () {
+                                          HomeCubit.get(context).getPlaceDetail(
+                                              context: context,
+                                              id: toCategory[index]
+                                                  .id
+                                                  .toString());
+                                        },
+                                        child: categoryCard(
+                                          w: w,
+                                          h: h,
+                                          address: toCategory[index]
+                                              .addressEN
+                                              .toString(),
+                                          name: toCategory[index]
+                                              .nameEN
+                                              .toString(),
+                                          rate: toCategory[index].rate,
+                                        ),
+                                      ),
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(
+                                        width: w * 0.025,
+                                      ),
+                                  itemCount: toCategory.length);
+                            },
+                          ),
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        "No places here  ",
+                        style: headingStyle.copyWith(
+                            fontWeight: FontWeight.w500, fontSize: w * 0.04),
                       ),
-                    );
-                  }),
+                    ),
             ),
           ],
         );

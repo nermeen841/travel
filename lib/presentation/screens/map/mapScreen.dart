@@ -46,10 +46,6 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        toolbarHeight: 0.0,
-      ),
       body: GoogleMap(
         myLocationButtonEnabled: true,
         myLocationEnabled: true,

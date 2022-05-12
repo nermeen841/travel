@@ -33,17 +33,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        automaticallyImplyLeading: false,
-        toolbarHeight: 0.0,
-      ),
+      backgroundColor: Colors.transparent,
       body: (prefs.getBool("is_login") == true)
           ? BlocConsumer<FavouriteCubit, FavouriteState>(
               listener: (context, state) {
-                if (state is GetFavouriteCategorySuccessState) {
+                if (state is GetFavouriteCategorySuccessState &&
+                    FavouriteCubit.get(context).favouriteCategory.isNotEmpty) {
                   FavouriteCubit.get(context).getFavouritePlaces(
                       categoryId:
                           FavouriteCubit.get(context).favouriteCategory[0].id!);
@@ -60,6 +55,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
+                                SizedBox(
+                                  height: h * 0.08,
+                                ),
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
@@ -73,49 +71,57 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                   height: h * 0.03,
                                 ),
                                 Center(
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 5),
-                                    height: h * 0.08,
-                                    padding: EdgeInsets.only(top: h * 0.02),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(w * 0.08),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            offset: Offset(0, 3),
-                                            color: MyColors.backgroundColor,
-                                            spreadRadius: 3,
-                                            blurRadius: 3)
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: List.generate(
-                                            FavouriteCubit.get(context)
-                                                .favouriteCategory
-                                                .length,
-                                            (index) => buildDot(
-                                                index: index,
-                                                categoryId: FavouriteCubit.get(
-                                                        context)
-                                                    .favouriteCategory[index]
-                                                    .id!,
-                                                h: h,
-                                                w: w,
-                                                text: FavouriteCubit.get(
-                                                        context)
-                                                    .favouriteCategory[index]
-                                                    .nameEN!),
-                                            growable: true),
-                                      ),
-                                    ),
-                                  ),
+                                  child: (FavouriteCubit.get(context)
+                                          .favouriteCategory
+                                          .isNotEmpty)
+                                      ? Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          height: h * 0.08,
+                                          padding:
+                                              EdgeInsets.only(top: h * 0.02),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(w * 0.08),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  offset: Offset(0, 3),
+                                                  color:
+                                                      MyColors.backgroundColor,
+                                                  spreadRadius: 3,
+                                                  blurRadius: 3)
+                                            ],
+                                          ),
+                                          child: Center(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: List.generate(
+                                                  FavouriteCubit.get(context)
+                                                      .favouriteCategory
+                                                      .length,
+                                                  (index) => buildDot(
+                                                      index: index,
+                                                      categoryId: FavouriteCubit
+                                                              .get(context)
+                                                          .favouriteCategory[
+                                                              index]
+                                                          .id!,
+                                                      h: h,
+                                                      w: w,
+                                                      text: FavouriteCubit.get(
+                                                              context)
+                                                          .favouriteCategory[
+                                                              index]
+                                                          .nameEN!),
+                                                  growable: true),
+                                            ),
+                                          ),
+                                        )
+                                      : const SizedBox(),
                                 ),
                                 SizedBox(
                                   height: h * 0.03,
@@ -127,85 +133,90 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                       FavouriteState>(
                                     listener: (context, state) {},
                                     builder: (context, state) {
-                                      return PageView.builder(
-                                          controller: pageController,
-                                          itemCount: FavouriteCubit.get(context)
-                                              .favouriteCategory
-                                              .length,
-                                          onPageChanged: (val) {
-                                            setState(() {
-                                              currentIndex = val;
-                                            });
-                                          },
-                                          itemBuilder: (context, index) {
-                                            return ConditionalBuilder(
-                                                condition: state
-                                                    is! GetFavouritePlacesLoadingState,
-                                                builder: (context) =>
-                                                    ListView.separated(
-                                                        shrinkWrap: true,
-                                                        primary: true,
-                                                        itemBuilder:
-                                                            (context, index) =>
-                                                                InkWell(
-                                                                  child: favouriteCard(
-                                                                      placeId: FavouriteCubit.get(
-                                                                              context)
-                                                                          .favouritePlaces[
-                                                                              index]
-                                                                          .id!,
-                                                                      address: FavouriteCubit.get(
-                                                                              context)
-                                                                          .favouritePlaces[
-                                                                              index]
-                                                                          .addressEN!,
-                                                                      categoryId: FavouriteCubit.get(
-                                                                              context)
-                                                                          .favouritePlaces[
-                                                                              index]
-                                                                          .categoryID!,
-                                                                      name: FavouriteCubit.get(
-                                                                              context)
-                                                                          .favouritePlaces[
-                                                                              index]
-                                                                          .nameEN!,
-                                                                      w: w,
-                                                                      h: h,
-                                                                      rate: FavouriteCubit.get(
-                                                                              context)
-                                                                          .favouritePlaces[
-                                                                              index]
-                                                                          .rate!),
-                                                                  onTap: () {
-                                                                    HomeCubit.get(context).getPlaceDetail(
-                                                                        id: FavouriteCubit.get(context)
-                                                                            .favouritePlaces[
-                                                                                index]
-                                                                            .id!
-                                                                            .toString(),
-                                                                        context:
-                                                                            context);
-                                                                  },
-                                                                ),
-                                                        separatorBuilder:
-                                                            (context, index) =>
-                                                                SizedBox(
-                                                                  height:
-                                                                      h * 0.03,
-                                                                ),
-                                                        itemCount:
-                                                            FavouriteCubit.get(
-                                                                    context)
+                                      return (FavouriteCubit.get(context)
+                                              .favouritePlaces
+                                              .isNotEmpty)
+                                          ? PageView.builder(
+                                              controller: pageController,
+                                              itemCount:
+                                                  FavouriteCubit.get(context)
+                                                      .favouriteCategory
+                                                      .length,
+                                              onPageChanged: (val) {
+                                                setState(() {
+                                                  currentIndex = val;
+                                                });
+                                              },
+                                              itemBuilder: (context, index) {
+                                                return ConditionalBuilder(
+                                                    condition: state
+                                                        is! GetFavouritePlacesLoadingState,
+                                                    builder: (context) =>
+                                                        ListView.separated(
+                                                            shrinkWrap: true,
+                                                            primary: true,
+                                                            itemBuilder:
+                                                                (context,
+                                                                        index) =>
+                                                                    InkWell(
+                                                                      child: favouriteCard(
+                                                                          placeId: FavouriteCubit.get(context)
+                                                                              .favouritePlaces[
+                                                                                  index]
+                                                                              .id!,
+                                                                          address: FavouriteCubit.get(context)
+                                                                              .favouritePlaces[
+                                                                                  index]
+                                                                              .addressEN!,
+                                                                          categoryId: FavouriteCubit.get(context)
+                                                                              .favouritePlaces[
+                                                                                  index]
+                                                                              .categoryID!,
+                                                                          name: FavouriteCubit.get(context)
+                                                                              .favouritePlaces[
+                                                                                  index]
+                                                                              .nameEN!,
+                                                                          w: w,
+                                                                          h: h,
+                                                                          rate: FavouriteCubit.get(context)
+                                                                              .favouritePlaces[index]
+                                                                              .rate!),
+                                                                      onTap:
+                                                                          () {
+                                                                        HomeCubit.get(context).getPlaceDetail(
+                                                                            id: FavouriteCubit.get(context).favouritePlaces[index].id!.toString(),
+                                                                            context: context);
+                                                                      },
+                                                                    ),
+                                                            separatorBuilder:
+                                                                (context,
+                                                                        index) =>
+                                                                    SizedBox(
+                                                                      height: h *
+                                                                          0.03,
+                                                                    ),
+                                                            itemCount: FavouriteCubit
+                                                                    .get(
+                                                                        context)
                                                                 .favouritePlaces
                                                                 .length),
-                                                fallback: (context) => Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color:
-                                                            MyColors.mainColor,
-                                                      ),
-                                                    ));
-                                          });
+                                                    fallback: (context) =>
+                                                        Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: MyColors
+                                                                .mainColor,
+                                                          ),
+                                                        ));
+                                              })
+                                          : Center(
+                                              child: Text(
+                                                "No places here  ",
+                                                style: headingStyle.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: w * 0.05),
+                                              ),
+                                            );
                                     },
                                   ),
                                 ),
@@ -224,9 +235,6 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(
-                  child: Image.asset("assets/images/must_login.jpg"),
-                ),
                 Center(
                   child: Text(
                     "you must login first ",

@@ -20,11 +20,11 @@ import 'network/bloc_observer.dart';
 import 'network/myHttpOverrider.dart';
 
 Future<void> main() async {
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Color(0xff3a0ca3),
-    statusBarIconBrightness: Brightness.light,
-    statusBarBrightness: Brightness.light,
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   statusBarColor: Color(0xff3a0ca3),
+  //   statusBarIconBrightness: Brightness.light,
+  //   statusBarBrightness: Brightness.light,
+  // ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -76,13 +76,13 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: Color(0xff3a0ca3),
-                statusBarIconBrightness: Brightness.light,
-                statusBarBrightness: Brightness.light,
-              ),
-            ),
+            // appBarTheme: const AppBarTheme(
+            //   systemOverlayStyle: SystemUiOverlayStyle(
+            //     statusBarColor: Color(0xff3a0ca3),
+            //     statusBarIconBrightness: Brightness.light,
+            //     statusBarBrightness: Brightness.light,
+            //   ),
+            // ),
             fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,

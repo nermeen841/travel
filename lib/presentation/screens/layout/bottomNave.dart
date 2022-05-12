@@ -88,45 +88,65 @@ class _BottomNaveState extends State<BottomNave> {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
-    return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        height: h * 0.09,
-        buttonBackgroundColor: Colors.white,
-        color: MyColors.mainColor,
-        animationCurve: Curves.easeInOut,
-        animationDuration: const Duration(milliseconds: 600),
-        letIndexChange: (index) => true,
-        index: currentIndex,
-        backgroundColor: Colors.transparent,
-        onTap: (value) {
-          setState(() {
-            currentIndex = value;
-          });
-        },
-        items: [
-          Icon(
-            Icons.home,
-            color: (currentIndex == 0) ? MyColors.mainColor : Colors.white,
+    double w = MediaQuery.of(context).size.width;
+    return PreferredSize(
+      preferredSize: Size(w, h),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color(0xff3A0CA3).withOpacity(0.99),
+              Colors.white70,
+              Colors.white,
+              Colors.white,
+              Colors.white,
+            ],
           ),
-          Icon(
-            Icons.search,
-            color: (currentIndex == 1) ? MyColors.mainColor : Colors.white,
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          bottomNavigationBar: CurvedNavigationBar(
+            height: h * 0.09,
+            buttonBackgroundColor: Colors.white,
+            color: MyColors.mainColor,
+            animationCurve: Curves.easeInOut,
+            animationDuration: const Duration(milliseconds: 600),
+            letIndexChange: (index) => true,
+            index: currentIndex,
+            backgroundColor: Colors.transparent,
+            onTap: (value) {
+              setState(() {
+                currentIndex = value;
+              });
+            },
+            items: [
+              Icon(
+                Icons.home,
+                color: (currentIndex == 0) ? MyColors.mainColor : Colors.white,
+              ),
+              Icon(
+                Icons.search,
+                color: (currentIndex == 1) ? MyColors.mainColor : Colors.white,
+              ),
+              Icon(
+                Icons.explore,
+                color: (currentIndex == 2) ? MyColors.mainColor : Colors.white,
+              ),
+              Icon(
+                Icons.notifications,
+                color: (currentIndex == 3) ? MyColors.mainColor : Colors.white,
+              ),
+              Icon(
+                Icons.favorite,
+                color: (currentIndex == 4) ? MyColors.mainColor : Colors.white,
+              ),
+            ],
           ),
-          Icon(
-            Icons.explore,
-            color: (currentIndex == 2) ? MyColors.mainColor : Colors.white,
-          ),
-          Icon(
-            Icons.notifications,
-            color: (currentIndex == 3) ? MyColors.mainColor : Colors.white,
-          ),
-          Icon(
-            Icons.favorite,
-            color: (currentIndex == 4) ? MyColors.mainColor : Colors.white,
-          ),
-        ],
+          body: screens[currentIndex],
+        ),
       ),
-      body: screens[currentIndex],
     );
   }
 }

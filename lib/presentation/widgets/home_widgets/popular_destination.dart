@@ -29,7 +29,16 @@ class _PopularDestinationsState extends State<PopularDestinations> {
                   width: w * 0.4,
                   height: h * 0.15,
                   decoration: BoxDecoration(
-                    color: MyColors.backgroundColor,
+                    // color: Colors.red,
+                    gradient: LinearGradient(
+                      end: Alignment.topCenter,
+                      begin: Alignment.bottomCenter,
+                      colors: [
+                        const Color(0xff3A0CA3).withOpacity(0.99),
+                        Colors.white,
+                        Colors.white,
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(w * 0.05),
                     boxShadow: const [
                       BoxShadow(
@@ -43,17 +52,42 @@ class _PopularDestinationsState extends State<PopularDestinations> {
                             "https://as2.ftcdn.net/v2/jpg/01/70/66/75/1000_F_170667573_7EnaDhe9xo1elwC9fAVjy02BPiJrZ9PW.jpg"),
                         fit: BoxFit.cover),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: h * 0.13, left: w * 0.02, right: w * 0.02),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Dubai",
-                        style: headingStyle.copyWith(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: h * 0.13,
+                        ),
+                        child: Container(
+                          width: w * 0.4,
+                          height: h * 0.15,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(w * 0.05),
+                            gradient: LinearGradient(
+                              end: Alignment.topCenter,
+                              begin: Alignment.bottomCenter,
+                              colors: [
+                                const Color(0xff3A0CA3).withOpacity(0.99),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: h * 0.13, left: w * 0.02, right: w * 0.02),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Dubai",
+                            style: headingStyle.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

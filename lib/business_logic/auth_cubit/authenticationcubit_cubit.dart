@@ -165,7 +165,6 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        DataBaseCubit.get(context).deleteTableContent();
         DataBaseCubit.get(context).inserttoDatabase(
           email: data['user']['email'],
           userPhone: data['user']['phoneNumber'],

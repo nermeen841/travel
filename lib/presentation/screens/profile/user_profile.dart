@@ -20,168 +20,192 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
+  void initState() {
+    DataBaseCubit.get(context).createDb();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return PreferredSize(
+      preferredSize: Size(w, h),
+      child: Scaffold(
         backgroundColor: Colors.white,
-        elevation: 0,
-        toolbarHeight: 0.0,
-      ),
-      body: BlocConsumer<DataBaseCubit, AppState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return ListView.builder(
-            shrinkWrap: true,
-            primary: true,
-            itemCount: DataBaseCubit.get(context).userData.length,
-            padding: EdgeInsets.symmetric(
-              horizontal: w * 0.06,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color(0xff3A0CA3).withOpacity(0.99),
+                Colors.white70,
+                Colors.white,
+              ],
             ),
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  SizedBox(height: h * 0.02),
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: const Icon(
-                          Icons.arrow_back_ios,
-                          size: 35,
-                          color: Color(0xff3A0CA3),
-                        ),
-                      )),
-                  // SizedBox(
-                  //   height: h * 0.01,
-                  // ),
-                  Container(
-                    height: h * 0.2,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: (DataBaseCubit.get(context).userData[index]
-                                ['image'] !=
-                            "null")
-                        ? customCachedNetworkImage(
-                            context: context,
-                            fit: BoxFit.cover,
-                            url: DataBaseCubit.get(context).userData[index]
-                                ['image'])
-                        : Center(
-                            child: Icon(
-                              FontAwesomeIcons.fileImage,
-                              size: w * 0.2,
-                              color: Colors.black,
+          ),
+          child: BlocConsumer<DataBaseCubit, AppState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return ListView.builder(
+                shrinkWrap: true,
+                primary: true,
+                itemCount: DataBaseCubit.get(context).userData.length,
+                padding: EdgeInsets.symmetric(
+                  horizontal: w * 0.06,
+                ),
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      SizedBox(height: h * 0.08),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: const Icon(
+                              Icons.arrow_back_ios,
+                              size: 35,
+                              color: Color(0xff3A0CA3),
                             ),
-                          ),
-                  ),
-                  SizedBox(
-                    height: h * 0.06,
-                  ),
-                  Text(
-                    LocaleKeys.Profile_Details.tr(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Poppins',
-                      color: Color(0xff3A0CA3),
-                    ),
-                  ),
-                  SizedBox(
-                    height: h * 0.06,
-                  ),
-                  buildProfileRow(
-                      context: context,
-                      title1: LocaleKeys.Username.tr(),
-                      title2: DataBaseCubit.get(context).userData[index]
-                          ['firstName']),
-                  buildProfileRow(
-                      context: context,
-                      title1: LocaleKeys.Email.tr(),
-                      title2: DataBaseCubit.get(context).userData[index]
-                          ['email']),
-                  (DataBaseCubit.get(context).userData[index]['userPhone'] !=
-                          "null")
-                      ? buildProfileRow(
-                          context: context,
-                          title1: LocaleKeys.Phone_Number.tr(),
-                          title2: DataBaseCubit.get(context).userData[index]
-                              ['userPhone'])
-                      : Container(),
-                  (DataBaseCubit.get(context).userData[index]['birthDate'] !=
-                          "null")
-                      ? buildProfileRow(
-                          context: context,
-                          title1: LocaleKeys.DateOfBirth.tr(),
-                          title2: DataBaseCubit.get(context).userData[index]
-                              ['birthDate'])
-                      : Container(),
-                  (DataBaseCubit.get(context).userData[index]['userAddress'] !=
-                          "null")
-                      ? buildProfileRow(
-                          context: context,
-                          title1: LocaleKeys.Address.tr(),
-                          title2: DataBaseCubit.get(context).userData[index]
-                              ['userAddress'])
-                      : Container(),
-                  SizedBox(
-                    height: h * 0.06,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangePassword(
-                                    email: DataBaseCubit.get(context)
-                                        .userData[index]['email'],
-                                  )));
-                    },
-                    child: const Text(
-                      "Change Passord",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Poppins',
-                        color: Color(0xff3A0CA3),
+                          )),
+                      // SizedBox(
+                      //   height: h * 0.01,
+                      // ),
+                      Container(
+                        height: h * 0.2,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: (DataBaseCubit.get(context).userData[index]
+                                    ['image'] !=
+                                "null")
+                            ? customCachedNetworkImage(
+                                context: context,
+                                fit: BoxFit.cover,
+                                url: DataBaseCubit.get(context).userData[index]
+                                    ['image'])
+                            : Center(
+                                child: Icon(
+                                  FontAwesomeIcons.fileImage,
+                                  size: w * 0.2,
+                                  color: Colors.black,
+                                ),
+                              ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: h * 0.06,
-                  ),
-                  SizedBox(
-                    height: h * 0.02,
-                  ),
-                  defaultButton(
-                    margin: EdgeInsets.symmetric(horizontal: w * 0.13),
-                    title: LocaleKeys.EDIT.tr(),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const EditProfileScreen()));
-                    },
-                    fontSize: w * 0.05,
-                    height: h * 0.06,
-                    width: 260,
-                    color: const Color(0xff3A0CA3),
-                    textColor: Colors.white,
-                  ),
-                  SizedBox(
-                    height: h * 0.02,
-                  ),
-                ],
+                      SizedBox(
+                        height: h * 0.06,
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional.topStart,
+                        child: Text(
+                          LocaleKeys.Profile_Details.tr(),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Poppins',
+                            color: Color(0xff3A0CA3),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: h * 0.06,
+                      ),
+                      buildProfileRow(
+                          context: context,
+                          title1: LocaleKeys.Username.tr(),
+                          title2: DataBaseCubit.get(context).userData[index]
+                              ['firstName']),
+                      buildProfileRow(
+                          context: context,
+                          title1: LocaleKeys.Email.tr(),
+                          title2: DataBaseCubit.get(context).userData[index]
+                              ['email']),
+                      (DataBaseCubit.get(context).userData[index]
+                                  ['userPhone'] !=
+                              "null")
+                          ? buildProfileRow(
+                              context: context,
+                              title1: LocaleKeys.Phone_Number.tr(),
+                              title2: DataBaseCubit.get(context).userData[index]
+                                  ['userPhone'])
+                          : Container(),
+                      (DataBaseCubit.get(context).userData[index]
+                                  ['birthDate'] !=
+                              "null")
+                          ? buildProfileRow(
+                              context: context,
+                              title1: LocaleKeys.DateOfBirth.tr(),
+                              title2: DataBaseCubit.get(context).userData[index]
+                                  ['birthDate'])
+                          : Container(),
+                      (DataBaseCubit.get(context).userData[index]
+                                  ['userAddress'] !=
+                              "null")
+                          ? buildProfileRow(
+                              context: context,
+                              title1: LocaleKeys.Address.tr(),
+                              title2: DataBaseCubit.get(context).userData[index]
+                                  ['userAddress'])
+                          : Container(),
+                      SizedBox(
+                        height: h * 0.06,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChangePassword(
+                                        email: DataBaseCubit.get(context)
+                                            .userData[index]['email'],
+                                      )));
+                        },
+                        child: const Text(
+                          "Change Passord",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Poppins',
+                            color: Color(0xff3A0CA3),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: h * 0.06,
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                      defaultButton(
+                        margin: EdgeInsets.symmetric(horizontal: w * 0.13),
+                        title: LocaleKeys.EDIT.tr(),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditProfileScreen()));
+                        },
+                        fontSize: w * 0.05,
+                        height: h * 0.06,
+                        width: 260,
+                        color: const Color(0xff3A0CA3),
+                        textColor: Colors.white,
+                      ),
+                      SizedBox(
+                        height: h * 0.02,
+                      ),
+                    ],
+                  );
+                },
               );
             },
-          );
-        },
+          ),
+        ),
       ),
     );
   }

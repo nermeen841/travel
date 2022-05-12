@@ -32,184 +32,204 @@ class _LoginScreenState extends State<LoginScreen> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        toolbarHeight: 0.0,
-      ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: w * 0.06,
+    return PreferredSize(
+      preferredSize: Size(w, h),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color(0xffF8CBAF).withOpacity(0.99),
+              Colors.white,
+              Colors.white,
+              Colors.white,
+            ],
+          ),
         ),
-        shrinkWrap: true,
-        primary: true,
-        children: [
-          SizedBox(
-            height: h * 0.03,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            toolbarHeight: 0.0,
           ),
-          Align(
-              alignment: Alignment.topLeft,
-              child: InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: 35,
-                  color: const Color(0xff3A0CA3).withOpacity(0.55),
-                ),
-              )),
-          Image.asset(
-            'assets/images/Explore.png',
-            width: w * 0.2,
-            height: h * 0.3,
-            fit: BoxFit.contain,
-          ),
-          Text(
-            LocaleKeys.Welcome.tr(),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: w * 0.056,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-                color: const Color(0xff3A0CA3)),
-          ),
-          Form(
-            key: formKey,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: h * 0.013,
-                ),
-                textFormField(
-                  hintText: LocaleKeys.Email.tr(),
-                  controller: emailController,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return LocaleKeys.EMAIL_REQUIRED.tr();
-                    } else if (!val.contains("@") || !val.contains(".com")) {
-                      return LocaleKeys.INVALID_EMAIL.tr();
-                    }
-                    return null;
-                  },
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: h * 0.03,
-                ),
-                textFormField(
-                  hintText: LocaleKeys.Password.tr(),
-                  controller: passwordController,
-                  validator: (val) {
-                    if (val!.length < 8) {
-                      return "passord must be at least 8 charachters";
-                    }
-                    return null;
-                  },
-                  obscureText: secureText,
-                  suffixIcon: (secureText)
-                      ? InkWell(
-                          onTap: () {
-                            setState(() {
-                              secureText = false;
-                            });
-                          },
-                          child: Icon(
-                            Icons.visibility_outlined,
-                            color: const Color(0xff3A0CA3).withOpacity(0.55),
-                            size: 25,
-                          ),
-                        )
-                      : InkWell(
-                          onTap: () {
-                            setState(() {
-                              secureText = true;
-                            });
-                          },
-                          child: Icon(
-                            Icons.visibility_off_outlined,
-                            color: const Color(0xff3A0CA3).withOpacity(0.55),
-                            size: 25,
-                          ),
-                        ),
-                ),
-              ],
+          body: ListView(
+            padding: EdgeInsets.symmetric(
+              horizontal: w * 0.06,
             ),
-          ),
-          SizedBox(height: h * 0.03),
-          InkWell(
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ForgetPasswordScreen())),
-            child: Text(
-              LocaleKeys.Forget_Password.tr(),
-              textAlign: TextAlign.end,
-              style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                  fontSize: w * 0.03,
-                  color: const Color(0xff3A0CA3)),
-            ),
-          ),
-          SizedBox(
-            height: h * 0.03,
-          ),
-          BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
-              builder: ((context, state) => defaultButton(
-                      title: LocaleKeys.Login.tr(),
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          AuthenticationcubitCubit.get(context).login(
-                              context: context,
-                              w: w,
-                              email: emailController.text,
-                              password: passwordController.text);
+            shrinkWrap: true,
+            primary: true,
+            children: [
+              SizedBox(
+                height: h * 0.03,
+              ),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      size: 35,
+                      color: const Color(0xff3A0CA3).withOpacity(0.55),
+                    ),
+                  )),
+              Image.asset(
+                'assets/images/Explore.png',
+                width: w * 0.2,
+                height: h * 0.3,
+                fit: BoxFit.contain,
+              ),
+              Text(
+                LocaleKeys.Welcome.tr(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: w * 0.056,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff3A0CA3)),
+              ),
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: h * 0.013,
+                    ),
+                    textFormField(
+                      hintText: LocaleKeys.Email.tr(),
+                      controller: emailController,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return LocaleKeys.EMAIL_REQUIRED.tr();
+                        } else if (!val.contains("@") ||
+                            !val.contains(".com")) {
+                          return LocaleKeys.INVALID_EMAIL.tr();
                         }
+                        return null;
                       },
-                      fontSize: 16,
-                      height: h * 0.07,
-                      width: 260,
-                      color: Colors.white,
-                      textColor: const Color(0xff3A0CA3),
-                      margin: EdgeInsets.symmetric(horizontal: w * 0.05),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade500,
-                          blurRadius: 5,
-                          offset: const Offset(0, 5), // Shadow position
-                        ),
-                      ])),
-              listener: (context, state) {
-                if (state is LoginSuccessState) {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BottomNave(
-                                index: 0,
-                              )),
-                      (route) => false);
-                }
-              }),
-          SizedBox(
-            height: h * 0.04,
+                      obscureText: false,
+                    ),
+                    SizedBox(
+                      height: h * 0.03,
+                    ),
+                    textFormField(
+                      hintText: LocaleKeys.Password.tr(),
+                      controller: passwordController,
+                      validator: (val) {
+                        if (val!.length < 8) {
+                          return "passord must be at least 8 charachters";
+                        }
+                        return null;
+                      },
+                      obscureText: secureText,
+                      suffixIcon: (secureText)
+                          ? InkWell(
+                              onTap: () {
+                                setState(() {
+                                  secureText = false;
+                                });
+                              },
+                              child: Icon(
+                                Icons.visibility_outlined,
+                                color:
+                                    const Color(0xff3A0CA3).withOpacity(0.55),
+                                size: 25,
+                              ),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                setState(() {
+                                  secureText = true;
+                                });
+                              },
+                              child: Icon(
+                                Icons.visibility_off_outlined,
+                                color:
+                                    const Color(0xff3A0CA3).withOpacity(0.55),
+                                size: 25,
+                              ),
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: h * 0.03),
+              InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgetPasswordScreen())),
+                child: Text(
+                  LocaleKeys.Forget_Password.tr(),
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w400,
+                      fontSize: w * 0.03,
+                      color: const Color(0xff3A0CA3)),
+                ),
+              ),
+              SizedBox(
+                height: h * 0.03,
+              ),
+              BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
+                  builder: ((context, state) => defaultButton(
+                          title: LocaleKeys.Login.tr(),
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              AuthenticationcubitCubit.get(context).login(
+                                  context: context,
+                                  w: w,
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                            }
+                          },
+                          fontSize: 16,
+                          height: h * 0.07,
+                          width: 260,
+                          color: Colors.white,
+                          textColor: const Color(0xff3A0CA3),
+                          margin: EdgeInsets.symmetric(horizontal: w * 0.05),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade500,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5), // Shadow position
+                            ),
+                          ])),
+                  listener: (context, state) {
+                    if (state is LoginSuccessState) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BottomNave(
+                                    index: 0,
+                                  )),
+                          (route) => false);
+                    }
+                  }),
+              SizedBox(
+                height: h * 0.04,
+              ),
+              Text(
+                LocaleKeys.or_connect.tr(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xff3A0CA3),
+                  fontSize: w * 0.035,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+              SizedBox(
+                height: h * 0.02,
+              ),
+              googleAndFacebookRow(context: context),
+              // SizedBox(height:  h * 0.03,),
+            ],
           ),
-          Text(
-            LocaleKeys.or_connect.tr(),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: const Color(0xff3A0CA3),
-              fontSize: w * 0.035,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Poppins',
-            ),
-          ),
-          SizedBox(
-            height: h * 0.02,
-          ),
-          googleAndFacebookRow(context: context),
-          // SizedBox(height:  h * 0.03,),
-        ],
+        ),
       ),
     );
   }

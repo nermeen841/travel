@@ -37,140 +37,136 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: scaffoldKey,
       drawer: buildDrawerWidget(context: context),
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        toolbarHeight: 0.0,
-      ),
-      body: Container(
-        color: Colors.white,
-        child: ListView(
-          primary: true,
-          shrinkWrap: true,
-          padding:
-              EdgeInsets.symmetric(vertical: h * 0.025, horizontal: w * 0.03),
-          children: [
-            headerTile(
-                h: h,
-                w: w,
-                context: context,
-                drawerOnTap: () {
-                  scaffoldKey.currentState!.openDrawer();
-                },
-                profileOnTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserProfileScreen()));
-                }),
-            SizedBox(
-              height: h * 0.03,
-            ),
-            introTitle(h: h, w: w),
-            SizedBox(
-              height: h * 0.02,
-            ),
-            searchWidget(
+      backgroundColor: Colors.transparent,
+      body: ListView(
+        primary: true,
+        shrinkWrap: true,
+        padding:
+            EdgeInsets.symmetric(vertical: h * 0.025, horizontal: w * 0.03),
+        children: [
+          SizedBox(
+            height: h * 0.06,
+          ),
+          headerTile(
               h: h,
-              w: w * 1.04,
+              w: w,
               context: context,
-              filter: () => filterAlert(h: h, w: w, context: context),
-            ),
-            SizedBox(
-              height: h * 0.02,
-            ),
-            SizedBox(
-              width: w,
-              height: h * 0.3,
-              child: Swiper(
-                pagination: SwiperPagination(
-                    builder: DotSwiperPaginationBuilder(
-                        color: MyColors.backgroundColor.withOpacity(0.5),
-                        activeColor: MyColors.mainColor),
-                    alignment: Alignment.bottomCenter),
-                itemBuilder: (BuildContext context, int i) {
-                  return InkWell(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(w * 0.05),
-                        image: DecorationImage(
-                          image: NetworkImage(images[i]),
-                          fit: BoxFit.cover,
-                        ),
+              drawerOnTap: () {
+                scaffoldKey.currentState!.openDrawer();
+              },
+              profileOnTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProfileScreen()));
+              }),
+          SizedBox(
+            height: h * 0.03,
+          ),
+          introTitle(h: h, w: w),
+          SizedBox(
+            height: h * 0.02,
+          ),
+          searchWidget(
+            h: h,
+            w: w * 1.04,
+            context: context,
+            filter: () => filterAlert(h: h, w: w, context: context),
+          ),
+          SizedBox(
+            height: h * 0.02,
+          ),
+          SizedBox(
+            width: w,
+            height: h * 0.3,
+            child: Swiper(
+              pagination: SwiperPagination(
+                  builder: DotSwiperPaginationBuilder(
+                      color: MyColors.backgroundColor.withOpacity(0.5),
+                      activeColor: MyColors.mainColor),
+                  alignment: Alignment.bottomCenter),
+              itemBuilder: (BuildContext context, int i) {
+                return InkWell(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(w * 0.05),
+                      image: DecorationImage(
+                        image: NetworkImage(images[i]),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    focusColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    // overlayColor: ,
-                    onTap: () async {},
-                  );
-                },
-                itemCount: images.length,
-                autoplay: true,
-                autoplayDelay: 5000,
-              ),
+                  ),
+                  focusColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  // overlayColor: ,
+                  onTap: () async {},
+                );
+              },
+              itemCount: images.length,
+              autoplay: true,
+              autoplayDelay: 5000,
             ),
-            SizedBox(
-              height: h * 0.03,
-            ),
-            sectionTitle(
-                h: h,
-                w: w,
-                viewMore: LocaleKeys.More.tr(),
-                press: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ViewMoreScreen(
-                              title: LocaleKeys.Categories.tr(),
-                            ))),
-                title: LocaleKeys.Categories.tr()),
-            SizedBox(
-              height: h * 0.03,
-            ),
-            const HomeCategory(),
-            SizedBox(
-              height: h * 0.015,
-            ),
-            sectionTitle(
-                h: h,
-                w: w,
-                viewMore: '',
-                press: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ViewMoreScreen(
-                              title: LocaleKeys.Recommended.tr(),
-                            ))),
-                title: LocaleKeys.Recommended.tr()),
-            SizedBox(
-              height: h * 0.02,
-            ),
-            const RecommendedSection(),
-            SizedBox(
-              height: h * 0.02,
-            ),
-            sectionTitle(
-                h: h,
-                w: w,
-                viewMore: '',
-                press: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ViewMoreScreen(
-                              title: LocaleKeys.Popular.tr(),
-                            ))),
-                title: LocaleKeys.Popular.tr()),
-            SizedBox(
-              height: h * 0.025,
-            ),
-            const PopularDestinations(),
-            SizedBox(
-              height: h * 0.03,
-            ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: h * 0.03,
+          ),
+          sectionTitle(
+              h: h,
+              w: w,
+              viewMore: LocaleKeys.More.tr(),
+              press: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ViewMoreScreen(
+                            title: LocaleKeys.Categories.tr(),
+                          ))),
+              title: LocaleKeys.Categories.tr()),
+          SizedBox(
+            height: h * 0.03,
+          ),
+          const HomeCategory(),
+          SizedBox(
+            height: h * 0.015,
+          ),
+          sectionTitle(
+              h: h,
+              w: w,
+              viewMore: '',
+              press: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ViewMoreScreen(
+                            title: LocaleKeys.Recommended.tr(),
+                          ))),
+              title: LocaleKeys.Recommended.tr()),
+          SizedBox(
+            height: h * 0.02,
+          ),
+          const RecommendedSection(),
+          SizedBox(
+            height: h * 0.02,
+          ),
+          sectionTitle(
+              h: h,
+              w: w,
+              viewMore: '',
+              press: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ViewMoreScreen(
+                            title: LocaleKeys.Popular.tr(),
+                          ))),
+              title: LocaleKeys.Popular.tr()),
+          SizedBox(
+            height: h * 0.025,
+          ),
+          const PopularDestinations(),
+          SizedBox(
+            height: h * 0.03,
+          ),
+        ],
       ),
     );
   }
