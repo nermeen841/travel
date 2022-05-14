@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/business_logic/database_helper/app_states.dart';
@@ -33,6 +34,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   File? image;
   String image1 = "";
+
+  _cropImage(PickedFile picked, BuildContext context) async {
+    try {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: picked.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ],
+      );
+
+      if (croppedFile != null) {
+        setState(() {
+          image = croppedFile as File;
+        });
+      }
+    } catch (e) {
+      print('piker error:' + e.toString());
+    }
+  }
 
   Future getImage() async {
     ImagePicker picker = ImagePicker();
@@ -132,7 +167,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                               InkWell(
                                 onTap: () async {
-                                  await getImage();
+                                  await getImage().then((value) {
+                                    _cropImage(pickedFile, context);
+                                  });
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(
@@ -279,7 +316,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    birthDate ?? "",
+                                    (birthDate != null)
+                                        ? birthDate!
+                                        : (DataBaseCubit.get(context)
+                                                    .userData[i]['birthDate'] !=
+                                                "null")
+                                            ? DataBaseCubit.get(context)
+                                                .userData[i]['birthDate']
+                                            : "Date Of Birth",
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Poppins',
@@ -316,7 +360,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   : '',
                               onChange: (String value) {
                                 setState(() {
-                                  addressController = value;
+                                  addressController = value.toString();
                                 });
                               }),
                           SizedBox(
@@ -332,29 +376,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   onPressed: () {
                                     AuthenticationcubitCubit.get(context)
                                         .updateProfile(
-                                            address: addressController!,
-                                            userId: DataBaseCubit.get(context)
-                                                .userData[i]['userId'],
+                                            address: addressController ??
+                                                DataBaseCubit.get(context).userData[i]
+                                                    ['userAddress'],
+                                            userId: DataBaseCubit.get(context).userData[i]
+                                                ['userId'],
                                             email: emailController ??
                                                 DataBaseCubit.get(context).userData[i]
                                                     ['email'],
                                             firstName: usernameController ??
-                                                DataBaseCubit.get(context)
-                                                    .userData[i]['firstName'],
-                                            phone: (DataBaseCubit.get(context)
-                                                            .userData[i]
+                                                DataBaseCubit.get(context).userData[i]
+                                                    ['firstName'],
+                                            phone: (DataBaseCubit.get(context).userData[i]
                                                         ['userPhone'] !=
                                                     "null")
-                                                ? DataBaseCubit.get(context)
-                                                    .userData[i]['userPhone']
+                                                ? DataBaseCubit.get(context).userData[i]
+                                                    ['userPhone']
                                                 : (phoneController != null)
                                                     ? phoneController
                                                     : "",
-                                            image: image1,
-                                            birthDate: birthDate,
-                                            lastName: lastnameController ??
-                                                DataBaseCubit.get(context)
-                                                    .userData[i]['lastName'],
+                                            image: (image1 == '')
+                                                ? DataBaseCubit.get(context).userData[i]
+                                                    ['image']
+                                                : image1,
+                                            birthDate: (birthDate != null)
+                                                ? birthDate
+                                                : DataBaseCubit.get(context).userData[i]
+                                                    ['birthDate'],
+                                            lastName: lastnameController ?? DataBaseCubit.get(context).userData[i]['lastName'],
                                             context: context,
                                             w: w);
                                   },
