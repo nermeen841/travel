@@ -87,7 +87,14 @@ Widget buildDrawerWidget({required context}) {
                     title: LocaleKeys.LOG_OUT.tr(),
                     icon: Icons.logout,
                     onPress: () {
-                      prefs.clear();
+                      prefs.remove('user_token');
+                      prefs.remove('user_image');
+                      prefs.remove('is_login');
+                      prefs.remove('email');
+                      prefs.remove('pass_token');
+                      prefs.remove('city_id_search');
+                      prefs.remove('search_cat');
+
                       DataBaseCubit.get(context).deleteTableContent();
                     },
                   );

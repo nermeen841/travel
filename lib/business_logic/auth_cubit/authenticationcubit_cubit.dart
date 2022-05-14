@@ -1,4 +1,6 @@
 // ignore_for_file: unused_local_variable, avoid_print, avoid_function_literals_in_foreach_calls
+
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/constants/network_services.dart';
+
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/models/GetGovernoratesModel.dart';
 import '../../models/CityModel.dart';
@@ -394,16 +397,27 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     required double w,
     required userId,
   }) async {
-    String errorData = '';
+    // String? mimeType = mime('');
+    // String mimee = mimeType!.split('/')[0];
+    // String type = mimeType.split('/')[1];
+    // String errorData = '';
     final String token = prefs.getString("user_token") ?? "";
     final int cityID = prefs.getInt('city_id')!;
     emit(UpdateProfileLoadingState());
+
     try {
       Map<String, String> headers = {
         "Authorization": "Bearer $token",
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
       };
-      var body = jsonEncode(<String, dynamic>{
+
+      // MultipartFile mFile = await MultipartFile.fromFile(
+      //   image.file.path,
+      //   filename: fileName,
+      //   contentType: MediaType("image", fileName.split(".").last),
+      // );
+
+      var formData = jsonEncode(<String, dynamic>{
         "avatar": image,
         "firstName": firstName,
         "lastName": lastName,
@@ -412,19 +426,11 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
         'dob': (birthDate != null) ? birthDate : "",
         "cityID": cityID,
       });
-      print(body);
-      var response = await http.post(
-        Uri.parse(EDIT_USER_PROFILE),
-        body: body,
-        headers: headers,
-        encoding: Encoding.getByName('utf-8'),
-      );
-      print(response.statusCode);
-      print(response.body);
-      var data = jsonDecode(response.body);
+      Response response = await Dio().post(EDIT_USER_PROFILE,
+          data: formData, options: Options(headers: headers));
       if (response.statusCode == 200) {
-        print(data);
-        if (data['status'] == "Success") {
+        print(response.data);
+        if (response.data['status'] == "Success") {
           Fluttertoast.showToast(
               msg: LocaleKeys.UPDATE_PROFILE.tr(),
               gravity: ToastGravity.TOP,
@@ -437,7 +443,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
               firstName: firstName,
               lastName: lastName,
               userPhone: phone,
-              userAddress: "",
+              userAddress: address,
               image: image,
               email: email,
               birthDate: birthDate,
@@ -451,7 +457,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              data['message'],
+              response.data['message'],
               style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Poppins',
