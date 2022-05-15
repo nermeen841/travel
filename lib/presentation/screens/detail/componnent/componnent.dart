@@ -190,7 +190,13 @@ Widget details({required double h, required double w}) {
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-Widget reviews({required double h, required double w, required context}) {
+Widget reviews({
+  required double h,
+  required double w,
+  required context,
+  required int placeID,
+  required String placeString,
+}) {
   return SingleChildScrollView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -201,7 +207,10 @@ Widget reviews({required double h, required double w, required context}) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const AddReviewScreen()));
+                    builder: (context) => AddReviewScreen(
+                          placeId: placeID,
+                          placeName: placeString,
+                        )));
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -241,7 +241,10 @@ class _DetailScreenState extends State<DetailScreen> {
                   SizedBox(
                     height: h * 0.02,
                   ),
-                  const DetailBody()
+                  DetailBody(
+                    placeID: HomeCubit.get(context).placeDetailModel.id!,
+                    placeName: HomeCubit.get(context).placeDetailModel.nameEN!,
+                  )
                 ],
               ),
             ),

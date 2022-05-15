@@ -3,9 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
-import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/forget_password/forget_password_screen.dart';

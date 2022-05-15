@@ -82,11 +82,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         child: (DataBaseCubit.get(context).userData[index]
                                     ['image'] !=
                                 "null")
-                            ? customCachedNetworkImage(
-                                context: context,
-                                fit: BoxFit.cover,
-                                url: DataBaseCubit.get(context).userData[index]
-                                    ['image'])
+                            ? CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 180,
+                                backgroundImage: NetworkImage(
+                                    DataBaseCubit.get(context).userData[index]
+                                        ['image']),
+                              )
                             : Center(
                                 child: Icon(
                                   FontAwesomeIcons.fileImage,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../constants/constants.dart';
 import '../../constants/network_services.dart';
 import '../../models/PlaceDetailModel.dart';
 import '../../models/RecommendedModel.dart';
@@ -42,6 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
     return recommended;
   }
 
+//////////////////////////////////////////////////////////////////////////////////
   PlaceDetailModel placeDetailModel = PlaceDetailModel();
 
   Future<PlaceDetailModel> getPlaceDetail(
@@ -65,6 +67,7 @@ class HomeCubit extends Cubit<HomeState> {
     return placeDetailModel;
   }
 
+///////////////////////////////////////////////////////////////////////////
   HomeCategoryModel homeCategory = HomeCategoryModel();
   List<HomeCategoryModel> categoryInHome = [];
 
@@ -89,5 +92,65 @@ class HomeCubit extends Cubit<HomeState> {
       emit(GetHomeCategoryErrorState(error.toString()));
     }
     return categoryInHome;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  Future addReview({
+    required String review,
+    required int placeID,
+    required double rate,
+    required context,
+  }) async {
+    final String token = prefs.getString("user_token") ?? "";
+    emit(AddRReviewLoadingState());
+
+    try {
+      Map<String, String> headers = {
+        "Authorization": "Bearer $token",
+        'Content-Type': 'application/json',
+      };
+      final body = jsonEncode({
+        "placeID": placeID,
+        "rate": rate,
+        "review": review,
+      });
+      var response = await http.post(
+        Uri.parse(PostReview),
+        body: body,
+        headers: headers,
+      );
+
+      var data = jsonDecode(response.body);
+
+      print(response.body);
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'You Added Review Successfully',
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        );
+        emit(AddRReviewSuccessState());
+      } else if (response.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Please Write Review And Add Rate...',
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 15),
+            ),
+            backgroundColor: Colors.black,
+          ),
+        );
+        emit(AddRReviewSuccessState());
+      }
+    } catch (e) {
+      emit(AddRReviewErrorState(e.toString()));
+      print(e.toString());
+    }
   }
 }

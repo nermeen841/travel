@@ -35,7 +35,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File? image;
   String image1 = "";
 
-  _cropImage(PickedFile picked, BuildContext context) async {
+  cropImage(PickedFile picked) async {
     try {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: picked.path,
@@ -48,20 +48,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ],
         uiSettings: [
           AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
+            toolbarTitle: '',
+            toolbarColor: MyColors.mainColor,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false,
           ),
         ],
       );
 
       if (croppedFile != null) {
         setState(() {
-          image = croppedFile as File;
+          image = File(croppedFile.path);
+          image1 = croppedFile.path;
+        });
+      } else {
+        setState(() {
+          image = File(picked.path);
+          image1 = picked.path;
         });
       }
     } catch (e) {
@@ -74,8 +78,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-        image1 = pickedFile.path;
-        image = File(pickedFile.path);
+        cropImage(pickedFile);
       } else {
         print('No image selected.');
       }
@@ -142,7 +145,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             children: [
                               Center(
                                 child: Container(
-                                  height: h * 0.2,
+                                  height: h * 0.21,
+                                  // width: w * 0.23,
                                   decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
@@ -150,12 +154,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   child: (prefs.getString("user_image") !=
                                               null &&
                                           image == null)
-                                      ? customCachedNetworkImage(
-                                          context: context,
-                                          fit: BoxFit.cover,
-                                          url: prefs.getString("user_image")!)
+                                      ? CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          radius: 180,
+                                          backgroundImage: NetworkImage(
+                                              prefs.getString("user_image")!),
+                                        )
                                       : (image != null)
-                                          ? Image.file(image!)
+                                          ? CircleAvatar(
+                                              backgroundColor: Colors.white,
+                                              radius: 180,
+                                              backgroundImage: FileImage(
+                                                image!,
+                                              ),
+                                            )
                                           : Center(
                                               child: Icon(
                                                 FontAwesomeIcons.fileImage,
@@ -167,9 +179,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                               InkWell(
                                 onTap: () async {
-                                  await getImage().then((value) {
-                                    _cropImage(pickedFile, context);
-                                  });
+                                  await getImage();
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(

@@ -46,6 +46,7 @@ android {
         applicationId "com.travel.travel"
         minSdkVersion 20
         targetSdkVersion flutter.targetSdkVersion
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

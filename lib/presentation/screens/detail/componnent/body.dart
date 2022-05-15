@@ -6,7 +6,10 @@ import 'package:travel/presentation/screens/detail/componnent/componnent.dart';
 import '../../../../generated/locale_keys.dart';
 
 class DetailBody extends StatefulWidget {
-  const DetailBody({Key? key}) : super(key: key);
+  final int placeID;
+  final String placeName;
+  const DetailBody({Key? key, required this.placeID, required this.placeName})
+      : super(key: key);
 
   @override
   State<DetailBody> createState() => _DetailBodyState();
@@ -34,7 +37,12 @@ class _DetailBodyState extends State<DetailBody> {
     List<Widget> screens = [
       overview(w: w, h: h),
       details(w: w, h: h),
-      reviews(w: w, h: h, context: context),
+      reviews(
+          w: w,
+          h: h,
+          context: context,
+          placeID: widget.placeID,
+          placeString: widget.placeName),
     ];
     return Padding(
       // width: double.infinity,

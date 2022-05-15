@@ -397,10 +397,6 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     required double w,
     required userId,
   }) async {
-    // String? mimeType = mime('');
-    // String mimee = mimeType!.split('/')[0];
-    // String type = mimeType.split('/')[1];
-    // String errorData = '';
     final String token = prefs.getString("user_token") ?? "";
     final int cityID = prefs.getInt('city_id')!;
     emit(UpdateProfileLoadingState());
@@ -410,12 +406,6 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
         "Authorization": "Bearer $token",
         'Content-Type': 'application/json',
       };
-
-      // MultipartFile mFile = await MultipartFile.fromFile(
-      //   image.file.path,
-      //   filename: fileName,
-      //   contentType: MediaType("image", fileName.split(".").last),
-      // );
 
       var formData = jsonEncode(<String, dynamic>{
         "avatar": image,

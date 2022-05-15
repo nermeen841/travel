@@ -28,3 +28,12 @@ class GetHomeCategoryErrorState extends HomeState {
   final String error;
   GetHomeCategoryErrorState(this.error);
 }
+
+class AddRReviewLoadingState extends HomeState {}
+
+class AddRReviewSuccessState extends HomeState {}
+
+class AddRReviewErrorState extends HomeState {
+  final String error;
+  AddRReviewErrorState(this.error);
+}

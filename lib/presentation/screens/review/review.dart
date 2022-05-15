@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:travel/business_logic/home_cubit/home_cubit.dart';
+import 'package:travel/business_logic/home_cubit/home_states.dart';
 import 'package:travel/constants/colors.dart';
 
 class AddReviewScreen extends StatefulWidget {
-  const AddReviewScreen({Key? key}) : super(key: key);
+  final int placeId;
+  final String placeName;
+  const AddReviewScreen(
+      {Key? key, required this.placeId, required this.placeName})
+      : super(key: key);
 
   @override
   State<AddReviewScreen> createState() => _AddReviewScreenState();
@@ -11,6 +18,7 @@ class AddReviewScreen extends StatefulWidget {
 
 class _AddReviewScreenState extends State<AddReviewScreen> {
   TextEditingController ratting = TextEditingController();
+  double rateValue = 0.0;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -22,7 +30,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         elevation: 0.0,
         automaticallyImplyLeading: false,
         title: Text(
-          "Pyramids",
+          widget.placeName,
           style: headingStyle.copyWith(
               fontWeight: FontWeight.bold, fontSize: w * 0.06),
         ),
@@ -81,19 +89,24 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
             child: RatingBar.builder(
               ignoreGestures: false,
               tapOnlyMode: true,
-              initialRating: 0,
+              initialRating: rateValue,
               minRating: 0,
               itemSize: w * 0.1,
               direction: Axis.horizontal,
               itemPadding: EdgeInsets.symmetric(horizontal: w * 0.015),
-              allowHalfRating: false,
+              allowHalfRating: true,
               itemCount: 5,
               unratedColor: MyColors.unslectedIconColor.withOpacity(0.4),
               itemBuilder: (context, _) => Icon(
                 Icons.star,
                 color: MyColors.mainColor,
               ),
-              onRatingUpdate: (rating) {},
+              onRatingUpdate: (rating) {
+                setState(() {
+                  rateValue = rating;
+                  print(rateValue);
+                });
+              },
             ),
           ),
           SizedBox(
@@ -142,26 +155,41 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           SizedBox(
             height: h * 0.03,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.04),
-            child: Center(
-              child: MaterialButton(
-                height: h * 0.09,
-                elevation: 4,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(w * 0.08),
-                ),
-                onPressed: () {},
+          BlocConsumer<HomeCubit, HomeState>(
+            listener: (context, state) {
+              if (state is! AddRReviewSuccessState) {
+                Navigator.pop(context);
+              }
+            },
+            builder: (context, state) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: w * 0.04),
                 child: Center(
-                  child: Text(
-                    "Submit",
-                    style: headingStyle.copyWith(
-                        fontWeight: FontWeight.bold, fontSize: w * 0.06),
+                  child: MaterialButton(
+                    height: h * 0.09,
+                    elevation: 4,
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(w * 0.08),
+                    ),
+                    onPressed: () {
+                      HomeCubit.get(context).addReview(
+                          review: ratting.text,
+                          placeID: widget.placeId,
+                          rate: rateValue,
+                          context: context);
+                    },
+                    child: Center(
+                      child: Text(
+                        "Submit",
+                        style: headingStyle.copyWith(
+                            fontWeight: FontWeight.bold, fontSize: w * 0.06),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),

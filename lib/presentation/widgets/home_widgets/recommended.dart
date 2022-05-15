@@ -28,7 +28,6 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                 ? ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    //getPlaceDetail
                     itemBuilder: (context, index) => InkWell(
                           onTap: () {
                             HomeCubit.get(context).getPlaceDetail(
