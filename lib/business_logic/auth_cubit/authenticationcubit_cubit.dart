@@ -120,6 +120,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         print(data);
+
         emit(RegisterSuccessState());
       } else if (response.statusCode == 400) {
         data.forEach((element) {
@@ -168,7 +169,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        DataBaseCubit.get(context).inserttoDatabase(
+        DataBaseCubit().inserttoDatabase(
           email: data['user']['email'],
           userPhone: data['user']['phoneNumber'],
           userId: data['user']['id'],
@@ -404,11 +405,9 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     try {
       Map<String, String> headers = {
         "Authorization": "Bearer $token",
-        'Content-Type': 'application/json',
       };
-
-      var formData = jsonEncode(<String, dynamic>{
-        "avatar": image,
+      FormData formData = FormData.fromMap({
+        "avatar": await MultipartFile.fromFile(image),
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
@@ -416,6 +415,7 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
         'dob': (birthDate != null) ? birthDate : "",
         "cityID": cityID,
       });
+
       Response response = await Dio().post(EDIT_USER_PROFILE,
           data: formData, options: Options(headers: headers));
       if (response.statusCode == 200) {

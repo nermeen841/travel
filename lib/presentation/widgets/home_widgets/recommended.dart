@@ -36,6 +36,11 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                                     .recommended[index]
                                     .id
                                     .toString());
+
+                            HomeCubit.get(context).getReviews(
+                                id: HomeCubit.get(context)
+                                    .recommended[index]
+                                    .id!);
                           },
                           child: Container(
                             margin: EdgeInsets.all(w * 0.015),

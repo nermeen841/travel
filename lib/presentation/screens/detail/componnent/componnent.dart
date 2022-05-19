@@ -272,86 +272,107 @@ Widget reviews({
         ListView.builder(
             shrinkWrap: true,
             primary: false,
-            itemBuilder: (context, index) => Container(
-                  margin: EdgeInsets.all(w * 0.02),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: w * 0.03, vertical: h * 0.01),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(w * 0.05),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: MyColors.backgroundColor,
-                          spreadRadius: 3,
-                          blurRadius: 3,
-                          offset: Offset(0, 3),
-                        )
-                      ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: h * 0.02,
-                      ),
-                      Center(
-                        child: RatingBar.builder(
-                          ignoreGestures: true,
-                          tapOnlyMode: false,
-                          initialRating: 3,
-                          minRating: 1,
-                          itemSize: w * 0.045,
-                          direction: Axis.horizontal,
-                          allowHalfRating: false,
-                          itemCount: 5,
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: MyColors.mainColor,
-                          ),
-                          onRatingUpdate: (rating) {},
-                        ),
-                      ),
-                      Text(
-                        "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis ",
-                        style: headingStyle.copyWith(color: Colors.grey),
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: w * 0.15,
-                            height: h * 0.15,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      "https://img.freepik.com/free-photo/portrait-beautiful-young-woman-standing-grey-wall_231208-10760.jpg?w=740"),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          SizedBox(
-                            width: w * 0.015,
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                "Von Ngo",
-                                style: headingStyle.copyWith(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "sdsdg",
-                                style: headingStyle.copyWith(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+            itemBuilder: (context, index) => BlocConsumer<HomeCubit, HomeState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return (HomeCubit.get(context).reviews.isNotEmpty)
+                        ? getReviewCard(
+                            context: context,
+                            rate: HomeCubit.get(context).reviews[index].rate!,
+                            userReview: HomeCubit.get(context)
+                                .reviews[index]
+                                .review
+                                .toString(),
+                            user: 'Van Ngo')
+                        : Center(
+                            child: Text('Give Us Your Review',
+                                style: headingStyle.copyWith(fontSize: 18)),
+                          );
+                  },
                 ),
-            itemCount: 10),
+            itemCount: HomeCubit.get(context).reviews.length),
+      ],
+    ),
+  );
+}
+
+Widget getReviewCard({
+  required context,
+  required double rate,
+  required String userReview,
+  required String user,
+}) {
+  double h = MediaQuery.of(context).size.height;
+  double w = MediaQuery.of(context).size.height;
+  // var homeCubit = HomeCubit.get(context).reviews;
+  return Container(
+    margin: EdgeInsets.all(w * 0.02),
+    padding: EdgeInsets.symmetric(horizontal: w * 0.03, vertical: h * 0.01),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(w * 0.05),
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            color: MyColors.backgroundColor,
+            spreadRadius: 3,
+            blurRadius: 3,
+            offset: Offset(0, 3),
+          )
+        ]),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: h * 0.02,
+        ),
+        Center(
+          child: RatingBar.builder(
+            ignoreGestures: true,
+            tapOnlyMode: false,
+            initialRating: rate,
+            minRating: 1,
+            itemSize: w * 0.033,
+            direction: Axis.horizontal,
+            allowHalfRating: false,
+            itemCount: 5,
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: MyColors.mainColor,
+            ),
+            onRatingUpdate: (rating) {},
+          ),
+        ),
+        Text(
+          userReview,
+          style: headingStyle.copyWith(color: Colors.grey, fontSize: 17),
+        ),
+        Row(
+          children: [
+            Container(
+              width: w * 0.1,
+              height: h * 0.1,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(
+                        "https://img.freepik.com/free-photo/portrait-beautiful-young-woman-standing-grey-wall_231208-10760.jpg?w=740"),
+                    fit: BoxFit.cover),
+              ),
+            ),
+            SizedBox(
+              width: w * 0.015,
+            ),
+            Column(
+              children: [
+                Text(
+                  user,
+                  style: headingStyle.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     ),
   );

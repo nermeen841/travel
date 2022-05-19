@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -157,7 +159,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           ),
           BlocConsumer<HomeCubit, HomeState>(
             listener: (context, state) {
-              if (state is! AddRReviewSuccessState) {
+              if (state is AddRReviewErrorState) {
                 Navigator.pop(context);
               }
             },

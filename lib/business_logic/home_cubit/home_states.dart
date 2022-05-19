@@ -37,3 +37,12 @@ class AddRReviewErrorState extends HomeState {
   final String error;
   AddRReviewErrorState(this.error);
 }
+
+class GetReviewLoadingState extends HomeState {}
+
+class GetReviewSuccessState extends HomeState {}
+
+class GetReviewErrorState extends HomeState {
+  final String error;
+  GetReviewErrorState(this.error);
+}

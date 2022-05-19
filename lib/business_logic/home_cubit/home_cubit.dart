@@ -7,6 +7,7 @@ import '../../constants/constants.dart';
 import '../../constants/network_services.dart';
 import '../../models/PlaceDetailModel.dart';
 import '../../models/RecommendedModel.dart';
+import '../../models/getReviews.dart';
 import '../../models/home_category.dart';
 import '../../presentation/screens/detail/detail.dart';
 import 'home_states.dart';
@@ -122,7 +123,7 @@ class HomeCubit extends Cubit<HomeState> {
 
       var data = jsonDecode(response.body);
 
-      print(response.body);
+      print(data);
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -134,6 +135,7 @@ class HomeCubit extends Cubit<HomeState> {
             backgroundColor: Colors.black,
           ),
         );
+        getReviews(id: placeID);
         emit(AddRReviewSuccessState());
       } else if (response.statusCode == 400) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -152,5 +154,34 @@ class HomeCubit extends Cubit<HomeState> {
       emit(AddRReviewErrorState(e.toString()));
       print(e.toString());
     }
+  }
+///////////////////////////////////////////////////////////
+
+  GetReviewsModel getReviewsModel = GetReviewsModel();
+
+  List<GetReviewsModel> reviews = [];
+
+  Future<List<GetReviewsModel>> getReviews({required int id}) async {
+    reviews = [];
+    emit(GetReviewLoadingState());
+    try {
+      var response =
+          await http.get(Uri.parse(GetPlaceReviews + "?placeID=$id"));
+      var data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        for (var item in data) {
+          getReviewsModel = GetReviewsModel.fromJson(item);
+          reviews.add(getReviewsModel);
+        }
+
+        emit(GetReviewSuccessState());
+        print(data);
+        return reviews;
+      }
+    } catch (e) {
+      emit(GetReviewErrorState(e.toString()));
+      print("errroro : " + e.toString());
+    }
+    return reviews;
   }
 }
