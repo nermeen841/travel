@@ -79,7 +79,6 @@ class _BottomNaveState extends State<BottomNave> {
   @override
   void initState() {
     getIndex();
-    DataBaseCubit.get(context).createDb();
     getLocation();
     super.initState();
   }

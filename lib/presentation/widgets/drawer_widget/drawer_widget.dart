@@ -72,32 +72,29 @@ Widget buildDrawerWidget({required context}) {
           height: h * 0.04,
         ),
         (prefs.getBool("is_login") == true)
-            ? BlocConsumer<DataBaseCubit, AppState>(
-                listener: (context, state) {
-                  if (state is DeleteTablecontentDatabase) {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const SplashScreen())),
-                        (route) => false);
-                  }
-                },
-                builder: (context, state) {
-                  return buildRowInDrawer(
-                    title: LocaleKeys.LOG_OUT.tr(),
-                    icon: Icons.logout,
-                    onPress: () {
-                      prefs.remove('user_token');
-                      prefs.remove('user_image');
-                      prefs.remove('is_login');
-                      prefs.remove('email');
-                      prefs.remove('pass_token');
-                      prefs.remove('city_id_search');
-                      prefs.remove('search_cat');
+            ? buildRowInDrawer(
+                title: LocaleKeys.LOG_OUT.tr(),
+                icon: Icons.logout,
+                onPress: () {
+                  prefs.remove('user_token');
+                  prefs.remove('user_image');
+                  prefs.remove('is_login');
+                  prefs.remove('email');
+                  prefs.remove('userId');
+                  prefs.remove('userAddress');
+                  prefs.remove('phoneNumber');
+                  prefs.remove('dateofbirth');
+                  prefs.remove('firstName');
+                  prefs.remove('lastName');
+                  prefs.remove('pass_token');
+                  prefs.remove('city_id_search');
+                  prefs.remove('search_cat');
 
-                      DataBaseCubit.get(context).deleteTableContent();
-                    },
-                  );
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const SplashScreen())),
+                      (route) => false);
                 },
               )
             : Container(),

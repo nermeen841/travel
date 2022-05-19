@@ -169,14 +169,13 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        DataBaseCubit().inserttoDatabase(
-          email: data['user']['email'],
-          userPhone: data['user']['phoneNumber'],
-          userId: data['user']['id'],
-          firstName: data['user']['firstName'],
-          lastName: data['user']['lastName'],
-          image: data['user']['avatar'],
-        );
+        prefs.setString('email', data['user']['email'].toString());
+        prefs.setString('phoneNumber', data['user']['phoneNumber'].toString());
+        prefs.setString('userId', data['user']['id'].toString());
+        prefs.setString('userAddress', "");
+        prefs.setString('dateofbirth', "");
+        prefs.setString('firstName', data['user']['firstName'].toString());
+        prefs.setString('lastName', data['user']['lastName'].toString());
         prefs.setString("user_token", data['token']);
         prefs.setString('user_image', data['user']['avatar']);
         prefs.setBool("is_login", true);
@@ -427,18 +426,15 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
               backgroundColor: MyColors.mainColor,
               toastLength: Toast.LENGTH_LONG,
               textColor: Colors.white);
+          prefs.setString('email', email);
+          prefs.setString('phoneNumber', phone);
+          prefs.setString('userId', userId);
+          prefs.setString('userAddress', address);
+          prefs.setString('dateofbirth', birthDate.toString());
+          prefs.setString('firstName', firstName);
+          prefs.setString('lastName', lastName);
           prefs.setString('user_image', image);
-          DataBaseCubit.get(context).deleteTableContent();
-          DataBaseCubit.get(context).inserttoDatabase(
-              firstName: firstName,
-              lastName: lastName,
-              userPhone: phone,
-              userAddress: address,
-              image: image,
-              email: email,
-              birthDate: birthDate,
-              userId: userId);
-          Navigator.pop(context);
+
           emit(UpdateProfileSuccessState());
         }
 

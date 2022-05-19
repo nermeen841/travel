@@ -59,8 +59,8 @@ class MyApp extends StatelessWidget {
               ..getGovernorates(countryID: '1')
               ..getCity(governorateID: '')),
         BlocProvider<AppCubit>(create: (context) => AppCubit()),
-        BlocProvider<DataBaseCubit>(
-            create: (context) => DataBaseCubit()..createDb()),
+        // BlocProvider<DataBaseCubit>(
+        //     create: (context) => DataBaseCubit()..createDb()),
         BlocProvider<FavouriteCubit>(
             create: (context) => FavouriteCubit()..getFavouriteCat()),
         BlocProvider<SearchHistoryCubit>(
