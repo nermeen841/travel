@@ -9,13 +9,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
-import 'package:travel/business_logic/database_helper/app_states.dart';
-import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/widgets/profile_wdgets/profile_widgets.dart';
-
 import '../../../generated/locale_keys.dart';
 
 class EditProfileScreen extends StatefulWidget {

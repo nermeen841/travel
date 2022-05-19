@@ -8,11 +8,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/constants/network_services.dart';
-
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/models/GetGovernoratesModel.dart';
 import '../../models/CityModel.dart';

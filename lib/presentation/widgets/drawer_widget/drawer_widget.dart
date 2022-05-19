@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel/business_logic/database_helper/app_states.dart';
-import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';

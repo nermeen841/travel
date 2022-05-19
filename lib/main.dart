@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
-import 'package:travel/business_logic/database_helper/database_cubit.dart';
 import 'package:travel/business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/screens/splash/splash_screen.dart';
