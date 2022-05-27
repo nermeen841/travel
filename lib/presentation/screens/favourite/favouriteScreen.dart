@@ -84,14 +84,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                             color: Colors.white,
                                             borderRadius:
                                                 BorderRadius.circular(w * 0.08),
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                  offset: Offset(0, 3),
-                                                  color:
-                                                      MyColors.backgroundColor,
-                                                  spreadRadius: 3,
-                                                  blurRadius: 3)
-                                            ],
+                                            // boxShadow: const [
+                                            //   BoxShadow(
+                                            //       offset: Offset(0, 1),
+                                            //       color:
+                                            //           MyColors.backgroundColor,
+                                            //       spreadRadius: 2,
+                                            //       blurRadius: 2)
+                                            // ],
                                           ),
                                           child: Center(
                                             child: Row(

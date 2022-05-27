@@ -50,11 +50,11 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
               SizedBox(
                 height: h * 0.01,
               ),
-              BlocConsumer<CategoriesCubit,CategoriesState>(
-                listener: (context,state){},
-                builder: (context,state){
+              BlocConsumer<CategoriesCubit, CategoriesState>(
+                listener: (context, state) {},
+                builder: (context, state) {
                   return ConditionalBuilder(
-                    condition: state is! GetCategoriesLoadingState ,
+                    condition: state is! GetCategoriesLoadingState,
                     builder: (context) => SizedBox(
                       width: w,
                       height: h * 0.8,
@@ -96,7 +96,10 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
                               SizedBox(
                                 width: w * 0.35,
                                 child: Text(
-                                  CategoriesCubit.get(context).category[index].nameEN.toString(),
+                                  CategoriesCubit.get(context)
+                                      .category[index]
+                                      .nameEN
+                                      .toString(),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
@@ -112,14 +115,13 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
                     // ignore: prefer_const_constructors
                     fallback: (context) => Padding(
                       padding: EdgeInsets.only(top: h * 0.4),
-                      child: Center(child: CircularProgressIndicator(
+                      child: Center(
+                          child: CircularProgressIndicator(
                         color: MyColors.mainColor,
                       )),
                     ),
-
                   );
                 },
-
               ),
             ],
           ),
