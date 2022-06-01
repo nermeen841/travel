@@ -90,9 +90,9 @@ class LoginOrSignUpScreen extends StatelessWidget {
                     color: const Color(0xff3A0CA3),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.shade500,
+                        color: Colors.grey.shade400,
                         blurRadius: 5,
-                        offset: const Offset(0, 5), // Shadow position
+                        offset: const Offset(0, 3), // Shadow position
                       ),
                     ]),
                 SizedBox(
@@ -114,13 +114,13 @@ class LoginOrSignUpScreen extends StatelessWidget {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.shade500,
+                        color: Colors.grey.shade300,
                         blurRadius: 5,
-                        offset: const Offset(0, 5), // Shadow position
+                        offset: const Offset(0, 3), // Shadow position
                       ),
                     ]),
                 Padding(
-                  padding: EdgeInsets.only(right: w * 0.07, top: h * 0.05),
+                  padding: EdgeInsets.only(right: w * 0.07, top: h * 0.098),
                   child: InkWell(
                     onTap: () async {
                       prefs.setBool("is_login", false);

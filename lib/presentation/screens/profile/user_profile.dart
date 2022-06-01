@@ -29,8 +29,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                const Color(0xff3A0CA3).withOpacity(0.99),
-                Colors.white70,
+                const Color(0xff3A0CA3).withOpacity(0.4),
+                Colors.white,
                 Colors.white,
               ],
             ),
@@ -41,20 +41,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   horizontal: w * 0.05, vertical: h * 0.02),
               child: Column(
                 children: [
-                  SizedBox(height: h * 0.08),
+                  SizedBox(height: h * 0.03),
                   Align(
-                      alignment: Alignment.topLeft,
-                      child: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: const Icon(
-                          Icons.arrow_back_ios,
-                          size: 35,
-                          color: Color(0xff3A0CA3),
-                        ),
-                      )),
-                  // SizedBox(
-                  //   height: h * 0.01,
-                  // ),
+                    alignment: Alignment.topLeft,
+                    child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        size: 30,
+                        color: Color(0xff3A0CA3).withOpacity(0.5),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: h * 0.05,
+                  ),
                   Container(
                     height: h * 0.2,
                     decoration: const BoxDecoration(
@@ -77,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                   ),
                   SizedBox(
-                    height: h * 0.06,
+                    height: h * 0.05,
                   ),
                   Align(
                     alignment: AlignmentDirectional.topStart,
@@ -116,7 +117,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           title1: LocaleKeys.DateOfBirth.tr(),
                           title2: prefs.getString('dateofbirth').toString())
                       : Container(),
-
                   (prefs.getString('userAddress') != "")
                       ? buildProfileRow(
                           context: context,
@@ -126,29 +126,29 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   SizedBox(
                     height: h * 0.02,
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangePassword(
-                                    email: prefs.getString('email').toString(),
-                                  )));
-                    },
-                    child: const Text(
-                      "Change Passord",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Poppins',
-                        color: Color(0xff3A0CA3),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: h * 0.02,
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => ChangePassword(
+                  //                   email: prefs.getString('email').toString(),
+                  //                 )));
+                  //   },
+                  //   child: const Text(
+                  //     "Change Passord",
+                  //     textAlign: TextAlign.start,
+                  //     style: TextStyle(
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.w700,
+                  //       fontFamily: 'Poppins',
+                  //       color: Color(0xff3A0CA3),
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: h * 0.02,
+                  // ),
                   SizedBox(
                     height: h * 0.02,
                   ),

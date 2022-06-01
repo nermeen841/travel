@@ -55,9 +55,9 @@ class _HomeCategoryState extends State<HomeCategory> {
                       w: w),
                   growable: true),
             ),
-            SizedBox(
-              height: h * 0.01,
-            ),
+            // SizedBox(
+            //   height: h * 0.01,
+            // ),
             Container(
               width: w,
               height: h * 0.2,

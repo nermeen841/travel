@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: scaffoldKey,
       drawer: buildDrawerWidget(context: context),
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white.withOpacity(0.72),
       body: ListView(
         primary: true,
         shrinkWrap: true,
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             EdgeInsets.symmetric(vertical: h * 0.025, horizontal: w * 0.03),
         children: [
           SizedBox(
-            height: h * 0.06,
+            height: h * 0.022,
           ),
           headerTile(
               h: h,
@@ -61,12 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => UserProfileScreen()));
               }),
           SizedBox(
-            height: h * 0.03,
+            height: h * 0.01,
           ),
           introTitle(h: h, w: w),
-          SizedBox(
-            height: h * 0.02,
-          ),
+          // SizedBox(
+          //   height: h * 0.01,
+          // ),
           searchWidget(
             h: h,
             w: w * 1.04,
@@ -74,11 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
             filter: () => filterAlert(h: h, w: w, context: context),
           ),
           SizedBox(
-            height: h * 0.02,
+            height: h * 0.01,
           ),
           SizedBox(
             width: w,
-            height: h * 0.3,
+            height: h * 0.2,
             child: Swiper(
               pagination: SwiperPagination(
                   builder: DotSwiperPaginationBuilder(
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SizedBox(
-            height: h * 0.03,
+            height: h * 0.01,
           ),
           sectionTitle(
               h: h,
@@ -124,12 +124,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ))),
               title: LocaleKeys.Categories.tr()),
           SizedBox(
-            height: h * 0.03,
+            height: h * 0.01,
           ),
           const HomeCategory(),
-          SizedBox(
-            height: h * 0.015,
-          ),
+          // SizedBox(
+          //   height: h * 0.01,
+          // ),
           sectionTitle(
               h: h,
               w: w,
@@ -142,11 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ))),
               title: LocaleKeys.Recommended.tr()),
           SizedBox(
-            height: h * 0.02,
+            height: h * 0.01,
           ),
           const RecommendedSection(),
           SizedBox(
-            height: h * 0.02,
+            height: h * 0.01,
           ),
           sectionTitle(
               h: h,
@@ -160,11 +160,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ))),
               title: LocaleKeys.Popular.tr()),
           SizedBox(
-            height: h * 0.025,
+            height: h * 0.01,
           ),
           const PopularDestinations(),
           SizedBox(
-            height: h * 0.03,
+            height: h * 0.01,
           ),
         ],
       ),

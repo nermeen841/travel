@@ -40,39 +40,56 @@ class _SignupFormState extends State<SignupForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              textFormField(
-                hintText: LocaleKeys.First_Name.tr(),
-                controller: firstNameController,
-                obscureText: false,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return LocaleKeys.FIRSTNAME_REQUIRED.tr();
-                  } else if (val.length < 3) {
-                    return LocaleKeys.FIRSTNAME_LENGTH.tr();
-                  }
-                  return null;
-                },
-              ),
               SizedBox(
-                height: h * 0.025,
+                height: h * 0.015,
               ),
-              textFormField(
-                hintText: LocaleKeys.Last_Name.tr(),
-                controller: lastNameController,
-                obscureText: false,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return LocaleKeys.LASTNAME_REQUIRED.tr();
-                  } else if (val.length < 3) {
-                    return LocaleKeys.LAST_NAME_LENGTH.tr();
-                  }
-                  return null;
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: w * 0.42,
+                    child: textFormField(
+                      hintText: LocaleKeys.First_Name.tr(),
+                      controller: firstNameController,
+                      keyboardType: TextInputType.name,
+                      obscureText: false,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return LocaleKeys.FIRSTNAME_REQUIRED.tr();
+                        } else if (val.length < 3) {
+                          return LocaleKeys.FIRSTNAME_LENGTH.tr();
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: w * 0.42,
+                    child: textFormField(
+                      keyboardType: TextInputType.name,
+                      hintText: LocaleKeys.Last_Name.tr(),
+                      controller: lastNameController,
+                      obscureText: false,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return LocaleKeys.LASTNAME_REQUIRED.tr();
+                        } else if (val.length < 3) {
+                          return LocaleKeys.LAST_NAME_LENGTH.tr();
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
               ),
+              // SizedBox(
+              //   height: h * 0.01,
+              // ),
               SizedBox(
-                height: h * 0.025,
+                height: h * 0.015,
               ),
               textFormField(
+                keyboardType: TextInputType.phone,
                 controller: phoneController,
                 validator: (val) {
                   if (val!.isNotEmpty) {
@@ -88,9 +105,10 @@ class _SignupFormState extends State<SignupForm> {
                 hintText: LocaleKeys.Phone_Number.tr(),
               ),
               SizedBox(
-                height: h * 0.025,
+                height: h * 0.015,
               ),
               textFormField(
+                keyboardType: TextInputType.emailAddress,
                 hintText: LocaleKeys.Email.tr(),
                 controller: emailController,
                 obscureText: false,
@@ -104,9 +122,10 @@ class _SignupFormState extends State<SignupForm> {
                 },
               ),
               SizedBox(
-                height: h * 0.025,
+                height: h * 0.015,
               ),
               textFormField(
+                keyboardType: TextInputType.text,
                 hintText: LocaleKeys.Password.tr(),
                 controller: passwordController,
                 obscureText: secureText,
@@ -143,9 +162,10 @@ class _SignupFormState extends State<SignupForm> {
                       ),
               ),
               SizedBox(
-                height: h * 0.025,
+                height: h * 0.02,
               ),
               textFormField(
+                keyboardType: TextInputType.text,
                 hintText: LocaleKeys.Confirm_Password.tr(),
                 controller: confirmPasswordController,
                 obscureText: secureText2,
@@ -188,7 +208,7 @@ class _SignupFormState extends State<SignupForm> {
           ),
         ),
         SizedBox(
-          height: h * 0.035,
+          height: h * 0.03,
         ),
         BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
           listener: (context, state) {},
@@ -268,7 +288,7 @@ class _SignupFormState extends State<SignupForm> {
           },
         ),
         SizedBox(
-          height: h * 0.04,
+          height: h * 0.03,
         ),
         BlocConsumer<AuthenticationcubitCubit, AuthenticationcubitState>(
             builder: (context, state) {
@@ -295,9 +315,9 @@ class _SignupFormState extends State<SignupForm> {
               margin: EdgeInsets.symmetric(horizontal: w * 0.06),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.shade500,
+                  color: Colors.grey.shade300,
                   blurRadius: 5,
-                  offset: const Offset(0, 5), // Shadow position
+                  offset: const Offset(0, 2), // Shadow position
                 ),
               ]);
         }, listener: (context, state) {

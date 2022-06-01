@@ -30,6 +30,17 @@ class _ChangePasswordState extends State<ChangePassword> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Icon(
+              Icons.arrow_back_ios,
+              size: 30,
+              color: Color(0xff3A0CA3).withOpacity(0.6),
+            ),
+          ),
+        ),
         automaticallyImplyLeading: true,
         elevation: 0.0,
         iconTheme: IconThemeData(color: MyColors.mainColor),
@@ -40,15 +51,16 @@ class _ChangePasswordState extends State<ChangePassword> {
           key: formKey,
           child: Padding(
             padding:
-                EdgeInsets.symmetric(horizontal: w * 0.03, vertical: h * 0.03),
+                EdgeInsets.symmetric(horizontal: w * 0.05, vertical: h * 0.03),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: h * 0.03,
+                  height: h * 0.09,
                 ),
                 textFormField(
+                  keyboardType: TextInputType.text,
                   hintText: "current password",
                   controller: currentPasswordController,
                   obscureText: secureText,
@@ -85,9 +97,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                         ),
                 ),
                 SizedBox(
-                  height: h * 0.04,
+                  height: h * 0.03,
                 ),
                 textFormField(
+                  keyboardType: TextInputType.text,
                   hintText: "new password",
                   controller: newPasswordController,
                   obscureText: secureText2,
@@ -124,9 +137,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                         ),
                 ),
                 SizedBox(
-                  height: h * 0.04,
+                  height: h * 0.03,
                 ),
                 textFormField(
+                  keyboardType: TextInputType.text,
                   hintText: LocaleKeys.Confirm_Password.tr(),
                   controller: confirmNewPasswordController,
                   obscureText: secureText3,

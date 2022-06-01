@@ -230,10 +230,7 @@ filterAlert({required double h, required double w, required context}) {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MapTrackScreen(
-                                    latitude: "",
-                                    logtitude: "",
-                                  ))),
+                              builder: (context) => BottomNave(index: 2))),
                       child: Container(
                         width: w * 0.13,
                         height: h * 0.13,

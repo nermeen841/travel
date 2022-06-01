@@ -32,11 +32,11 @@ Widget richTextInSignUp() => RichText(
             ),
           ),
           TextSpan(
-            text: LocaleKeys.Privacy_Policy.tr(),
+            text: ' ' + LocaleKeys.Privacy_Policy.tr(),
             style: const TextStyle(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
-              fontSize: 16,
+              fontSize: 14,
               color: Color(0xff3A0CA3),
             ),
           ),

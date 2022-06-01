@@ -32,13 +32,13 @@ class SignUpScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: ListView(
             padding: EdgeInsets.symmetric(
-              horizontal: w * 0.07,
+              horizontal: w * 0.05,
             ),
             shrinkWrap: true,
             primary: true,
             children: [
               SizedBox(
-                height: h * 0.08,
+                height: 38,
               ),
               Align(
                   alignment: Alignment.topLeft,
@@ -46,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
                     onTap: () => Navigator.pop(context),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      size: 35,
+                      size: 30,
                       color: const Color(0xff3A0CA3).withOpacity(0.55),
                     ),
                   )),
@@ -65,12 +65,12 @@ class SignUpScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: const Color(0xff3A0CA3)),
               ),
-              SizedBox(
-                height: h * 0.012,
-              ),
+              // SizedBox(
+              //   height: h * 0.01,
+              // ),
               const SignupForm(),
               SizedBox(
-                height: h * 0.04,
+                height: h * 0.01,
               ),
               Text(
                 LocaleKeys.By_Singning.tr(),
@@ -84,7 +84,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               richTextInSignUp(),
               SizedBox(
-                height: h * 0.04,
+                height: h * 0.02,
               ),
             ],
           ),

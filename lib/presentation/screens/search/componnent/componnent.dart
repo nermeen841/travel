@@ -18,7 +18,7 @@ searchButton({
     builder: (context, state) {
       return Material(
         elevation: 5,
-        shadowColor: MyColors.backgroundColor,
+        shadowColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(w * 0.5),
         ),

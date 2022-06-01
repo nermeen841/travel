@@ -9,11 +9,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
+import 'package:travel/business_logic/database_helper/app_states.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/presentation/screens/layout/bottomNave.dart';
+import 'package:travel/presentation/screens/profile/change_password.dart';
 import 'package:travel/presentation/widgets/profile_wdgets/profile_widgets.dart';
+import '../../../business_logic/database_helper/app_Cubit.dart';
 import '../../../generated/locale_keys.dart';
+import '../../widgets/sign_up_form/sign_up_form.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -90,14 +94,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return PreferredSize(
       preferredSize: Size(w, h),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white70,
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                const Color(0xff3A0CA3).withOpacity(0.99),
+                const Color(0xff3A0CA3).withOpacity(0.4),
                 Colors.white70,
                 Colors.white,
                 Colors.white,
@@ -109,20 +113,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             primary: true,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: w * 0.06, vertical: h * 0.02),
+                  horizontal: w * 0.05, vertical: h * 0.02),
               child: Column(
                 children: [
-                  SizedBox(height: h * 0.07),
+                  SizedBox(height: h * 0.035),
                   Align(
                       alignment: Alignment.topLeft,
                       child: InkWell(
                         onTap: () => Navigator.pop(context),
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_ios,
-                          size: 35,
-                          color: Color(0xff3A0CA3),
+                          size: 30,
+                          color: Color(0xff3A0CA3).withOpacity(0.5),
                         ),
                       )),
+                  SizedBox(height: h * 0.02),
                   Stack(
                     children: [
                       Center(
@@ -197,39 +202,49 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SizedBox(
                     height: h * 0.03,
                   ),
-                  profileFormField(
-                      readOnly: false,
-                      enabled: true,
-                      initialValue: prefs.getString('firstName').toString(),
-                      validator: (val) {
-                        return null;
-                      },
-                      obscureText: false,
-                      hintText: 'Username',
-                      onChange: (String value) {
-                        setState(() {
-                          usernameController = value;
-                        });
-                      }),
-                  SizedBox(
-                    height: h * 0.023,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: w * 0.4,
+                        child: profileFormField(
+                            readOnly: false,
+                            enabled: true,
+                            initialValue:
+                                prefs.getString('firstName').toString(),
+                            validator: (val) {
+                              return null;
+                            },
+                            obscureText: false,
+                            hintText: 'Username',
+                            onChange: (String value) {
+                              setState(() {
+                                usernameController = value;
+                              });
+                            }),
+                      ),
+                      SizedBox(
+                        width: w * 0.4,
+                        child: profileFormField(
+                            readOnly: false,
+                            enabled: true,
+                            initialValue:
+                                prefs.getString('lastName').toString(),
+                            validator: (val) {
+                              return null;
+                            },
+                            obscureText: false,
+                            hintText: 'last name',
+                            onChange: (String value) {
+                              setState(() {
+                                lastnameController = value;
+                              });
+                            }),
+                      ),
+                    ],
                   ),
-                  profileFormField(
-                      readOnly: false,
-                      enabled: true,
-                      initialValue: prefs.getString('lastName').toString(),
-                      validator: (val) {
-                        return null;
-                      },
-                      obscureText: false,
-                      hintText: 'last name',
-                      onChange: (String value) {
-                        setState(() {
-                          lastnameController = value;
-                        });
-                      }),
                   SizedBox(
-                    height: h * 0.023,
+                    height: h * 0.02,
                   ),
                   profileFormField(
                       enabled: true,
@@ -342,7 +357,116 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         });
                       }),
                   SizedBox(
-                    height: h * 0.05,
+                    height: h * 0.03,
+                  ),
+                  BlocConsumer<AuthenticationcubitCubit,
+                      AuthenticationcubitState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              showCitysMenu(
+                                  positioned: const RelativeRect.fromLTRB(
+                                      0, 380, 300, 100),
+                                  context: context,
+                                  w: w,
+                                  list: AuthenticationcubitCubit.get(context)
+                                      .city);
+                            },
+                            child: BlocConsumer<AppCubit, AppState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return Row(
+                                  children: [
+                                    (AppCubit.get(context).city != null)
+                                        ? Text(
+                                            AppCubit.get(context).city!,
+                                            style: headingStyle.copyWith(
+                                                fontSize: 16),
+                                          )
+                                        : Text(
+                                            LocaleKeys.City.tr(),
+                                            style: headingStyle.copyWith(
+                                                fontSize: 16),
+                                          ),
+                                    SizedBox(
+                                      width: w * 0.01,
+                                    ),
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: MyColors.mainColor,
+                                      size: w * 0.065,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              showGoverMenu(
+                                  context: context,
+                                  w: w,
+                                  list: AuthenticationcubitCubit.get(context)
+                                      .governorate);
+                            },
+                            child: Row(
+                              children: [
+                                (AppCubit.get(context).governorate != null)
+                                    ? Text(
+                                        AppCubit.get(context).governorate!,
+                                        style:
+                                            headingStyle.copyWith(fontSize: 16),
+                                      )
+                                    : Text(
+                                        LocaleKeys.Governorate.tr(),
+                                        style:
+                                            headingStyle.copyWith(fontSize: 16),
+                                      ),
+                                SizedBox(
+                                  width: w * 0.01,
+                                ),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: MyColors.mainColor,
+                                  size: w * 0.065,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: h * 0.03,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChangePassword(
+                                    email: prefs.getString('email').toString(),
+                                  )));
+                    },
+                    child: const Text(
+                      "Change Passord",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Poppins',
+                        color: Color(0xff3A0CA3),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: h * 0.03,
                   ),
                   BlocConsumer<AuthenticationcubitCubit,
                       AuthenticationcubitState>(
@@ -392,6 +516,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             (route) => false);
                       }
                     },
+                  ),
+                  SizedBox(
+                    height: h * 0.02,
                   ),
                 ],
               ),

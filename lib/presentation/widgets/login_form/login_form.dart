@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget textFormField({
-  required TextEditingController? controller,
-  FormFieldValidator<String>? validator,
-  required bool obscureText,
-  required String hintText,
-  Widget? suffixIcon,
-}) =>
+Widget textFormField(
+        {required TextEditingController? controller,
+        FormFieldValidator<String>? validator,
+        required bool obscureText,
+        required String hintText,
+        Widget? suffixIcon,
+        required TextInputType? keyboardType}) =>
     TextFormField(
+      // focusNode: FocusScopeNode(skipTraversal: true),
       controller: controller,
+
       validator: validator,
-      keyboardType: TextInputType.text,
+      keyboardType: keyboardType,
       cursorColor: Colors.grey,
       obscureText: obscureText,
+
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         focusedBorder: const UnderlineInputBorder(
@@ -26,7 +29,7 @@ Widget textFormField({
             borderSide: BorderSide(color: Color(0xff3A0CA3))),
         hintText: hintText,
         hintStyle: const TextStyle(
-            fontSize: 16, fontFamily: 'Poppins', color: Color(0xff3A0CA3)),
+            fontSize: 14, fontFamily: 'Poppins', color: Color(0xff3A0CA3)),
         border: const UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xff3A0CA3))),
       ),
@@ -55,17 +58,17 @@ Widget googleAndFacebookRow({
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.shade500,
-                blurRadius: 5,
-                offset: const Offset(0, 5), // Shadow position
+                color: Colors.grey.shade400,
+                blurRadius: 3,
+                offset: const Offset(0, 2), // Shadow position
               ),
             ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children:  [
+            children: [
               Image.asset('assets/images/google icon 1.png'),
-             const Text(
+              const Text(
                 'Google',
                 style: TextStyle(
                   fontSize: 16,
@@ -81,7 +84,7 @@ Widget googleAndFacebookRow({
       InkWell(
         onTap: pressOnFacebook,
         child: Container(
-          padding: EdgeInsets.only(left: w * 0.026, right: w * 0.026),
+          padding: EdgeInsets.only(left: w * 0.01, right: w * 0.01),
           height: h * 0.06,
           width: w * 0.34,
           decoration: BoxDecoration(
@@ -89,9 +92,9 @@ Widget googleAndFacebookRow({
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.shade500,
-                blurRadius: 5,
-                offset: const Offset(0, 5), // Shadow position
+                color: Colors.grey.shade400,
+                blurRadius: 3,
+                offset: const Offset(0, 2), // Shadow position
               ),
             ],
           ),

@@ -47,20 +47,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            toolbarHeight: 0.0,
-          ),
           body: ListView(
             padding: EdgeInsets.symmetric(
-              horizontal: w * 0.06,
+              horizontal: w * 0.07,
             ),
             shrinkWrap: true,
             primary: true,
             children: [
               SizedBox(
-                height: h * 0.03,
+                height: 40,
               ),
               Align(
                   alignment: Alignment.topLeft,
@@ -68,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () => Navigator.pop(context),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      size: 35,
+                      size: 30,
                       color: const Color(0xff3A0CA3).withOpacity(0.55),
                     ),
                   )),
@@ -97,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textFormField(
                       hintText: LocaleKeys.Email.tr(),
                       controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                       validator: (val) {
                         if (val!.isEmpty) {
                           return LocaleKeys.EMAIL_REQUIRED.tr();
@@ -112,6 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: h * 0.03,
                     ),
                     textFormField(
+                      keyboardType: TextInputType.text,
                       hintText: LocaleKeys.Password.tr(),
                       controller: passwordController,
                       validator: (val) {
@@ -191,9 +188,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           margin: EdgeInsets.symmetric(horizontal: w * 0.05),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.shade500,
+                              color: Colors.grey.shade300,
                               blurRadius: 5,
-                              offset: const Offset(0, 5), // Shadow position
+                              offset: const Offset(0, 3), // Shadow position
                             ),
                           ])),
                   listener: (context, state) {
@@ -224,7 +221,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: h * 0.02,
               ),
               googleAndFacebookRow(context: context),
-              // SizedBox(height:  h * 0.03,),
+              SizedBox(
+                height: h * 0.09,
+              ),
             ],
           ),
         ),

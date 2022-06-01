@@ -69,14 +69,14 @@ introTitle({required double h, required double w}) {
       Text(
         "The world is yours to ",
         style: headingStyle.copyWith(
-          fontSize: w * 0.07,
+          fontSize: w * 0.05,
           fontWeight: FontWeight.w400,
         ),
       ),
       Text(
         'Explore',
         style: headingStyle.copyWith(
-            fontSize: w * 0.08, fontWeight: FontWeight.bold),
+            fontSize: w * 0.06, fontWeight: FontWeight.bold),
       ),
     ],
   );
@@ -100,16 +100,16 @@ searchWidget(
         onTap: filter,
         child: Container(
           width: w * 0.15,
-          height: h * 0.15,
-          decoration: const BoxDecoration(
+          height: h * 0.13,
+          decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                  offset: Offset(0, 3),
-                  color: MyColors.backgroundColor,
-                  spreadRadius: 3,
-                  blurRadius: 3),
+                color: Colors.grey.shade400,
+                blurRadius: 5,
+                offset: const Offset(0, 2), // Shadow position
+              ),
             ],
           ),
           child: Image.asset("assets/icons/Filter.png"),

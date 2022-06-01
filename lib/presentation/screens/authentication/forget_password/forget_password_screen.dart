@@ -3,11 +3,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
+import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/screens/authentication/reset_password/reset_password_screen.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
+
+import '../../../../constants/colors.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -34,12 +38,12 @@ class ForgetPasswordScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   SizedBox(
-                    height: h * 0.08,
+                    height: 40,
                   ),
                   Align(
                     alignment: Alignment.topLeft,
@@ -47,16 +51,19 @@ class ForgetPasswordScreen extends StatelessWidget {
                       onTap: () => Navigator.pop(context),
                       child: Icon(
                         Icons.arrow_back_ios,
-                        size: 35,
+                        size: 30,
                         color: const Color(0xff3A0CA3).withOpacity(0.55),
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: h * 0.04,
+                  ),
                   Image.asset(
                     'assets/images/Waiting.png',
-                    width: w * 0.4,
-                    // height: h * 0.32,
-                    fit: BoxFit.contain,
+                    width: w * 0.6,
+                    height: h * 0.3,
+                    fit: BoxFit.cover,
                   ),
                   Text(
                     LocaleKeys.Forgot_Password.tr(),
@@ -88,6 +95,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     height: h * 0.05,
                   ),
                   textFormField(
+                    keyboardType: TextInputType.emailAddress,
                     hintText: LocaleKeys.Email.tr(),
                     controller: emailController,
                     obscureText: false,
@@ -99,11 +107,23 @@ class ForgetPasswordScreen extends StatelessWidget {
                       AuthenticationcubitState>(
                     listener: (context, state) {
                       if (state is ResetPassordTokenSuccessState) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResetPasswordScreen()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => ResetPasswordScreen()),
+                        // );
+                        // Fluttertoast
+                        Fluttertoast.showToast(
+                            msg: 'Please Check Your Email',
+                            gravity: ToastGravity.TOP,
+                            backgroundColor: MyColors.mainColor,
+                            toastLength: Toast.LENGTH_LONG,
+                            textColor: Colors.white);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()),
+                            (route) => false);
                       }
                     },
                     builder: (context, state) {
@@ -154,9 +174,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(horizontal: 25),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.shade500,
+                              color: Colors.grey.shade300,
                               blurRadius: 5,
-                              offset: const Offset(0, 5), // Shadow position
+                              offset: const Offset(0, 3), // Shadow position
                             ),
                           ]);
                     },
