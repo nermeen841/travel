@@ -82,4 +82,7 @@ abstract class LocaleKeys {
   static const PHONE_INVALID = "phone_invalid";
   static const LANGUEG = "language";
   static const APP_LANG = "app_lang";
+  static const REVIEW_TITLE = "review_title";
+  static const REVIEW_HINT = "review_hint";
+  static const NO_PLACES = "no_places";
 }

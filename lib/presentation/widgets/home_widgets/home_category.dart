@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/categories_cubit/categories_states.dart';
 import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/constants/constants.dart';
+import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
 import '../../../business_logic/categories_cubit/categories_cubit.dart';
 import '../../../business_logic/home_cubit/home_states.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeCategory extends StatefulWidget {
   const HomeCategory({Key? key}) : super(key: key);
@@ -49,77 +52,84 @@ class _HomeCategoryState extends State<HomeCategory> {
                   homeCategory.length,
                   (index) => buildDot(
                       categoryID: homeCategory[index].id.toString(),
-                      title: homeCategory[index].nameEN.toString(),
+                      title: (prefs.getString('lang') == 'en')
+                          ? homeCategory[index].nameEN.toString()
+                          : homeCategory[index].nameAR.toString(),
                       index: index,
                       h: h,
                       w: w),
                   growable: true),
             ),
-            // SizedBox(
-            //   height: h * 0.01,
-            // ),
             Container(
               width: w,
               height: h * 0.2,
               color: Colors.transparent,
-              child: (CategoriesCubit.get(context).topCategory.isNotEmpty)
-                  ? PageView.builder(
-                      itemCount: homeCategory.length,
-                      controller: pageController,
-                      onPageChanged: (index) {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          width: w,
-                          height: h * 0.2,
-                          child: BlocConsumer<CategoriesCubit, CategoriesState>(
-                            listener: (context, state) {},
-                            builder: (context, state) {
-                              final toCategory =
-                                  CategoriesCubit.get(context).topCategory;
-                              return ListView.separated(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) => InkWell(
-                                        onTap: () {
-                                          HomeCubit.get(context).getPlaceDetail(
-                                              context: context,
-                                              id: toCategory[index]
-                                                  .id
-                                                  .toString());
-                                        },
-                                        child: categoryCard(
-                                          w: w,
-                                          h: h,
-                                          address: toCategory[index]
-                                              .addressEN
-                                              .toString(),
-                                          name: toCategory[index]
-                                              .nameEN
-                                              .toString(),
-                                          rate: toCategory[index].rate,
-                                        ),
+              child: PageView.builder(
+                itemCount: homeCategory.length,
+                controller: pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: w,
+                    height: h * 0.2,
+                    child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        final toCategory =
+                            CategoriesCubit.get(context).topCategory;
+                        return (CategoriesCubit.get(context)
+                                .topCategory
+                                .isNotEmpty)
+                            ? ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => InkWell(
+                                      onTap: () {
+                                        HomeCubit.get(context).getPlaceDetail(
+                                            context: context,
+                                            id: toCategory[index]
+                                                .id
+                                                .toString());
+                                      },
+                                      child: categoryCard(
+                                        w: w,
+                                        h: h,
+                                        address:
+                                            (prefs.getString('lang') == 'en')
+                                                ? toCategory[index]
+                                                    .addressEN
+                                                    .toString()
+                                                : toCategory[index]
+                                                    .addressAR
+                                                    .toString(),
+                                        name: (prefs.getString('lang') == 'en')
+                                            ? toCategory[index]
+                                                .nameEN
+                                                .toString()
+                                            : toCategory[index]
+                                                .nameAR
+                                                .toString(),
+                                        rate: toCategory[index].rate,
                                       ),
-                                  separatorBuilder: (context, index) =>
-                                      SizedBox(
-                                        width: w * 0.025,
-                                      ),
-                                  itemCount: toCategory.length);
-                            },
-                          ),
-                        );
+                                    ),
+                                separatorBuilder: (context, index) => SizedBox(
+                                      width: w * 0.025,
+                                    ),
+                                itemCount: toCategory.length)
+                            : Center(
+                                child: Text(LocaleKeys.NO_PLACES.tr(),
+                                    style: headingStyle.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: w * 0.04)));
                       },
-                    )
-                  : Center(
-                      child: Text(
-                        "No places here  ",
-                        style: headingStyle.copyWith(
-                            fontWeight: FontWeight.w500, fontSize: w * 0.04),
-                      ),
                     ),
+                  );
+                },
+              ),
             ),
           ],
         );

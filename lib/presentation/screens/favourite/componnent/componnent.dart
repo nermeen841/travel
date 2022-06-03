@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/constants/constants.dart';
 
 favouriteCard(
     {required double h,
@@ -34,15 +35,13 @@ favouriteCard(
           width: w * 0.3,
           decoration: BoxDecoration(
             color: Colors.grey[200],
-            borderRadius:
-                // (lang == 'en')
-                //     ?
-                BorderRadius.only(
+            borderRadius: (prefs.getString('lang') == 'en')
+                ? BorderRadius.only(
                     topLeft: Radius.circular(w * 0.05),
-                    bottomLeft: Radius.circular(w * 0.05)),
-            // : BorderRadius.only(
-            //     topRight: Radius.circular(w * 0.05),
-            //     bottomRight: Radius.circular(w * 0.05)),
+                    bottomLeft: Radius.circular(w * 0.05))
+                : BorderRadius.only(
+                    topRight: Radius.circular(w * 0.05),
+                    bottomRight: Radius.circular(w * 0.05)),
             image: const DecorationImage(
               image: NetworkImage(
                   "https://img.freepik.com/free-photo/green-city-park_1127-2299.jpg?w=740"),

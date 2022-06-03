@@ -11,7 +11,6 @@ import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 import '../../../business_logic/database_helper/app_Cubit.dart';
 import '../../../business_logic/database_helper/app_states.dart';
 import '../../../business_logic/search_cubit/search_cubit.dart';
-import '../../screens/map/map_track.dart';
 
 TextEditingController filter = TextEditingController();
 
@@ -228,9 +227,10 @@ filterAlert({required double h, required double w, required context}) {
                   Center(
                     child: InkWell(
                       onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNave(index: 2))),
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BottomNave(index: 2)),
+                      ),
                       child: Container(
                         width: w * 0.13,
                         height: h * 0.13,

@@ -45,7 +45,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 Container(
                   padding: EdgeInsets.only(
                     left: w * 0.05,
-                    top: h * 0.03,
                   ),
                   height: h * 0.8,
                   width: w * 0.9,

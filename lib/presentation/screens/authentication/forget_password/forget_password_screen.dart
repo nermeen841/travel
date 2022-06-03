@@ -8,9 +8,7 @@ import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart'
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
-import 'package:travel/presentation/screens/authentication/reset_password/reset_password_screen.dart';
 import 'package:travel/presentation/widgets/login_form/login_form.dart';
-
 import '../../../../constants/colors.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -42,11 +40,13 @@ class ForgetPasswordScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Align(
-                    alignment: Alignment.topLeft,
+                    alignment: (prefs.getString('lang') == 'en')
+                        ? Alignment.topLeft
+                        : Alignment.topRight,
                     child: InkWell(
                       onTap: () => Navigator.pop(context),
                       child: Icon(

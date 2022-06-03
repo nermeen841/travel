@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:travel/constants/constants.dart';
 
@@ -21,7 +23,8 @@ Locale _locale(String languageCode) {
   return temp;
 }
 
-Future<Locale> getLocale(context) async {
+Future<Locale> getLocale() async {
+  Locale temp;
   String languageCode = prefs.getString('lang').toString();
-  return context.local = _locale(languageCode);
+  return temp = _locale(languageCode);
 }

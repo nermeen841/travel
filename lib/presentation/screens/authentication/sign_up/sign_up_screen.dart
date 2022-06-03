@@ -6,6 +6,8 @@ import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/componnent/form.dart';
 import 'package:travel/presentation/widgets/sign_up_form/sign_up_form.dart';
 
+import '../../../../constants/constants.dart';
+
 // ignore: must_be_immutable
 class SignUpScreen extends StatelessWidget {
   @override
@@ -37,11 +39,13 @@ class SignUpScreen extends StatelessWidget {
             shrinkWrap: true,
             primary: true,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 38,
               ),
               Align(
-                  alignment: Alignment.topLeft,
+                  alignment: (prefs.getString('lang') == 'en')
+                      ? Alignment.topLeft
+                      : Alignment.topRight,
                   child: InkWell(
                     onTap: () => Navigator.pop(context),
                     child: Icon(

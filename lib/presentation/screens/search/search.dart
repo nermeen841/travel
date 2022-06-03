@@ -9,6 +9,8 @@ import 'package:travel/constants/colors.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/search/componnent/componnent.dart';
 
+import '../../../constants/constants.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -242,17 +244,29 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  SearchCubit.get(context)
-                                                      .searchData[index]
-                                                      .nameEN!,
+                                                  (prefs.getString('lang') ==
+                                                          'en')
+                                                      ? SearchCubit.get(context)
+                                                          .searchData[index]
+                                                          .nameEN!
+                                                      : SearchCubit.get(context)
+                                                          .searchData[index]
+                                                          .nameAR!,
                                                   style: headingStyle.copyWith(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
                                                 Text(
-                                                    SearchCubit.get(context)
-                                                        .searchData[index]
-                                                        .addressEN!,
+                                                    (prefs.getString('lang') ==
+                                                            'en')
+                                                        ? SearchCubit.get(
+                                                                context)
+                                                            .searchData[index]
+                                                            .addressEN!
+                                                        : SearchCubit.get(
+                                                                context)
+                                                            .searchData[index]
+                                                            .addressAR!,
                                                     style: headingStyle),
                                               ],
                                             ),
@@ -342,15 +356,30 @@ class _SearchScreenState extends State<SearchScreen> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          SearchHistoryCubit.get(context)
-                                              .searchHistory[index]['nameEn'],
+                                          (prefs.getString('lang') == 'en')
+                                              ? SearchHistoryCubit.get(context)
+                                                  .searchHistory[index]
+                                                      ['nameEn']
+                                                  .toString()
+                                              : SearchHistoryCubit.get(context)
+                                                  .searchHistory[index]
+                                                      ['nameAr']
+                                                  .toString(),
                                           style: headingStyle.copyWith(
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                            SearchHistoryCubit.get(context)
+                                            (prefs.getString('lang') == 'en')
+                                                ? SearchHistoryCubit.get(
+                                                        context)
                                                     .searchHistory[index]
-                                                ['addressEn'],
+                                                        ['addressEn']
+                                                    .toString()
+                                                : SearchHistoryCubit.get(
+                                                        context)
+                                                    .searchHistory[index]
+                                                        ['addressAr']
+                                                    .toString(),
                                             style: headingStyle),
                                       ],
                                     ),

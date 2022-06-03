@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
-import 'package:travel/presentation/screens/profile/change_password.dart';
 import 'package:travel/presentation/screens/profile/edit_profile.dart';
 import 'package:travel/presentation/widgets/profile_wdgets/profile_widgets.dart';
 
@@ -50,7 +49,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             child: Icon(
                               Icons.arrow_back_ios,
                               size: 30,
-                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                              color: const Color(0xff3A0CA3).withOpacity(0.5),
                             ),
                           ),
                         )
@@ -61,7 +60,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             child: Icon(
                               Icons.arrow_back_ios,
                               size: 30,
-                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                              color: const Color(0xff3A0CA3).withOpacity(0.5),
                             ),
                           ),
                         ),

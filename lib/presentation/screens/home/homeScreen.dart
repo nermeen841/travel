@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/home/componnent/componnent.dart';
 import 'package:travel/presentation/screens/more/more.dart';
@@ -41,8 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         primary: true,
         shrinkWrap: true,
-        padding:
-            EdgeInsets.symmetric(vertical: h * 0.025, horizontal: w * 0.03),
+        padding: (prefs.getString('lang') == 'en')
+            ? EdgeInsets.only(top: h * 0.025, bottom: h * 0.025, left: w * 0.03)
+            : EdgeInsets.only(
+                top: h * 0.025, bottom: h * 0.025, right: w * 0.03),
         children: [
           SizedBox(
             height: h * 0.022,
@@ -76,37 +79,41 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(
             height: h * 0.01,
           ),
-          SizedBox(
-            width: w,
-            height: h * 0.2,
-            child: Swiper(
-              pagination: SwiperPagination(
-                  builder: DotSwiperPaginationBuilder(
-                      color: MyColors.backgroundColor.withOpacity(0.5),
-                      activeColor: MyColors.mainColor),
-                  alignment: Alignment.bottomCenter),
-              itemBuilder: (BuildContext context, int i) {
-                return InkWell(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(w * 0.05),
-                      image: DecorationImage(
-                        image: NetworkImage(images[i]),
-                        fit: BoxFit.cover,
+          Padding(
+            padding: (prefs.getString('lang') == 'en')
+                ? EdgeInsets.only(right: w * 0.03)
+                : EdgeInsets.only(left: w * 0.03),
+            child: SizedBox(
+              width: w,
+              height: h * 0.2,
+              child: Swiper(
+                pagination: SwiperPagination(
+                    builder: DotSwiperPaginationBuilder(
+                        color: MyColors.backgroundColor.withOpacity(0.5),
+                        activeColor: MyColors.mainColor),
+                    alignment: Alignment.bottomCenter),
+                itemBuilder: (BuildContext context, int i) {
+                  return InkWell(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(w * 0.05),
+                        image: DecorationImage(
+                          image: NetworkImage(images[i]),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  focusColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  // overlayColor: ,
-                  onTap: () async {},
-                );
-              },
-              itemCount: images.length,
-              autoplay: true,
-              autoplayDelay: 5000,
+                    focusColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {},
+                  );
+                },
+                itemCount: images.length,
+                autoplay: true,
+                autoplayDelay: 5000,
+              ),
             ),
           ),
           SizedBox(

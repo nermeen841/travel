@@ -125,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             child: Icon(
                               Icons.arrow_back_ios,
                               size: 30,
-                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                              color: const Color(0xff3A0CA3).withOpacity(0.5),
                             ),
                           ),
                         )
@@ -136,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             child: Icon(
                               Icons.arrow_back_ios,
                               size: 30,
-                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                              color: const Color(0xff3A0CA3).withOpacity(0.5),
                             ),
                           ),
                         ),
@@ -492,9 +492,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   )));
                     },
                     child: Text(
-                      '${LocaleKeys.Change_Password.tr()}',
+                      LocaleKeys.Change_Password.tr(),
                       textAlign: TextAlign.start,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Poppins',

@@ -54,11 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
             shrinkWrap: true,
             primary: true,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Align(
-                  alignment: Alignment.topLeft,
+                  alignment: (prefs.getString('lang') == 'en')
+                      ? Alignment.topLeft
+                      : Alignment.topRight,
                   child: InkWell(
                     onTap: () => Navigator.pop(context),
                     child: Icon(

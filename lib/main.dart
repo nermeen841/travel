@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, deprecated_member_use
 
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
@@ -58,21 +58,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale;
   setLocale(Locale locale) async {
     setState(() {
-      _locale = locale;
-      // DBHelper.saveAppLang(locale.toString());00
+      context.locale = locale;
     });
     print('Applan:' + locale.toString());
-    // print('Applanshard:' + User.appLang);
   }
 
   @override
   void didChangeDependencies() {
-    getLocale(context).then((locale) {
+    getLocale().then((locale) {
       setState(() {
-        this._locale = locale;
+        context.locale = locale;
       });
     });
     super.didChangeDependencies();
@@ -105,17 +102,8 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        locale: _locale,
-        // localeResolutionCallback: (locale, supportedLocales) {
-        //   for (var supportedLocale in supportedLocales) {
-        //     if (supportedLocale.languageCode == locale!.languageCode) {
-        //       return supportedLocale;
-        //     }
-        //   }
-        //   return supportedLocales.first;
-        // },
-
-        localeResolutionCallback: (deviceLocale, supportedLocales) {
+        locale: context.locale,
+        localeResolutionCallback: (locale, supportedLocales) {
           if (prefs.getString('lang').toString() == 'null') {
             for (var locale in supportedLocales) {
               if (locale.languageCode == Platform.localeName.split('_')[0]) {
@@ -135,7 +123,6 @@ class _MyAppState extends State<MyApp> {
             return supportedLocales.first;
           }
         },
-
         home: const SafeArea(
           child: SplashScreen(),
         ),

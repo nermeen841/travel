@@ -75,5 +75,8 @@
     "lastname_required":"last name is required",
     "phone_invalid":"phone number is invalid",
     "language":"Language",
-    "app_lang":"en"
+    "app_lang":"en",
+    "review_title":"Share more about your experience",
+    "review_hint": "Share details of your own experience at this place",
+    "no_places":"No places here yet"
 }

@@ -8,6 +8,7 @@ import 'package:travel/business_logic/home_cubit/home_states.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/presentation/screens/review/review.dart';
 
+import '../../../../constants/constants.dart';
 import '../../../../generated/locale_keys.dart';
 
 headerTitle(
@@ -82,7 +83,9 @@ overview({required double w, required double h}) {
             condition: state is! PlaceDetailLoadingState,
             builder: (context) {
               return Text(
-                HomeCubit.get(context).placeDetailModel.overViewEN!,
+                (prefs.getString("lang") == "en")
+                    ? HomeCubit.get(context).placeDetailModel.overViewEN!
+                    : HomeCubit.get(context).placeDetailModel.overViewAR!,
                 style: headingStyle.copyWith(
                     height: h * 0.003, wordSpacing: w * 0.007),
                 textAlign: TextAlign.start,

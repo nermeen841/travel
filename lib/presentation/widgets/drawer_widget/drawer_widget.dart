@@ -2,13 +2,13 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/sign_up_screen.dart';
 import 'package:travel/presentation/screens/drawer_screens/about_us_screen.dart';
+import 'package:travel/presentation/screens/profile/user_profile.dart';
 import 'package:travel/presentation/screens/splash/splash_screen.dart';
 
 import '../../../constants/localization_constant.dart';
@@ -163,9 +163,11 @@ Widget buildDrawerWidget({required context}) {
             color: Color(0xffE5E5E5),
           ),
         ),
-        SizedBox(
-          height: h * 0.05,
-        ),
+        (prefs.getBool("is_login") == false)
+            ? SizedBox(
+                height: h * 0.05,
+              )
+            : const SizedBox(),
         (prefs.getBool("is_login") == false)
             ? Padding(
                 padding: EdgeInsets.symmetric(horizontal: w * 0.15),
@@ -218,7 +220,43 @@ Widget buildDrawerWidget({required context}) {
                   textColor: const Color(0xff3A0CA3),
                 ),
               )
-            : Container(),
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: w * 0.03),
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserProfileScreen()));
+                      },
+                      child: CircleAvatar(
+                        radius: w * 0.065,
+                        backgroundColor: MyColors.mainColor,
+                        child: CircleAvatar(
+                          radius: w * 0.06,
+                          backgroundColor: Colors.white,
+                          backgroundImage: NetworkImage(
+                              prefs.getString("user_image").toString()),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: w * 0.02,
+                    ),
+                    Text(
+                      prefs.getString('firstName').toString() +
+                          " " +
+                          prefs.getString('lastName').toString(),
+                      style: headingStyle.copyWith(
+                          color: Colors.black,
+                          fontSize: w * 0.03,
+                          fontWeight: FontWeight.w400),
+                    )
+                  ],
+                ),
+              ),
       ],
     ),
   );

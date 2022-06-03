@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_print
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/business_logic/home_cubit/home_states.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/constants/constants.dart';
+import 'package:travel/generated/locale_keys.dart';
 
 class AddReviewScreen extends StatefulWidget {
   final int placeId;
@@ -61,8 +63,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               CircleAvatar(
                 backgroundColor: MyColors.backgroundColor,
                 radius: w * 0.08,
-                backgroundImage: const NetworkImage(
-                    "https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=740"),
+                backgroundImage:
+                    NetworkImage(prefs.getString('user_image').toString()),
               ),
               SizedBox(
                 width: w * 0.025,
@@ -72,13 +74,10 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Emul Ezep",
+                    prefs.getString('firstName').toString() +
+                        " " +
+                        prefs.getString('lastName').toString(),
                     style: headingStyle.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Posting publicly",
-                    style: headingStyle.copyWith(
-                        fontWeight: FontWeight.w400, color: Colors.grey),
                   ),
                 ],
               ),
@@ -116,7 +115,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           ),
           Center(
             child: Text(
-              "Share more about your experience",
+              LocaleKeys.REVIEW_TITLE.tr(),
               style: headingStyle.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
@@ -130,7 +129,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               keyboardType: TextInputType.text,
               cursorColor: MyColors.mainColor,
               decoration: InputDecoration(
-                hintText: "Share details of your own experience at this place",
+                hintText: LocaleKeys.REVIEW_HINT.tr(),
                 hintStyle: headingStyle.copyWith(
                     fontSize: w * 0.035,
                     color: Colors.grey,
@@ -183,7 +182,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     },
                     child: Center(
                       child: Text(
-                        "Submit",
+                        LocaleKeys.Submit.tr(),
                         style: headingStyle.copyWith(
                             fontWeight: FontWeight.bold, fontSize: w * 0.06),
                       ),

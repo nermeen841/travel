@@ -94,7 +94,10 @@ class CodegenLoader extends AssetLoader {
     "phone_invalid": "رقم الهاتف غير صحيح",
     "Current_Password": "كلمة المرور الحالية",
     "language": "اللغة",
-    "app_lang": "ar"
+    "app_lang": "ar",
+    "review_title": "شارك المزيد عن تجربتك",
+    "review_hint": "شارك تفاصيل تجربتك الخاصة في هذا المكان",
+    "no_places": "لا توجد أماكن هنا بعد"
   };
   static const Map<String, dynamic> en = {
     "Search": "Search",
@@ -176,7 +179,10 @@ class CodegenLoader extends AssetLoader {
     "lastname_required": "last name is required",
     "phone_invalid": "phone number is invalid",
     "language": "Language",
-    "app_lang": "en"
+    "app_lang": "en",
+    "review_title": "Share more about your experience",
+    "review_hint": "Share details of your own experience at this place",
+    "no_places": "No places here yet"
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {

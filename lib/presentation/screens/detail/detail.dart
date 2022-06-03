@@ -98,7 +98,12 @@ class _DetailScreenState extends State<DetailScreen> {
                               Column(
                                 children: [
                                   BlocConsumer<FavouriteCubit, FavouriteState>(
-                                    listener: (context, state) {},
+                                    listener: (context, state) {
+                                      if (state is AddToFavouriteSuccessState) {
+                                        FavouriteCubit.get(context)
+                                            .getFavouriteCat();
+                                      }
+                                    },
                                     builder: (context, state) {
                                       return InkWell(
                                         onTap: () {
@@ -228,22 +233,35 @@ class _DetailScreenState extends State<DetailScreen> {
                   headerTitle(
                       h: h,
                       w: w,
-                      city: HomeCubit.get(context)
-                          .placeDetailModel
-                          .city!
-                          .nameEN
-                          .toString(),
-                      name: HomeCubit.get(context)
-                          .placeDetailModel
-                          .nameEN
-                          .toString(),
+                      city: (prefs.getString('lang') == "en")
+                          ? HomeCubit.get(context)
+                              .placeDetailModel
+                              .city!
+                              .nameEN
+                              .toString()
+                          : HomeCubit.get(context)
+                              .placeDetailModel
+                              .city!
+                              .nameAR
+                              .toString(),
+                      name: (prefs.getString('lang') == "en")
+                          ? HomeCubit.get(context)
+                              .placeDetailModel
+                              .nameEN
+                              .toString()
+                          : HomeCubit.get(context)
+                              .placeDetailModel
+                              .nameAR
+                              .toString(),
                       rate: HomeCubit.get(context).placeDetailModel.rate),
                   SizedBox(
                     height: h * 0.02,
                   ),
                   DetailBody(
                     placeID: HomeCubit.get(context).placeDetailModel.id!,
-                    placeName: HomeCubit.get(context).placeDetailModel.nameEN!,
+                    placeName: (prefs.getString("lang") == "en")
+                        ? HomeCubit.get(context).placeDetailModel.nameEN!
+                        : HomeCubit.get(context).placeDetailModel.nameAR!,
                   )
                 ],
               ),

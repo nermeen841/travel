@@ -96,23 +96,28 @@ searchWidget(
         width: w * 0.73,
         child: searchButton(w: w, h: h),
       ),
-      InkWell(
-        onTap: filter,
-        child: Container(
-          width: w * 0.15,
-          height: h * 0.13,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade400,
-                blurRadius: 5,
-                offset: const Offset(0, 2), // Shadow position
-              ),
-            ],
+      Padding(
+        padding: (prefs.getString('lang') == 'en')
+            ? EdgeInsets.only(right: w * 0.03)
+            : EdgeInsets.only(left: w * 0.03),
+        child: InkWell(
+          onTap: filter,
+          child: Container(
+            width: w * 0.15,
+            height: h * 0.13,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade400,
+                  blurRadius: 5,
+                  offset: const Offset(0, 2), // Shadow position
+                ),
+              ],
+            ),
+            child: Image.asset("assets/icons/Filter.png"),
           ),
-          child: Image.asset("assets/icons/Filter.png"),
         ),
       ),
     ],
@@ -136,14 +141,17 @@ sectionTitle({
         style: headingStyle.copyWith(
             fontWeight: FontWeight.bold, fontSize: w * 0.05),
       ),
-      InkWell(
-        onTap: press,
-        child: Text(
-          viewMore,
-          style: headingStyle.copyWith(
-              color: MyColors.unslectedIconColor,
-              fontWeight: FontWeight.w500,
-              fontSize: w * 0.03),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: w * 0.02),
+        child: InkWell(
+          onTap: press,
+          child: Text(
+            viewMore,
+            style: headingStyle.copyWith(
+                color: MyColors.unslectedIconColor,
+                fontWeight: FontWeight.w500,
+                fontSize: w * 0.03),
+          ),
         ),
       ),
     ],

@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel/business_logic/home_cubit/home_cubit.dart';
 import 'package:travel/business_logic/home_cubit/home_states.dart';
 import 'package:travel/constants/colors.dart';
+import 'package:travel/constants/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../generated/locale_keys.dart';
 
 class RecommendedSection extends StatefulWidget {
   const RecommendedSection({Key? key}) : super(key: key);
@@ -97,10 +100,15 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          HomeCubit.get(context)
-                                              .recommended[index]
-                                              .nameEN
-                                              .toString(),
+                                          (prefs.getString('lang') == 'en')
+                                              ? HomeCubit.get(context)
+                                                  .recommended[index]
+                                                  .nameEN
+                                                  .toString()
+                                              : HomeCubit.get(context)
+                                                  .recommended[index]
+                                                  .nameAR
+                                                  .toString(),
                                           style: headingStyle.copyWith(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
@@ -169,7 +177,7 @@ class _RecommendedSectionState extends State<RecommendedSection> {
                     itemCount: HomeCubit.get(context).recommended.length)
                 : Center(
                     child: Text(
-                      "No places here  ",
+                      LocaleKeys.NO_PLACES.tr(),
                       style: headingStyle.copyWith(
                           fontWeight: FontWeight.w500, fontSize: w * 0.04),
                     ),

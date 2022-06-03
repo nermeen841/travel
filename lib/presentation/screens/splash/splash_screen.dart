@@ -5,6 +5,10 @@ import 'package:travel/presentation/screens/authentication/login_or_signup/login
 import 'package:travel/presentation/screens/layout/bottomNave.dart';
 import 'package:travel/presentation/screens/onBoarding/onBoarding.dart';
 
+import '../../../business_logic/categories_cubit/categories_cubit.dart';
+import '../../../business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
+import '../../../business_logic/search_cubit/search_cubit.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -38,6 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     getScreen();
+    CategoriesCubit().getCategory();
+    SearchCubit().getcitySearch();
+    FavouriteCubit().getFavouriteCat();
     super.initState();
     Timer(
         const Duration(seconds: 3),

@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, avoid_print, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_local_variable, avoid_print, avoid_function_literals_in_foreach_calls, unnecessary_null_comparison
 
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
