@@ -21,6 +21,9 @@ abstract class LocaleKeys {
   static const Where_are = 'Where are';
   static const Clear = 'Clear';
   static const Last_Searched = 'Last_Searched';
+  static const Current_Password = 'Current_Password';
+
+  //Current_Password
   static const Reviews = 'Reviews';
   static const More = 'More';
   static const Change_Password = 'Change_Password';
@@ -77,4 +80,6 @@ abstract class LocaleKeys {
   static const FIRSTNAME_REQUIRED = "firstname_required";
   static const LASTNAME_REQUIRED = "lastname_required";
   static const PHONE_INVALID = "phone_invalid";
+  static const LANGUEG = "language";
+  static const APP_LANG = "app_lang";
 }

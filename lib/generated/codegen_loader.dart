@@ -20,6 +20,7 @@ class CodegenLoader extends AssetLoader {
     "Plan your trip": "خطط لرحلتك",
     "Custom and fast": "تخطيط مخصص وسريع بسعر منخفض",
     "Login": "تسجيل دخول",
+    "EDIT_PROFILE": "تعديل الملف الشخصى",
     "SignUp": "حساب جديد",
     "SKIP": "تخطي",
     "Email": "البريد الاكتروني",
@@ -90,7 +91,10 @@ class CodegenLoader extends AssetLoader {
     "lastname_length": " اللقب يجب ان  يبدء من 3 احرف وان لا يزيد عن 52 حرف",
     "firstname_required": "يجب ادخال الاسم الاول",
     "lastname_required": "يجب ادخال اللقب",
-    "phone_invalid": "رقم الهاتف غير صحيح"
+    "phone_invalid": "رقم الهاتف غير صحيح",
+    "Current_Password": "كلمة المرور الحالية",
+    "language": "اللغة",
+    "app_lang": "ar"
   };
   static const Map<String, dynamic> en = {
     "Search": "Search",
@@ -104,6 +108,7 @@ class CodegenLoader extends AssetLoader {
     "Earlier": "Earlier",
     "NEW": "NEW",
     "SAVE": "SAVE",
+    "Current_Password": "Current Password",
     "DateOfBirth": "Date Of Birth",
     "Address": "Address",
     "Help": "Help & FAQ",
@@ -169,7 +174,9 @@ class CodegenLoader extends AssetLoader {
         "last name must be more than 3 charachters and less than 52 charachters",
     "firstname_required": "first name is required",
     "lastname_required": "last name is required",
-    "phone_invalid": "phone number is invalid"
+    "phone_invalid": "phone number is invalid",
+    "language": "Language",
+    "app_lang": "en"
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {

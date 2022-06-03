@@ -61,7 +61,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
                 textFormField(
                   keyboardType: TextInputType.text,
-                  hintText: "current password",
+                  hintText: LocaleKeys.Current_Password.tr(),
                   controller: currentPasswordController,
                   obscureText: secureText,
                   validator: (val) {
@@ -101,7 +101,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
                 textFormField(
                   keyboardType: TextInputType.text,
-                  hintText: "new password",
+                  hintText: LocaleKeys.New_Password.tr(),
                   controller: newPasswordController,
                   obscureText: secureText2,
                   validator: (val) {
@@ -187,7 +187,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   builder: (context, state) {
                     return defaultButton(
                       margin: EdgeInsets.symmetric(horizontal: w * 0.13),
-                      title: "save",
+                      title: LocaleKeys.SAVE.tr(),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           AuthenticationcubitCubit.get(context).changePassword(

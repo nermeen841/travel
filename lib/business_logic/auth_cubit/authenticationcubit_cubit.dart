@@ -2,9 +2,11 @@
 
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -454,6 +456,37 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
     } catch (error) {
       print(error.toString());
       emit(UpdateProfileErrorState(error.toString()));
+    }
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future<void> googleSignUp(BuildContext context) async {
+    emit(GoogleAuthniticationLoadingState());
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential authCredential = GoogleAuthProvider.credential(
+            idToken: googleSignInAuthentication.idToken,
+            accessToken: googleSignInAuthentication.accessToken);
+
+        // Getting users credential
+        UserCredential result = await auth.signInWithCredential(authCredential);
+        User? user = result.user;
+
+        if (result != null) {
+          print('sssssssssssssssssssssssssssssssssssssssss');
+          emit(GoogleAuthniticationSuccessState());
+        } else {
+          print('fffffffffffffffffffffffffffffffffffff');
+        }
+      }
+    } catch (e) {
+      emit(GoogleAuthniticationErrorState(e.toString()));
     }
   }
 }

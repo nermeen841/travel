@@ -48,11 +48,11 @@ void showGoverMenu({
   required context,
   required double w,
   required List list,
+  required RelativeRect positioned,
 }) async {
   await showMenu(
     context: context,
-    position:
-        const RelativeRect.fromLTRB(300, 380, 0, 100), //Map((String choice)
+    position: positioned, //Map((String choice)
     items: list.map((choice) {
       return PopupMenuItem(
         value: choice.nameEN.toString(),
@@ -63,6 +63,9 @@ void showGoverMenu({
               onTap: () async {
                 AuthenticationcubitCubit.get(context)
                     .getCity(governorateID: choice.id.toString());
+                prefs.setString('governorate_nameEN', choice.nameEN.toString());
+                prefs.setString('governorate_nameAR', choice.nameAR.toString());
+
                 AppCubit.get(context).governorate = choice.nameEN.toString();
                 AppCubit.get(context)
                     .choseGovernorates(choice.nameEN.toString());
@@ -90,12 +93,12 @@ void showGoverMenu({
 void showCitysMenu({
   required context,
   required double w,
-  required RelativeRect positioned,
   required List list,
 }) async {
   await showMenu(
     context: context,
-    position: positioned,
+    position: const RelativeRect.fromLTRB(300, 380, 0, 100),
+
     //Map((String choice)
     items: list.map((choice) {
       return PopupMenuItem(
@@ -108,6 +111,9 @@ void showCitysMenu({
                 SharedPreferences preferences =
                     await SharedPreferences.getInstance();
                 preferences.setInt('city_id', choice.id);
+                preferences.setString('city_nameEN', choice.nameEN.toString());
+                preferences.setString('city_nameAR', choice.nameAR.toString());
+
                 AppCubit.get(context).city = choice.nameEN.toString();
                 AppCubit.get(context).choseCity(choice.nameEN.toString());
                 Navigator.pop(context);

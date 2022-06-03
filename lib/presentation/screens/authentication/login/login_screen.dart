@@ -18,11 +18,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
 
   final formKey = GlobalKey<FormState>();
-
   bool secureText = true;
 
   @override
@@ -90,6 +90,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: h * 0.013,
                     ),
                     textFormField(
+                      focusNode: emailFocusNode,
+                      onEditingComplete: () {
+                        emailFocusNode.unfocus();
+                        FocusScope.of(context).requestFocus(passwordFocusNode);
+                      },
                       hintText: LocaleKeys.Email.tr(),
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -108,6 +113,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: h * 0.03,
                     ),
                     textFormField(
+                      focusNode: passwordFocusNode,
+                      onEditingComplete: () {
+                        passwordFocusNode.unfocus();
+                      },
                       keyboardType: TextInputType.text,
                       hintText: LocaleKeys.Password.tr(),
                       controller: passwordController,
@@ -220,7 +229,11 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: h * 0.02,
               ),
-              googleAndFacebookRow(context: context),
+              googleAndFacebookRow(
+                  context: context,
+                  pressOnGoogle: () {
+                    AuthenticationcubitCubit.get(context).googleSignUp(context);
+                  }),
               SizedBox(
                 height: h * 0.09,
               ),

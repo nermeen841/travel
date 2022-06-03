@@ -56,6 +56,8 @@
     "Last_Name":"الإسم الاخير",
     "Full_Name":"الإسم بالكامل",
     "Change_Password":"تغيير كلمة المرور",
+    "Current_Password":"كلمة المرور الحالية",
+
     "Contact Us":"تواصل معنا",
     "By Singning":"بالتسجيل ، فإنك توافق على",
     "AND":" و ",
@@ -76,5 +78,9 @@
     "lastname_length":" اللقب يجب ان  يبدء من 3 احرف وان لا يزيد عن 52 حرف",
     "firstname_required":"يجب ادخال الاسم الاول",
     "lastname_required":"يجب ادخال اللقب",
-    "phone_invalid":"رقم الهاتف غير صحيح"
+    "phone_invalid":"رقم الهاتف غير صحيح",
+    "language":"اللغة",
+    "app_lang":"ar",
+    "EDIT_PROFILE":"تعديل الملف الشخصى"
+
 }

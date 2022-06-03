@@ -1,11 +1,18 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/constants/colors.dart';
 import 'package:travel/constants/constants.dart';
 import 'package:travel/generated/locale_keys.dart';
 import 'package:travel/presentation/screens/authentication/login/login_screen.dart';
 import 'package:travel/presentation/screens/authentication/sign_up/sign_up_screen.dart';
 import 'package:travel/presentation/screens/drawer_screens/about_us_screen.dart';
 import 'package:travel/presentation/screens/splash/splash_screen.dart';
+
+import '../../../constants/localization_constant.dart';
+import '../../../main.dart';
 
 Widget buildDrawerWidget({required context}) {
   double h = MediaQuery.of(context).size.height;
@@ -15,7 +22,7 @@ Widget buildDrawerWidget({required context}) {
     margin: EdgeInsets.only(
       top: h * 0.01,
     ),
-    width: 330,
+    width: 300,
     height: h,
     decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -27,8 +34,11 @@ Widget buildDrawerWidget({required context}) {
             Colors.white,
           ],
         ),
-        borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(30), bottomRight: Radius.circular(25))),
+        borderRadius: (prefs.getString('lang') == 'en')
+            ? BorderRadius.only(
+                topRight: Radius.circular(30), bottomRight: Radius.circular(25))
+            : BorderRadius.only(
+                topLeft: Radius.circular(30), bottomLeft: Radius.circular(25))),
     child: ListView(
       padding: EdgeInsets.only(bottom: h * 0.02),
       children: [
@@ -66,7 +76,54 @@ Widget buildDrawerWidget({required context}) {
             icon: Icons.star_border_outlined,
             onPress: () {}),
         SizedBox(
-          height: h * 0.04,
+          height: h * 0.03,
+        ),
+        buildRowInDrawer(
+            title: LocaleKeys.LANGUEG.tr(),
+            icon: Icons.language,
+            widget: PopupMenuButton(
+                icon: Icon(Icons.arrow_drop_down_circle_outlined,
+                    color: MyColors.mainColor),
+                itemBuilder: (context) => [
+                      PopupMenuItem(
+                        onTap: () async {
+                          // ignore: deprecated_member_use
+                          context.locale = await setLocale('en');
+                          MyApp.setLocale(context, context.locale);
+
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SplashScreen()),
+                              (route) => false);
+                        },
+                        child: const Text(
+                          "English",
+                        ),
+                        value: 1,
+                      ),
+                      PopupMenuItem(
+                        onTap: () async {
+                          // ignore: deprecated_member_use
+                          context.locale = await setLocale('ar');
+                          MyApp.setLocale(context, context.locale);
+                          // prefs.setString('lang', 'ar');
+                          // // setState(() {
+                          // context.locale = const Locale('ar', '');
+                          // // });
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SplashScreen()),
+                              (route) => false);
+                        },
+                        child: const Text("اللغة العربية"),
+                        value: 2,
+                      )
+                    ]),
+            onPress: () {}),
+        SizedBox(
+          height: h * 0.03,
         ),
         (prefs.getBool("is_login") == true)
             ? buildRowInDrawer(
@@ -171,6 +228,7 @@ Widget buildRowInDrawer({
   required IconData icon,
   required String title,
   required GestureTapCallback onPress,
+  Widget? widget,
 }) {
   return InkWell(
     onTap: onPress,
@@ -195,6 +253,8 @@ Widget buildRowInDrawer({
               fontSize: 16,
             ),
           ),
+          Spacer(),
+          (widget != null) ? widget : SizedBox(),
         ],
       ),
     ),

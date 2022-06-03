@@ -117,16 +117,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Column(
                 children: [
                   SizedBox(height: h * 0.035),
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          size: 30,
-                          color: Color(0xff3A0CA3).withOpacity(0.5),
+                  (prefs.getString('lang') == 'en')
+                      ? Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 30,
+                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                            ),
+                          ),
+                        )
+                      : Align(
+                          alignment: Alignment.topRight,
+                          child: InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 30,
+                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                            ),
+                          ),
                         ),
-                      )),
                   SizedBox(height: h * 0.02),
                   Stack(
                     children: [
@@ -168,10 +181,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           await getImage();
                         },
                         child: Container(
-                          margin: EdgeInsets.only(
-                            left: w * 0.54,
-                            top: h * 0.14,
-                          ),
+                          margin: (prefs.getString('lang') == 'en')
+                              ? EdgeInsets.only(
+                                  left: w * 0.54,
+                                  top: h * 0.14,
+                                )
+                              : EdgeInsets.only(
+                                  right: w * 0.54,
+                                  top: h * 0.14,
+                                ),
                           height: h * 0.05,
                           width: w * 0.1,
                           decoration: BoxDecoration(
@@ -191,7 +209,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     height: h * 0.02,
                   ),
                   Text(
-                    LocaleKeys.Profile_Details.tr(),
+                    LocaleKeys.EDIT_PROFILE.tr(),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -363,15 +381,57 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       AuthenticationcubitState>(
                     listener: (context, state) {},
                     builder: (context, state) {
+                      print(prefs.getString('governorate_nameEN').toString());
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
                             onTap: () {
-                              showCitysMenu(
+                              showGoverMenu(
                                   positioned: const RelativeRect.fromLTRB(
                                       0, 380, 300, 100),
+                                  context: context,
+                                  w: w,
+                                  list: AuthenticationcubitCubit.get(context)
+                                      .governorate);
+                            },
+                            child: Row(
+                              children: [
+                                (AppCubit.get(context).governorate != null)
+                                    ? Text(
+                                        AppCubit.get(context).governorate!,
+                                        style:
+                                            headingStyle.copyWith(fontSize: 16),
+                                      )
+                                    : (prefs
+                                                .getString('governorate_nameEN')
+                                                .toString() !=
+                                            'null')
+                                        ? Text(
+                                            '${prefs.getString('governorate_nameEN')}',
+                                            style: headingStyle.copyWith(
+                                                fontSize: 16),
+                                          )
+                                        : Text(
+                                            LocaleKeys.Governorate.tr(),
+                                            style: headingStyle.copyWith(
+                                                fontSize: 16),
+                                          ),
+                                SizedBox(
+                                  width: w * 0.01,
+                                ),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: MyColors.mainColor,
+                                  size: w * 0.065,
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              showCitysMenu(
                                   context: context,
                                   w: w,
                                   list: AuthenticationcubitCubit.get(context)
@@ -388,11 +448,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             style: headingStyle.copyWith(
                                                 fontSize: 16),
                                           )
-                                        : Text(
-                                            LocaleKeys.City.tr(),
-                                            style: headingStyle.copyWith(
-                                                fontSize: 16),
-                                          ),
+                                        : (prefs
+                                                    .getString('city_nameEN')
+                                                    .toString() !=
+                                                'null')
+                                            ? Text(
+                                                '${prefs.getString('city_nameEN')}',
+                                                style: headingStyle.copyWith(
+                                                    fontSize: 16),
+                                              )
+                                            : Text(
+                                                LocaleKeys.City.tr(),
+                                                style: headingStyle.copyWith(
+                                                    fontSize: 16),
+                                              ),
                                     SizedBox(
                                       width: w * 0.01,
                                     ),
@@ -406,38 +475,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               },
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              showGoverMenu(
-                                  context: context,
-                                  w: w,
-                                  list: AuthenticationcubitCubit.get(context)
-                                      .governorate);
-                            },
-                            child: Row(
-                              children: [
-                                (AppCubit.get(context).governorate != null)
-                                    ? Text(
-                                        AppCubit.get(context).governorate!,
-                                        style:
-                                            headingStyle.copyWith(fontSize: 16),
-                                      )
-                                    : Text(
-                                        LocaleKeys.Governorate.tr(),
-                                        style:
-                                            headingStyle.copyWith(fontSize: 16),
-                                      ),
-                                SizedBox(
-                                  width: w * 0.01,
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: MyColors.mainColor,
-                                  size: w * 0.065,
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       );
                     },
@@ -454,8 +491,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     email: prefs.getString('email').toString(),
                                   )));
                     },
-                    child: const Text(
-                      "Change Passord",
+                    child: Text(
+                      '${LocaleKeys.Change_Password.tr()}',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 18,

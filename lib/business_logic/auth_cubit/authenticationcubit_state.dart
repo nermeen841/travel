@@ -76,3 +76,12 @@ class UpdateProfileErrorState extends AuthenticationcubitState {
   final String error;
   UpdateProfileErrorState(this.error);
 }
+
+class GoogleAuthniticationLoadingState extends AuthenticationcubitState {}
+
+class GoogleAuthniticationSuccessState extends AuthenticationcubitState {}
+
+class GoogleAuthniticationErrorState extends AuthenticationcubitState {
+  final String error;
+  GoogleAuthniticationErrorState(this.error);
+}

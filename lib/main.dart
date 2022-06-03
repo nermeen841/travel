@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,19 +15,17 @@ import 'business_logic/database_helper/app_Cubit.dart';
 import 'business_logic/home_cubit/home_cubit.dart';
 import 'business_logic/search history/search_history_cubit.dart';
 import 'business_logic/search_cubit/search_cubit.dart';
+import 'constants/localization_constant.dart';
 import 'generated/codegen_loader.dart';
 import 'network/bloc_observer.dart';
 import 'network/myHttpOverrider.dart';
 
 Future<void> main() async {
-  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  //   statusBarColor: Color(0xff3a0ca3),
-  //   statusBarIconBrightness: Brightness.light,
-  //   statusBarBrightness: Brightness.light,
-  // ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
+
   await startShared();
   await mapIcon();
   HttpOverrides.global = MyHttpOverrides();
@@ -48,7 +47,37 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state!.setLocale(newLocale);
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+  setLocale(Locale locale) async {
+    setState(() {
+      _locale = locale;
+      // DBHelper.saveAppLang(locale.toString());00
+    });
+    print('Applan:' + locale.toString());
+    // print('Applanshard:' + User.appLang);
+  }
+
+  @override
+  void didChangeDependencies() {
+    getLocale(context).then((locale) {
+      setState(() {
+        this._locale = locale;
+      });
+    });
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -58,8 +87,6 @@ class MyApp extends StatelessWidget {
               ..getGovernorates(countryID: '1')
               ..getCity(governorateID: '')),
         BlocProvider<AppCubit>(create: (context) => AppCubit()),
-        // BlocProvider<DataBaseCubit>(
-        //     create: (context) => DataBaseCubit()..createDb()),
         BlocProvider<FavouriteCubit>(
             create: (context) => FavouriteCubit()..getFavouriteCat()),
         BlocProvider<SearchHistoryCubit>(
@@ -74,27 +101,41 @@ class MyApp extends StatelessWidget {
             create: (context) => SearchCubit()..getcitySearch())
       ],
       child: MaterialApp(
-        theme: ThemeData(
-            // appBarTheme: const AppBarTheme(
-            //   systemOverlayStyle: SystemUiOverlayStyle(
-            //     statusBarColor: Color(0xff3a0ca3),
-            //     statusBarIconBrightness: Brightness.light,
-            //     statusBarBrightness: Brightness.light,
-            //   ),
-            // ),
-            fontFamily: 'Poppins'),
+        theme: ThemeData(fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale!.languageCode) {
-              return supportedLocale;
+        locale: _locale,
+        // localeResolutionCallback: (locale, supportedLocales) {
+        //   for (var supportedLocale in supportedLocales) {
+        //     if (supportedLocale.languageCode == locale!.languageCode) {
+        //       return supportedLocale;
+        //     }
+        //   }
+        //   return supportedLocales.first;
+        // },
+
+        localeResolutionCallback: (deviceLocale, supportedLocales) {
+          if (prefs.getString('lang').toString() == 'null') {
+            for (var locale in supportedLocales) {
+              if (locale.languageCode == Platform.localeName.split('_')[0]) {
+                print("locale:$locale");
+                return locale;
+              }
             }
+
+            return supportedLocales.first;
+          } else {
+            for (var locale in supportedLocales) {
+              if (locale.languageCode == prefs.getString('lang').toString()) {
+                return locale;
+              }
+            }
+
+            return supportedLocales.first;
           }
-          return supportedLocales.first;
         },
+
         home: const SafeArea(
           child: SplashScreen(),
         ),

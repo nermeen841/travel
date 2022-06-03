@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:travel/business_logic/auth_cubit/authenticationcubit_cubit.dart';
 import 'package:travel/business_logic/database_helper/app_Cubit.dart';
 import 'package:travel/business_logic/database_helper/app_states.dart';
@@ -25,6 +26,14 @@ class _SignupFormState extends State<SignupForm> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+  FocusNode phoneFocusNode = FocusNode();
+  FocusNode confirmPasswordFocusNode = FocusNode();
+  FocusNode firstFocusNode = FocusNode();
+  FocusNode lastFocusNode = FocusNode();
+
   bool secureText = true;
   bool secureText2 = true;
   final formKey = GlobalKey<FormState>();
@@ -52,6 +61,11 @@ class _SignupFormState extends State<SignupForm> {
                       hintText: LocaleKeys.First_Name.tr(),
                       controller: firstNameController,
                       keyboardType: TextInputType.name,
+                      focusNode: firstFocusNode,
+                      onEditingComplete: () {
+                        firstFocusNode.unfocus();
+                        FocusScope.of(context).requestFocus(lastFocusNode);
+                      },
                       obscureText: false,
                       validator: (val) {
                         if (val!.isEmpty) {
@@ -70,6 +84,11 @@ class _SignupFormState extends State<SignupForm> {
                       hintText: LocaleKeys.Last_Name.tr(),
                       controller: lastNameController,
                       obscureText: false,
+                      focusNode: lastFocusNode,
+                      onEditingComplete: () {
+                        lastFocusNode.unfocus();
+                        FocusScope.of(context).requestFocus(phoneFocusNode);
+                      },
                       validator: (val) {
                         if (val!.isEmpty) {
                           return LocaleKeys.LASTNAME_REQUIRED.tr();
@@ -91,6 +110,11 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
+                focusNode: phoneFocusNode,
+                onEditingComplete: () {
+                  phoneFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(emailFocusNode);
+                },
                 validator: (val) {
                   if (val!.isNotEmpty) {
                     if (val.length != 11) {
@@ -110,6 +134,11 @@ class _SignupFormState extends State<SignupForm> {
               textFormField(
                 keyboardType: TextInputType.emailAddress,
                 hintText: LocaleKeys.Email.tr(),
+                focusNode: emailFocusNode,
+                onEditingComplete: () {
+                  emailFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(passwordFocusNode);
+                },
                 controller: emailController,
                 obscureText: false,
                 validator: (val) {
@@ -128,6 +157,11 @@ class _SignupFormState extends State<SignupForm> {
                 keyboardType: TextInputType.text,
                 hintText: LocaleKeys.Password.tr(),
                 controller: passwordController,
+                focusNode: passwordFocusNode,
+                onEditingComplete: () {
+                  passwordFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
+                },
                 obscureText: secureText,
                 validator: (val) {
                   if (val!.length < 8) {
@@ -168,6 +202,10 @@ class _SignupFormState extends State<SignupForm> {
                 keyboardType: TextInputType.text,
                 hintText: LocaleKeys.Confirm_Password.tr(),
                 controller: confirmPasswordController,
+                focusNode: confirmPasswordFocusNode,
+                onEditingComplete: () {
+                  confirmPasswordFocusNode.unfocus();
+                },
                 obscureText: secureText2,
                 validator: (val) {
                   if (val!.length < 8) {
@@ -217,14 +255,52 @@ class _SignupFormState extends State<SignupForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //fromLTRB(0, 380, 300, 100), city
                 InkWell(
                   onTap: () {
-                    showCitysMenu(
+                    showGoverMenu(
                         positioned:
                             const RelativeRect.fromLTRB(0, 380, 300, 100),
                         context: context,
                         w: w,
-                        list: AuthenticationcubitCubit.get(context).city);
+                        list:
+                            AuthenticationcubitCubit.get(context).governorate);
+                  },
+                  child: Row(
+                    children: [
+                      (AppCubit.get(context).governorate != null)
+                          ? Text(
+                              AppCubit.get(context).governorate!,
+                              style: headingStyle.copyWith(fontSize: 16),
+                            )
+                          : Text(
+                              LocaleKeys.Governorate.tr(),
+                              style: headingStyle.copyWith(fontSize: 16),
+                            ),
+                      SizedBox(
+                        width: w * 0.01,
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: MyColors.mainColor,
+                        size: w * 0.065,
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    (AppCubit.get(context).governorate != null)
+                        ? showCitysMenu(
+                            context: context,
+                            w: w,
+                            list: AuthenticationcubitCubit.get(context).city)
+                        : Fluttertoast.showToast(
+                            msg: 'You Should Choose Your Governorate First',
+                            gravity: ToastGravity.TOP,
+                            backgroundColor: Colors.red,
+                            toastLength: Toast.LENGTH_LONG,
+                            textColor: Colors.white);
                   },
                   child: BlocConsumer<AppCubit, AppState>(
                     listener: (context, state) {},
@@ -253,36 +329,6 @@ class _SignupFormState extends State<SignupForm> {
                     },
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    showGoverMenu(
-                        context: context,
-                        w: w,
-                        list:
-                            AuthenticationcubitCubit.get(context).governorate);
-                  },
-                  child: Row(
-                    children: [
-                      (AppCubit.get(context).governorate != null)
-                          ? Text(
-                              AppCubit.get(context).governorate!,
-                              style: headingStyle.copyWith(fontSize: 16),
-                            )
-                          : Text(
-                              LocaleKeys.Governorate.tr(),
-                              style: headingStyle.copyWith(fontSize: 16),
-                            ),
-                      SizedBox(
-                        width: w * 0.01,
-                      ),
-                      Icon(
-                        Icons.keyboard_arrow_down,
-                        color: MyColors.mainColor,
-                        size: w * 0.065,
-                      ),
-                    ],
-                  ),
-                )
               ],
             );
           },

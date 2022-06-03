@@ -114,16 +114,17 @@ class ForgetPasswordScreen extends StatelessWidget {
                         // );
                         // Fluttertoast
                         Fluttertoast.showToast(
-                            msg: 'Please Check Your Email',
+                            msg:
+                                'Please Check Your Email For Updating Your Password',
                             gravity: ToastGravity.TOP,
                             backgroundColor: MyColors.mainColor,
                             toastLength: Toast.LENGTH_LONG,
                             textColor: Colors.white);
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()),
-                            (route) => false);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        );
                       }
                     },
                     builder: (context, state) {

@@ -42,17 +42,29 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Column(
                 children: [
                   SizedBox(height: h * 0.03),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        size: 30,
-                        color: Color(0xff3A0CA3).withOpacity(0.5),
-                      ),
-                    ),
-                  ),
+                  (prefs.getString('lang') == 'en')
+                      ? Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 30,
+                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                            ),
+                          ),
+                        )
+                      : Align(
+                          alignment: Alignment.topRight,
+                          child: InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 30,
+                              color: Color(0xff3A0CA3).withOpacity(0.5),
+                            ),
+                          ),
+                        ),
                   SizedBox(
                     height: h * 0.05,
                   ),
