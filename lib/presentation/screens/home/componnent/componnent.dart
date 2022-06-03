@@ -180,15 +180,13 @@ categoryCard({
           width: w * 0.31,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius:
-                // (lang == 'en')
-                //     ?
-                BorderRadius.only(
+            borderRadius: (prefs.getString('lang') == 'en')
+                ? BorderRadius.only(
                     topLeft: Radius.circular(w * 0.05),
-                    bottomLeft: Radius.circular(w * 0.05)),
-            // : BorderRadius.only(
-            //     topRight: Radius.circular(w * 0.05),
-            //     bottomRight: Radius.circular(w * 0.05)),
+                    bottomLeft: Radius.circular(w * 0.05))
+                : BorderRadius.only(
+                    topRight: Radius.circular(w * 0.05),
+                    bottomRight: Radius.circular(w * 0.05)),
             image: const DecorationImage(
               image: NetworkImage(
                   "https://img.freepik.com/free-photo/type-entertainment-complex-popular-resort-with-pools-water-parks-turkey-with-more-than-5-million-visitors-year-amara-dolce-vita-luxury-hotel-resort-tekirova-kemer_146671-18728.jpg?w=740"),
@@ -217,11 +215,16 @@ categoryCard({
                   color: MyColors.unslectedIconColor,
                   size: w * 0.055,
                 ),
-                Text(
-                  address,
-                  style: headingStyle.copyWith(
-                      fontWeight: FontWeight.w400,
-                      color: MyColors.unslectedIconColor),
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    address,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: headingStyle.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: MyColors.unslectedIconColor),
+                  ),
                 ),
               ],
             ),

@@ -62,10 +62,12 @@ Widget profileFormField({
       onChanged: onChange,
       readOnly: readOnly,
       enabled: enabled,
+      autocorrect: false,
       keyboardType: TextInputType.text,
       cursorColor: Colors.grey,
       obscureText: obscureText,
       decoration: InputDecoration(
+        // contentPadding: EdgeInsets.only(top: 20),
         suffixIcon: suffixIcon,
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: MyColors.unslectedIconColor)),

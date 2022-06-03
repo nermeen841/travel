@@ -56,6 +56,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
           topPlacesInCategory = TopPlacesInCategoryModel.fromJson(item);
           topCategory.add(topPlacesInCategory);
         }
+        print(data);
         emit(GetTopCategoriesSuccessState());
         return topCategory;
       }
