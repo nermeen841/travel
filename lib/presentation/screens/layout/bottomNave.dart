@@ -50,6 +50,7 @@ class _BottomNaveState extends State<BottomNave> {
       String userLocation = currentLocation.latitude!.toString() +
           ' ' +
           currentLocation.longitude!.toString();
+          
       // ignore: avoid_print
       print(userLocation);
     });

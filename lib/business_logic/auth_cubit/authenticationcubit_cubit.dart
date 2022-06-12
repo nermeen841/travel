@@ -480,12 +480,22 @@ class AuthenticationcubitCubit extends Cubit<AuthenticationcubitState> {
 
         if (result != null) {
           print('sssssssssssssssssssssssssssssssssssssssss');
+          print('gggggggggggggggggggggggg  : ' +
+              result.user!.email!.split('@')[0].toString());
+          prefs.setString('email', result.user!.email!);
+          prefs.setString(
+              'firstName', result.user!.email!.split('@')[0].toString());
+          prefs.setString('userAddress', "");
+          prefs.setString('dateofbirth', "");
+          prefs.setString('lastName', "");
+
           emit(GoogleAuthniticationSuccessState());
         } else {
           print('fffffffffffffffffffffffffffffffffffff');
         }
       }
     } catch (e) {
+      print(e.toString());
       emit(GoogleAuthniticationErrorState(e.toString()));
     }
   }

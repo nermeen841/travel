@@ -1,11 +1,13 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_print, deprecated_member_use
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, deprecated_member_use, unused_local_variable
 
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/business_logic/categories_cubit/categories_cubit.dart';
 import 'package:travel/business_logic/favourite_cubit.dart/favourite_cubit_cubit.dart';
 import 'package:travel/constants/constants.dart';
@@ -20,12 +22,20 @@ import 'generated/codegen_loader.dart';
 import 'network/bloc_observer.dart';
 import 'network/myHttpOverrider.dart';
 
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('Handling a background message ');
+}
+
 Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
-
+  final token = await FirebaseMessaging.instance.getToken();
+  SharedPreferences _sp = await SharedPreferences.getInstance();
+  _sp.setString('device_token', "$token");
+  print(token);
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await startShared();
   await mapIcon();
   HttpOverrides.global = MyHttpOverrides();
@@ -73,6 +83,32 @@ class _MyAppState extends State<MyApp> {
       });
     });
     super.didChangeDependencies();
+  }
+
+  late FirebaseMessaging firebaseMessaging;
+
+  @override
+  void initState() {
+    super.initState();
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        print("55555555555555555555555555555555555555555555555555555555555");
+      }
+    });
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      print(notification!.body);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+    });
   }
 
   @override
